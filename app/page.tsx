@@ -39,6 +39,22 @@ export default function Home() {
     setLoading(false)
   }
 
+  async function getFullReport() {
+    setLoading(true)
+    try {
+      const res = await fetch('https://khagatara-api.onrender.com/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, dob, city: 'London' })
+      })
+      const data = await res.json()
+      window.location.href = data.checkout_url
+    } catch {
+      setError('Payment failed. Please try again.')
+    }
+    setLoading(false)
+  }
+
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
 
@@ -125,8 +141,12 @@ export default function Home() {
           </div>
 
           {/* Payment button */}
-          <button className="w-full bg-yellow-400 text-gray-950 font-bold rounded-xl p-4 text-lg">
-            Get Full Report — €2.99
+          <button
+            onClick={getFullReport}
+            disabled={loading}
+            className="w-full bg-yellow-400 text-gray-950 font-bold rounded-xl p-4 text-lg"
+          >
+            {loading ? 'Loading...' : 'Get Full Report — €2.99'}
           </button>
           <p className="text-gray-500 text-xs text-center mt-2">
             Instant PDF download • Secure payment
