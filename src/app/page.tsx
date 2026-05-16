@@ -56,89 +56,91 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold text-yellow-400 mb-2">Khagatara</h1>
-      <p className="text-gray-400 text-lg mb-8">Discover your cosmic path through Vedic numerology</p>
+    <main className="page">
+      <div className="header">
+        <h1>Khagatara</h1>
+        <p>Discover your cosmic path through Vedic numerology</p>
+      </div>
 
-      <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Enter your full name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          className="w-full bg-gray-800 rounded-xl p-4 mb-4 text-white outline-none"
-        />
-        <input
-          type="date"
-          value={dob}
-          onChange={e => setDob(e.target.value)}
-          className="w-full bg-gray-800 rounded-xl p-4 mb-6 text-white outline-none"
-        />
+      <div className="card">
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="date"
+            value={dob}
+            onChange={e => setDob(e.target.value)}
+          />
+        </div>
         <button
+          className="btn-primary"
           onClick={calculate}
           disabled={loading}
-          className="w-full bg-yellow-400 text-gray-950 font-bold rounded-xl p-4"
         >
           {loading ? 'Calculating...' : 'Calculate My Path'}
         </button>
-        {error && <p className="text-red-400 mt-4 text-center">{error}</p>}
+        {error && <p className="error">{error}</p>}
       </div>
 
       {result && (
-        <div className="mt-8 bg-gray-900 rounded-2xl p-8 w-full max-w-md">
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-800 rounded-xl p-4 text-center">
-              <div className="text-4xl font-bold text-yellow-400">{result.life_path}</div>
-              <div className="text-gray-400 text-sm mt-1">Life Path</div>
+        <div className="card">
+          <div className="numbers-grid">
+            <div className="number-box">
+              <div className="number-value">{result.life_path}</div>
+              <div className="number-label">Life Path</div>
             </div>
-            <div className="bg-gray-800 rounded-xl p-4 text-center">
-              <div className="text-4xl font-bold text-yellow-400">{result.name_number}</div>
-              <div className="text-gray-400 text-sm mt-1">Name Number</div>
+            <div className="number-box">
+              <div className="number-value">{result.name_number}</div>
+              <div className="number-label">Name Number</div>
             </div>
-            <div className="bg-gray-800 rounded-xl p-4 text-center">
-              <div className="text-4xl font-bold text-yellow-400">{result.soul_urge}</div>
-              <div className="text-gray-400 text-sm mt-1">Soul Urge</div>
+            <div className="number-box">
+              <div className="number-value">{result.soul_urge}</div>
+              <div className="number-label">Soul Urge</div>
             </div>
-            <div className="bg-gray-800 rounded-xl p-4 text-center">
-              <div className="text-4xl font-bold text-yellow-400">{result.personality}</div>
-              <div className="text-gray-400 text-sm mt-1">Personality</div>
-            </div>
-          </div>
-
-          <p className="text-gray-300 text-center mb-6">{result.meaning}</p>
-
-          <div className="bg-gray-800 rounded-xl p-4 mb-6">
-            <div className="text-yellow-400 text-sm font-bold mb-2">✦ Vedic Reading</div>
-            <div className="text-gray-300 text-sm">
-              Moon Sign: <span className="text-white">{result.rashi}</span>
-            </div>
-            <div className="text-gray-300 text-sm mt-1">
-              Birth Star: <span className="text-white">{result.nakshatra} (Pada {result.nakshatra_pada})</span>
-            </div>
-            <div className="text-gray-300 text-sm mt-1">
-              Current Dasha: <span className="text-white">{result.dasha_lord} ({result.dasha_years} years)</span>
+            <div className="number-box">
+              <div className="number-value">{result.personality}</div>
+              <div className="number-label">Personality</div>
             </div>
           </div>
 
-          <div className="blur-sm select-none text-gray-500 text-sm mb-6 bg-gray-800 rounded-xl p-4">
-            <p>Your full Vedic report includes:</p>
-            <p>→ Complete career and money forecast 2025-2026</p>
-            <p>→ Relationship compatibility deep dive</p>
-            <p>→ Lucky dates, colors and gemstone remedies</p>
-            <p>→ Detailed dasha period analysis</p>
-            <p>→ Your complete soul blueprint PDF</p>
+          <p className="meaning">{result.meaning}</p>
+
+          <div className="vedic-section">
+            <div className="vedic-title">✦ Vedic Reading</div>
+            <div className="vedic-row">
+              <span>Moon Sign</span>
+              <span>{result.rashi}</span>
+            </div>
+            <div className="vedic-row">
+              <span>Birth Star</span>
+              <span>{result.nakshatra} (Pada {result.nakshatra_pada})</span>
+            </div>
+            <div className="vedic-row">
+              <span>Current Dasha</span>
+              <span>{result.dasha_lord} ({result.dasha_years} yrs)</span>
+            </div>
+          </div>
+
+          <div className="premium-blur">
+            Your full Vedic report includes complete career forecast,
+            relationship compatibility, lucky dates and gemstone remedies,
+            detailed dasha analysis, and your complete soul blueprint PDF.
           </div>
 
           <button
+            className="btn-primary"
             onClick={getFullReport}
             disabled={loading}
-            className="w-full bg-yellow-400 text-gray-950 font-bold rounded-xl p-4 text-lg"
           >
             {loading ? 'Loading...' : 'Get Full Report — €2.99'}
           </button>
-          <p className="text-gray-500 text-xs text-center mt-2">
-            Instant PDF download • Secure payment
-          </p>
+          <p className="payment-note">Instant PDF download • Secure payment</p>
         </div>
       )}
     </main>
