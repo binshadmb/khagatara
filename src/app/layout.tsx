@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'oUWyUKTZu9ng2dqitry4CSDIQOL00aYjy2llxai0Eaw',
-    yandex: 'eb06113b84189796',
+    yandex: 'eacfc44bec2df41b',
     other: {
       'msvalidate.01': '0CCD166E2AE15A0A67670CB8A57B663E',
     },
