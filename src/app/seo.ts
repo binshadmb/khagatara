@@ -257,23 +257,14 @@ export function liveSitemapEntries(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: 'weekly',
     priority: 1,
-    alternates: {
-      languages: {
-        en: siteUrl,
-        'x-default': siteUrl,
-      },
-    },
   }
 
-  const localized = (Object.entries(topicRoutes) as [TopicKey, (typeof topicRoutes)[TopicKey]][]).flatMap(([topicKey, topic]) =>
+  const localized = (Object.entries(topicRoutes) as [TopicKey, (typeof topicRoutes)[TopicKey]][]).flatMap(([, topic]) =>
     Object.values(topic.routes).map((path) => ({
       url: absoluteUrl(path),
       lastModified,
       changeFrequency: 'monthly' as const,
       priority: topic.priority,
-      alternates: {
-        languages: languageAlternates(topicKey, true),
-      },
     })),
   )
 
