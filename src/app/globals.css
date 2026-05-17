@@ -209,6 +209,45 @@ input[type="date"]:focus {
   letter-spacing: 0.5px;
 }
 
+/* Internal links */
+.link-card {
+  max-width: 760px;
+}
+
+.link-card h2 {
+  color: #f5c842;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.internal-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.internal-links a {
+  background: #1e1e2e;
+  border: 1px solid #2a2a3a;
+  border-radius: 10px;
+  color: #f0f0f0;
+  padding: 12px 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.internal-links a:hover {
+  border-color: #f5c842;
+  color: #f5c842;
+}
+
+.language-links {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
 /* Success page */
 .success-icon {
   font-size: 3rem;
