@@ -14,7 +14,7 @@ interface Result {
   dasha_years: number
 }
 
-export default function DeBedeutungDerZahl11Page() {
+export default function GeburtshoroskopKostenlosPage() {
   const [name, setName] = useState('')
   const [dob, setDob] = useState('')
   const [result, setResult] = useState<Result | null>(null)
@@ -58,8 +58,8 @@ export default function DeBedeutungDerZahl11Page() {
   return (
     <main className="page">
       <div className="header">
-        <h1>Khagatara</h1>
-        <p>Entdecken Sie Ihren kosmischen Weg durch vedische Numerologie</p>
+        <h1>Geburtshoroskop Kostenlos</h1>
+        <p>Ihr persönliches Geburtshoroskop nach vedischer Tradition — gratis berechnen</p>
       </div>
 
       <div className="card">
@@ -78,12 +78,8 @@ export default function DeBedeutungDerZahl11Page() {
             onChange={e => setDob(e.target.value)}
           />
         </div>
-        <button
-          className="btn-primary"
-          onClick={calculate}
-          disabled={loading}
-        >
-          {loading ? 'Berechne...' : 'Meinen Weg berechnen'}
+        <button className="btn-primary" onClick={calculate} disabled={loading}>
+          {loading ? 'Berechne...' : 'Mein Horoskop berechnen'}
         </button>
         {error && <p className="error">{error}</p>}
       </div>
@@ -113,18 +109,9 @@ export default function DeBedeutungDerZahl11Page() {
 
           <div className="vedic-section">
             <div className="vedic-title">✦ Vedische Lesung</div>
-            <div className="vedic-row">
-              <span>Mondzeichen</span>
-              <span>{result.rashi}</span>
-            </div>
-            <div className="vedic-row">
-              <span>Geburtsstern</span>
-              <span>{result.nakshatra} (Pada {result.nakshatra_pada})</span>
-            </div>
-            <div className="vedic-row">
-              <span>Aktuelles Dasha</span>
-              <span>{result.dasha_lord} ({result.dasha_years} Jahre)</span>
-            </div>
+            <div className="vedic-row"><span>Mondzeichen</span><span>{result.rashi}</span></div>
+            <div className="vedic-row"><span>Geburtsstern</span><span>{result.nakshatra} (Pada {result.nakshatra_pada})</span></div>
+            <div className="vedic-row"><span>Aktuelles Dasha</span><span>{result.dasha_lord} ({result.dasha_years} Jahre)</span></div>
           </div>
 
           <div className="premium-blur">
@@ -133,11 +120,7 @@ export default function DeBedeutungDerZahl11Page() {
             eine umfassende Dasha-Analyse sowie Ihr komplettes Seelen-Blueprint als PDF.
           </div>
 
-          <button
-            className="btn-primary"
-            onClick={getFullReport}
-            disabled={loading}
-          >
+          <button className="btn-primary" onClick={getFullReport} disabled={loading}>
             {loading ? 'Wird geladen...' : 'Vollständigen Bericht erhalten — 2,99 €'}
           </button>
           <p className="payment-note">Sofortiger PDF-Download • Sichere Zahlung</p>

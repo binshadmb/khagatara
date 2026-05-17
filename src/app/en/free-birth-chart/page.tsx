@@ -14,7 +14,7 @@ interface Result {
   dasha_years: number
 }
 
-export default function NumerologieNamePage() {
+export default function FreeBirthChartPage() {
   const [name, setName] = useState('')
   const [dob, setDob] = useState('')
   const [result, setResult] = useState<Result | null>(null)
@@ -29,12 +29,12 @@ export default function NumerologieNamePage() {
       const res = await fetch('https://khagatara-api.onrender.com/calculate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, dob, city: 'Berlin' })
+        body: JSON.stringify({ name, dob, city: 'London' })
       })
       const data = await res.json()
       setResult(data)
     } catch {
-      setError('Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.')
+      setError('Something went wrong. Please try again.')
     }
     setLoading(false)
   }
@@ -45,12 +45,12 @@ export default function NumerologieNamePage() {
       const res = await fetch('https://khagatara-api.onrender.com/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, dob, city: 'Berlin' })
+        body: JSON.stringify({ name, dob, city: 'London' })
       })
       const data = await res.json()
       window.location.href = data.checkout_url
     } catch {
-      setError('Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut.')
+      setError('Payment failed. Please try again.')
     }
     setLoading(false)
   }
@@ -58,15 +58,15 @@ export default function NumerologieNamePage() {
   return (
     <main className="page">
       <div className="header">
-        <h1>Numerologie Ihres Namens</h1>
-        <p>Was Ihr Name über Ihre Seele, Talente und Lebensmission verrät</p>
+        <h1>Free Birth Chart — Your Vedic Kundali</h1>
+        <p>Your birth chart is a unique map of the sky at the moment you were born</p>
       </div>
 
       <div className="card">
         <div className="form-group">
           <input
             type="text"
-            placeholder="Geben Sie Ihren vollständigen Namen ein"
+            placeholder="Enter your full birth name"
             value={name}
             onChange={e => setName(e.target.value)}
           />
@@ -79,7 +79,7 @@ export default function NumerologieNamePage() {
           />
         </div>
         <button className="btn-primary" onClick={calculate} disabled={loading}>
-          {loading ? 'Berechne...' : 'Namen analysieren'}
+          {loading ? 'Calculating...' : 'Generate My Birth Chart'}
         </button>
         {error && <p className="error">{error}</p>}
       </div>
@@ -89,41 +89,41 @@ export default function NumerologieNamePage() {
           <div className="numbers-grid">
             <div className="number-box">
               <div className="number-value">{result.life_path}</div>
-              <div className="number-label">Lebenszahl</div>
+              <div className="number-label">Life Path</div>
             </div>
             <div className="number-box">
               <div className="number-value">{result.name_number}</div>
-              <div className="number-label">Namenszahl</div>
+              <div className="number-label">Expression</div>
             </div>
             <div className="number-box">
               <div className="number-value">{result.soul_urge}</div>
-              <div className="number-label">Herzenswunsch</div>
+              <div className="number-label">Soul Urge</div>
             </div>
             <div className="number-box">
               <div className="number-value">{result.personality}</div>
-              <div className="number-label">Persönlichkeitszahl</div>
+              <div className="number-label">Personality</div>
             </div>
           </div>
 
           <p className="meaning">{result.meaning}</p>
 
           <div className="vedic-section">
-            <div className="vedic-title">✦ Vedische Lesung</div>
-            <div className="vedic-row"><span>Mondzeichen</span><span>{result.rashi}</span></div>
-            <div className="vedic-row"><span>Geburtsstern</span><span>{result.nakshatra} (Pada {result.nakshatra_pada})</span></div>
-            <div className="vedic-row"><span>Aktuelles Dasha</span><span>{result.dasha_lord} ({result.dasha_years} Jahre)</span></div>
+            <div className="vedic-title">✦ Vedic Reading</div>
+            <div className="vedic-row"><span>Moon Sign</span><span>{result.rashi}</span></div>
+            <div className="vedic-row"><span>Birth Star</span><span>{result.nakshatra} (Pada {result.nakshatra_pada})</span></div>
+            <div className="vedic-row"><span>Current Dasha</span><span>{result.dasha_lord} ({result.dasha_years} years)</span></div>
           </div>
 
           <div className="premium-blur">
-            Ihr vollständiger vedischer Bericht enthält eine detaillierte Karriereprognose,
-            Partnerschaftskompatibilität, Glücksdaten und Edelstein-Heilmittel,
-            eine umfassende Dasha-Analyse sowie Ihr komplettes Seelen-Blueprint als PDF.
+            Your full Vedic report includes detailed career forecast, partnership compatibility,
+            lucky dates and gemstone remedies, comprehensive Dasha analysis, and your complete
+            soul blueprint as an 8-page PDF.
           </div>
 
           <button className="btn-primary" onClick={getFullReport} disabled={loading}>
-            {loading ? 'Wird geladen...' : 'Vollständigen Bericht erhalten — 2,99 €'}
+            {loading ? 'Loading...' : 'Get Full Report — €2.99'}
           </button>
-          <p className="payment-note">Sofortiger PDF-Download • Sichere Zahlung</p>
+          <p className="payment-note">Instant PDF Download • Secure Payment</p>
         </div>
       )}
     </main>

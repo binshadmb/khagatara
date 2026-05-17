@@ -14,7 +14,7 @@ interface Result {
   dasha_years: number
 }
 
-export default function NumerologieNamePage() {
+export default function GeburtskarteKostenlosPage() {
   const [name, setName] = useState('')
   const [dob, setDob] = useState('')
   const [result, setResult] = useState<Result | null>(null)
@@ -58,8 +58,8 @@ export default function NumerologieNamePage() {
   return (
     <main className="page">
       <div className="header">
-        <h1>Numerologie Ihres Namens</h1>
-        <p>Was Ihr Name über Ihre Seele, Talente und Lebensmission verrät</p>
+        <h1>Geburtskarte Kostenlos</h1>
+        <p>Ihre vollständige vedische Geburtskarte — Mondzeichen, Nakshatra und Dasha gratis</p>
       </div>
 
       <div className="card">
@@ -79,7 +79,7 @@ export default function NumerologieNamePage() {
           />
         </div>
         <button className="btn-primary" onClick={calculate} disabled={loading}>
-          {loading ? 'Berechne...' : 'Namen analysieren'}
+          {loading ? 'Berechne...' : 'Meine Geburtskarte berechnen'}
         </button>
         {error && <p className="error">{error}</p>}
       </div>
