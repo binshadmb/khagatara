@@ -14,7 +14,7 @@ interface Result {
   dasha_years: number
 }
 
-export default function NumerologieNamePage() {
+export default function BedeutungZahl11Page() {
   const [name, setName] = useState('')
   const [dob, setDob] = useState('')
   const [result, setResult] = useState<Result | null>(null)
@@ -58,8 +58,8 @@ export default function NumerologieNamePage() {
   return (
     <main className="page">
       <div className="header">
-        <h1>Numerologie Ihres Namens</h1>
-        <p>Was Ihr Name über Ihre Seele, Talente und Lebensmission verrät</p>
+        <h1>Bedeutung der Zahl 11</h1>
+        <p>Die Meisterzahl 11 — Intuition, spirituelle Erleuchtung und höhere Mission</p>
       </div>
 
       <div className="card">
@@ -79,7 +79,7 @@ export default function NumerologieNamePage() {
           />
         </div>
         <button className="btn-primary" onClick={calculate} disabled={loading}>
-          {loading ? 'Berechne...' : 'Namen analysieren'}
+          {loading ? 'Berechne...' : 'Prüfen ob ich eine 11 bin'}
         </button>
         {error && <p className="error">{error}</p>}
       </div>

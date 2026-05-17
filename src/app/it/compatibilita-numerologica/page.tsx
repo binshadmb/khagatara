@@ -16,16 +16,16 @@ export default function CompatibilitaNumerologica() {
         I numeri rivelano schemi di armonia e tensione tra due persone
       </p>
 
-      <p>La <strong>compatibilità numerologica</strong> analizza la relazione tra i numeri di due persone per identificare i punti di armonia naturale, le aree di tensione e il potenziale della relazione a lungo termine. Usata per secoli nelle tradizioni vediche per valutare matrimoni, partnership e amicizie, la numerologia offre insight che la sola intuizione non può raggiungere.</p>
+      <p>La <strong>compatibilità numerologica</strong> analizza la relazione tra i numeri di due persone per identificare punti di armonia naturale, aree di tensione e il potenziale della relazione a lungo termine. Usata per secoli nelle tradizioni vediche per valutare matrimoni, partnership e amicizie, la numerologia offre intuizioni che l'intuizione da sola non può raggiungere.</p>
 
       <h2 style={{ color: '#6b21a8', marginTop: '35px' }}>Come Funziona la Compatibilità Numerologica</h2>
-      <p>L'analisi confronta principalmente tre numeri di ciascuna persona:</p>
+      <p>L'analisi confronta principalmente tre numeri di ogni persona:</p>
       <ul style={{ lineHeight: '2' }}>
-        <li><strong>Numero del Percorso di Vita</strong> — l'essenza di chi sei</li>
-        <li><strong>Numero dell'Espressione</strong> — come agisci nel mondo</li>
+        <li><strong>Numero del Cammino di Vita</strong> — l'essenza di chi sei</li>
+        <li><strong>Numero di Espressione</strong> — come agisci nel mondo</li>
         <li><strong>Numero dell'Anima</strong> — ciò che desideri profondamente</li>
       </ul>
-      <p>Quando questi numeri si completano, la relazione scorre in modo naturale. Quando entrano in conflitto, emergono schemi ricorrenti di incomprensione — non per cattiva volontà, ma per vibrazioni fondamentalmente diverse.</p>
+      <p>Quando questi numeri si completano, la relazione scorre naturalmente. Quando entrano in conflitto, emergono schemi ripetitivi di incomprensione — non per cattiva volontà, ma per vibrazioni fondamentalmente diverse.</p>
 
       <h2 style={{ color: '#6b21a8', marginTop: '35px' }}>Tabella di Compatibilità per Numero</h2>
       <div style={{ overflowX: 'auto' }}>
@@ -63,36 +63,35 @@ export default function CompatibilitaNumerologica() {
       <ul style={{ lineHeight: '2.2' }}>
         <li><strong>1 e 9:</strong> leadership + saggezza — si ispirano a vicenda</li>
         <li><strong>2 e 6:</strong> cura + armonia — relazione profondamente nutriente</li>
-        <li><strong>3 e 5:</strong> creatività + avventura — mai senza divertimento e stimoli</li>
+        <li><strong>3 e 5:</strong> creatività + avventura — non manca mai divertimento e stimolo</li>
         <li><strong>4 e 8:</strong> costruzione + ambizione — insieme costruiscono imperi</li>
         <li><strong>7 e 9:</strong> spiritualità + compassione — connessione d'anima rara e profonda</li>
       </ul>
 
       <h2 style={{ color: '#6b21a8', marginTop: '35px' }}>Compatibilità negli Affari</h2>
-      <p>La numerologia viene anche usata per valutare le partnership commerciali. Le migliori coppie imprenditoriali combinano in genere numeri complementari — un visionario con un esecutore, un creativo con un organizzatore.</p>
+      <p>La numerologia viene usata anche per valutare le partnership d'affari. Le migliori coppie imprenditoriali combinano generalmente numeri complementari — un visionario con un esecutore, un creativo con un organizzatore.</p>
       <ul style={{ lineHeight: '2' }}>
         <li><strong>1 + 4:</strong> visione + esecuzione — combinazione classica di successo</li>
         <li><strong>3 + 8:</strong> creatività + potere finanziario — affari redditizi</li>
-        <li><strong>6 + 9:</strong> cura + scopo — imprese a impatto sociale</li>
+        <li><strong>6 + 9:</strong> cura + scopo — aziende con impatto sociale</li>
       </ul>
 
       <h2 style={{ color: '#6b21a8', marginTop: '35px' }}>Compatibilità Vedica — Oltre i Numeri</h2>
-      <p>Nella tradizione vedica, la compatibilità matrimoniale (Kundali Milan) va ben oltre la numerologia. Il sistema analizza <strong>36 punti di compatibilità</strong> (Guna) basati sulle carte astrologiche di entrambi i partner. Un minimo di 18 punti è necessario per un matrimonio armonioso — 28 o più è considerato eccellente.</p>
-      <p>Il rapporto Khagatara combina l'analisi numerologica con insight vedici per offrire una visione molto più completa della tua relazione.</p>
+      <p>Nella tradizione vedica, la compatibilità matrimoniale (Kundali Milan) va ben oltre la numerologia. Il sistema analizza <strong>36 punti di compatibilità</strong> (Guna) basati sulle carte astrologiche dei due partner. Un minimo di 18 punti è necessario per un matrimonio armonioso — 28 o più è considerato eccellente.</p>
 
       <h2 style={{ color: '#6b21a8', marginTop: '35px' }}>Compatibilità Difficile Significa Relazione Impossibile?</h2>
-      <p>No. I numeri difficili indicano aree che richiedono più lavoro consapevole — non che la relazione sia destinata a fallire. Alcune delle relazioni più trasformative e profonde nascono proprio tra numeri difficili, perché spingono entrambe le persone a crescere.</p>
+      <p>No. Numeri difficili indicano aree che richiedono più lavoro consapevole — non che la relazione sia destinata al fallimento. Alcune delle relazioni più trasformative e profonde avvengono tra numeri difficili, proprio perché si spingono a crescere.</p>
 
       <div style={{ background: 'linear-gradient(135deg, #f3e8ff, #e0e7ff)', padding: '30px', borderRadius: '16px', marginTop: '40px', textAlign: 'center' }}>
         <h3 style={{ color: '#6b21a8', fontSize: '1.5rem' }}>Analizza la Tua Compatibilità in Profondità</h3>
         <p style={{ color: '#4c1d95', marginBottom: '20px' }}>Rapporto vedico completo con numerologia, compatibilità e previsioni per i prossimi 12 mesi</p>
         <a href="/" style={{ background: '#7c3aed', color: 'white', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 'bold' }}>
-          Vedi il Rapporto — 2,99€
+          Vedi il Rapporto — €2,99
         </a>
       </div>
 
       <p style={{ marginTop: '40px', color: '#6b7280', fontSize: '0.95rem' }}>
-        Khagatara utilizza un'analisi numerologica vedica autentica per rivelare la dinamica profonda delle tue relazioni — amore, famiglia, amicizia e affari.
+        Khagatara usa un'analisi numerologica vedica autentica per rivelare le dinamiche profonde delle tue relazioni — amore, famiglia, amicizia e affari.
       </p>
     </main>
   )
