@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -118,13 +119,13 @@ export default function CompatibilidadNumerologica() {
           <p style={{marginBottom: '8px'}}>✦ Tus mejores y peores compatibilidades</p>
           <p style={{marginBottom: '8px'}}>✦ Compatibilidad védica por Nakshatra</p>
           <p style={{marginBottom: '8px'}}>✦ Período Dasha y su influencia en relaciones</p>
-          <p style={{marginBottom: '8px'}}>✦ Pronóstico amoroso mes a mes 2025-2026</p>
+          <p style={{marginBottom: '8px'}}>✦ Pronóstico amoroso mes a mes 2026-2027</p>
           <p style={{marginBottom: '8px'}}>✦ Remedios védicos para mejorar relaciones</p>
           <p>✦ PDF de 8 páginas descarga instantánea</p>
         </div>
 
         <div style={{textAlign: 'center'}}>
-          <a href="/"
+          <Link href="/"
             style={{
               display: 'inline-block',
               background: '#f5c842',
@@ -138,7 +139,7 @@ export default function CompatibilidadNumerologica() {
             }}
           >
             Calcular Mi Compatibilidad Gratis →
-          </a>
+          </Link>
           <p style={{color: '#555', fontSize: '0.8rem', marginTop: '10px'}}>
             Cálculo gratuito • Informe completo por €2.99
           </p>

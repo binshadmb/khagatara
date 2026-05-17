@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -124,13 +125,13 @@ export default function NumerologiaNombre() {
           <p style={{marginBottom: '8px'}}>✦ Número de la vida de tu fecha de nacimiento</p>
           <p style={{marginBottom: '8px'}}>✦ Compatibilidad entre nombre y destino</p>
           <p style={{marginBottom: '8px'}}>✦ Signo lunar védico y Nakshatra</p>
-          <p style={{marginBottom: '8px'}}>✦ Pronóstico mes a mes 2025-2026</p>
+          <p style={{marginBottom: '8px'}}>✦ Pronóstico mes a mes 2026-2027</p>
           <p style={{marginBottom: '8px'}}>✦ Recomendaciones para armonizar tu nombre</p>
           <p>✦ PDF de 8 páginas descarga instantánea</p>
         </div>
 
         <div style={{textAlign: 'center'}}>
-          <a href="/"
+          <Link href="/"
             style={{
               display: 'inline-block',
               background: '#f5c842',
@@ -144,7 +145,7 @@ export default function NumerologiaNombre() {
             }}
           >
             Calcular Numerología de mi Nombre →
-          </a>
+          </Link>
           <p style={{color: '#555', fontSize: '0.8rem', marginTop: '10px'}}>
             Cálculo gratuito • Informe completo por €2.99
           </p>

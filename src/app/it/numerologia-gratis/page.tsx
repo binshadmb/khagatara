@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -62,9 +63,9 @@ export default function NumerologiaGratis() {
       <div style={{ background: 'linear-gradient(135deg, #f3e8ff, #e0e7ff)', padding: '30px', borderRadius: '16px', marginTop: '40px', textAlign: 'center' }}>
         <h3 style={{ color: '#6b21a8', fontSize: '1.5rem' }}>Ricevi il Tuo Rapporto Vedico Completo</h3>
         <p style={{ color: '#4c1d95', marginBottom: '20px' }}>8 pagine personalizzate con numerologia, astrologia vedica e previsioni</p>
-        <a href="/" style={{ background: '#7c3aed', color: 'white', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 'bold' }}>
+        <Link href="/" style={{ background: '#7c3aed', color: 'white', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 'bold' }}>
           Vedi il Rapporto — €2,99
-        </a>
+        </Link>
       </div>
 
       <p style={{ marginTop: '40px', color: '#6b7280', fontSize: '0.95rem' }}>

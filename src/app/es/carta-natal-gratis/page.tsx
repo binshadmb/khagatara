@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -96,13 +97,13 @@ export default function CartaNatalGratis() {
           <p style={{marginBottom: '8px'}}>✦ Tu estrella de nacimiento (Nakshatra) y Pada</p>
           <p style={{marginBottom: '8px'}}>✦ Período Dasha actual y próximos ciclos</p>
           <p style={{marginBottom: '8px'}}>✦ Número de la vida y numerología completa</p>
-          <p style={{marginBottom: '8px'}}>✦ Pronóstico mes a mes para 2025-2026</p>
+          <p style={{marginBottom: '8px'}}>✦ Pronóstico mes a mes para 2026-2027</p>
           <p style={{marginBottom: '8px'}}>✦ Remedios védicos personalizados</p>
           <p>✦ PDF de 8 páginas descarga instantánea</p>
         </div>
 
         <div style={{textAlign: 'center'}}>
-          <a href="/"
+          <Link href="/"
             style={{
               display: 'inline-block',
               background: '#f5c842',
@@ -116,7 +117,7 @@ export default function CartaNatalGratis() {
             }}
           >
             Obtener Mi Carta Natal Gratis →
-          </a>
+          </Link>
           <p style={{color: '#555', fontSize: '0.8rem', marginTop: '10px'}}>
             Cálculo gratuito • Informe completo por €2.99
           </p>

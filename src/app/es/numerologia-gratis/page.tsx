@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -105,14 +106,14 @@ export default function NumerologiaGratis() {
           <p style={{marginBottom: '8px'}}>✦ Impulso del alma y número de la personalidad</p>
           <p style={{marginBottom: '8px'}}>✦ Signo lunar védico (Rashi) y estrella de nacimiento (Nakshatra)</p>
           <p style={{marginBottom: '8px'}}>✦ Período dasha actual y próximos ciclos planetarios</p>
-          <p style={{marginBottom: '8px'}}>✦ Pronóstico de carrera y dinero 2025-2026</p>
+          <p style={{marginBottom: '8px'}}>✦ Pronóstico de carrera y dinero 2026-2027</p>
           <p style={{marginBottom: '8px'}}>✦ Compatibilidad en relaciones</p>
           <p style={{marginBottom: '8px'}}>✦ Fechas afortunadas, colores y piedras preciosas</p>
           <p>✦ PDF completo de 8 páginas descarga instantánea</p>
         </div>
 
         <div style={{textAlign: 'center'}}>
-          <a 
+          <Link 
             href="/" 
             style={{
               display: 'inline-block',
@@ -127,7 +128,7 @@ export default function NumerologiaGratis() {
             }}
           >
             Calcular Mi Numerología Gratis →
-          </a>
+          </Link>
           <p style={{color: '#555', fontSize: '0.8rem', marginTop: '10px'}}>
             Cálculo gratuito • Informe completo por €2.99
           </p>

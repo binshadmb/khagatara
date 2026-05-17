@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useState } from 'react'
 
 interface Result {
@@ -143,6 +144,32 @@ export default function Home() {
           <p className="payment-note">Instant PDF download • Secure payment</p>
         </div>
       )}
+
+      <div className="card link-card">
+        <h2>Popular Free Readings</h2>
+        <div className="internal-links">
+          <Link href="/en/free-numerology-reading">Free Numerology Reading</Link>
+          <Link href="/en/numerology-by-name">Numerology by Name</Link>
+          <Link href="/en/meaning-of-number-11">Meaning of Number 11</Link>
+          <Link href="/en/free-vedic-astrology">Free Vedic Astrology</Link>
+          <Link href="/en/free-birth-chart">Free Birth Chart</Link>
+          <Link href="/en/numerology-compatibility">Numerology Compatibility</Link>
+          <Link href="/en/free-astrology-chart">Free Astrology Chart</Link>
+        </div>
+      </div>
+
+      <div className="card link-card">
+        <h2>Read in Your Language</h2>
+        <div className="internal-links language-links">
+          <Link href="/en/free-numerology-reading">English</Link>
+          <Link href="/es/numerologia-gratis">Español</Link>
+          <Link href="/pt/numerologia-gratis">Português</Link>
+          <Link href="/fr/numerologie-gratuite">Français</Link>
+          <Link href="/it/numerologia-gratis">Italiano</Link>
+          <Link href="/de/numerologie-kostenlos">Deutsch</Link>
+          <Link href="/hi/numerology-hindi">हिन्दी</Link>
+        </div>
+      </div>
     </main>
   )
 }
