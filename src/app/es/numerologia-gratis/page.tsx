@@ -96,21 +96,71 @@ export default function NumerologiaGratis() {
           Esta combinación ofrece una visión mucho más precisa y profunda de tu destino.
         </p>
 
-        <h3 style={{color: '#f5c842', margin: '24px 0 12px', fontSize: '1.3rem'}}>
-          ¿Qué incluye el Informe Completo?
+        <h3 style={{color: '#f5c842', margin: '28px 0 12px', fontSize: '1.4rem'}}>
+          Un Espejo de tu Alma: El Informe Védico Personalizado
         </h3>
 
-        <div style={{background: '#1e1e2e', borderRadius: '12px', padding: '20px', marginBottom: '24px', color: '#ccc'}}>
-          <p style={{marginBottom: '8px'}}>✦ Número de la vida completo con interpretación profunda</p>
-          <p style={{marginBottom: '8px'}}>✦ Número del nombre (sistema caldeo)</p>
-          <p style={{marginBottom: '8px'}}>✦ Impulso del alma y número de la personalidad</p>
-          <p style={{marginBottom: '8px'}}>✦ Signo lunar védico (Rashi) y estrella de nacimiento (Nakshatra)</p>
-          <p style={{marginBottom: '8px'}}>✦ Período dasha actual y próximos ciclos planetarios</p>
-          <p style={{marginBottom: '8px'}}>✦ Pronóstico de carrera y dinero 2026-2027</p>
-          <p style={{marginBottom: '8px'}}>✦ Compatibilidad en relaciones</p>
-          <p style={{marginBottom: '8px'}}>✦ Fechas afortunadas, colores y piedras preciosas</p>
-          <p>✦ PDF completo de 8 páginas descarga instantánea</p>
+        <p style={{color: '#ccc', marginBottom: '20px', fontSize: '0.95rem', lineHeight: '1.8'}}>
+          Este no es un reporte generado al azar por un software comercial. Es un mapa cósmico 
+          detallado y sincero, calculado con precisión matemática utilizando las efemérides 
+          astronómicas reales de la Luna y las fórmulas ancestrales del sistema Caldeo y Védico. 
+          Nuestro único propósito es ofrecerte claridad, respeto y una herramienta genuina para 
+          tu autodescubrimiento.
+        </p>
+
+        <div style={{
+          background: 'linear-gradient(135deg, #1e1e2e 0%, #151522 100%)', 
+          borderRadius: '16px', 
+          padding: '24px', 
+          marginBottom: '28px', 
+          border: '1px solid rgba(245, 200, 66, 0.15)',
+          color: '#ccc'
+        }}>
+          <h4 style={{color: '#f5c842', marginBottom: '16px', fontWeight: '600', fontSize: '1.1rem'}}>
+            ¿Qué contiene tu mapa cósmico personal (PDF de 8 páginas)?
+          </h4>
+          
+          <ul style={{listStyleType: 'none', padding: 0, margin: 0}}>
+            <li style={{marginBottom: '14px', display: 'flex', gap: '10px', alignItems: 'flex-start'}}>
+              <span style={{color: '#f5c842'}}>✦</span>
+              <div>
+                <strong>Tu Firma Vibratoria:</strong> El análisis profundo de tu Número de Vida, 
+                el número de tu Nombre (sistema Caldeo) y el anhelo silencioso de tu Alma.
+              </div>
+            </li>
+            <li style={{marginBottom: '14px', display: 'flex', gap: '10px', alignItems: 'flex-start'}}>
+              <span style={{color: '#f5c842'}}>✦</span>
+              <div>
+                <strong>Armonía en las Relaciones y Unión Matrimonial:</strong> Comprensión de tus patrones de relación, 
+                cómo tu carta natal atrae energías específicas y las claves matemáticas tradicionales para construir 
+                vínculos matrimoniales profundos y duraderos basados en la compatibilidad.
+              </div>
+            </li>
+            <li style={{marginBottom: '14px', display: 'flex', gap: '10px', alignItems: 'flex-start'}}>
+              <span style={{color: '#f5c842'}}>✦</span>
+              <div>
+                <strong>Tus Energías de Armonización:</strong> Perspectivas tradicionales sobre colores, resonancia de 
+                piedras preciosas y días de alineación que fomentan el enfoque, la armonía y la positividad en tu vida diaria.
+              </div>
+            </li>
+            <li style={{marginBottom: '14px', display: 'flex', gap: '10px', alignItems: 'flex-start'}}>
+              <span style={{color: '#f5c842'}}>✦</span>
+              <div>
+                <strong>Comprensión de tu Ciclo de Tiempo Actual (Vimshottari Dasha):</strong> Exploración del período 
+                planetario tradicional que estás experimentando actualmente, sirviendo como un marco ancestral para la 
+                reflexión personal, la paciencia y la sintonía interior.
+              </div>
+            </li>
+            <li style={{marginBottom: '14px', display: 'flex', gap: '10px', alignItems: 'flex-start', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '12px'}}>
+              <span style={{color: '#f5c842'}}>✦</span>
+              <div>
+                <strong>Nota de Reflexión:</strong> Este informe es un estudio simbólico de patrones matemáticos, 
+                diseñado para apoyar el autoconocimiento y el crecimiento personal.
+              </div>
+            </li>
+          </ul>
         </div>
+
 
         <div style={{textAlign: 'center'}}>
           <Link 
