@@ -31,7 +31,10 @@ export const metadata: Metadata = {
     images: ['/opengraph-image'],
   },
   verification: {
-    google: '0CCD166E2AE15A0A67670CB8A57B663E',
+    google: 'oUWyUKTZu9ng2dqitry4CSDIQOL00aYjy2llxai0Eaw',
+    other: {
+      'msvalidate.01': '0CCD166E2AE15A0A67670CB8A57B663E',
+    },
   },
 }
 
