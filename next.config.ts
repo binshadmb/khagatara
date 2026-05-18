@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap-1.xml',
+        destination: '/sitemap.xml',
+      },
+    ]
+  },
+}
 
-export default nextConfig;
+module.exports = nextConfig
