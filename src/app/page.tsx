@@ -49,9 +49,14 @@ export default function Home() {
         body: JSON.stringify({ name, dob, city: 'London' })
       })
       const data = await res.json()
+      if (!res.ok || !data.checkout_url) {
+        throw new Error(data.detail || 'Payment failed')
+      }
       window.location.href = data.checkout_url
-    } catch {
+    } catch (err: any) {
+      console.error(err)
       setError('Payment failed. Please try again.')
+      alert('Payment failed. Please try again.')
     }
     setLoading(false)
   }
