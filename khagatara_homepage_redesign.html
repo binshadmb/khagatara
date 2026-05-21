@@ -1,0 +1,160 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Josefin+Sans:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+.page{background:#0d0b0f;font-family:'Josefin Sans',sans-serif;border-radius:16px;overflow:hidden;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:0.5px solid #2a2330;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.tri-wrap{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.tr{display:flex;gap:2px;}
+.t{width:0;height:0;border-style:solid;}
+.tu{border-left:6px solid transparent;border-right:6px solid transparent;border-top:0;}
+.td{border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:0;}
+.ta{border-bottom:9px solid #c8901a;}
+.tb{border-bottom:9px solid #d4a520;}
+.tc{border-bottom:9px solid #e8c547;}
+.te{border-top:9px solid #b07a12;}
+.logo-txt{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:#e8d5a0;letter-spacing:.06em;}
+.nav-links{display:flex;gap:1.8rem;}
+.nav-links span{font-size:.68rem;letter-spacing:.12em;color:#7a6a5a;cursor:pointer;text-transform:uppercase;}
+.nav-links span:hover{color:#c8901a;}
+
+.hero{padding:3.5rem 2rem 2.5rem;text-align:center;border-bottom:0.5px solid #2a2330;}
+.hero-eyebrow{font-size:.65rem;letter-spacing:.2em;color:#c8901a;text-transform:uppercase;margin-bottom:1rem;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:500;color:#f0e4c0;letter-spacing:.06em;line-height:1.1;margin-bottom:.75rem;}
+.hero-title em{font-style:italic;color:#c8901a;}
+.hero-sub{font-size:.72rem;letter-spacing:.12em;color:#6a5a4a;text-transform:uppercase;margin-bottom:2.5rem;}
+
+.form-card{background:#16121d;border:0.5px solid #2e2535;border-radius:12px;padding:1.75rem;max-width:440px;margin:0 auto;}
+.form-row{margin-bottom:1rem;}
+.form-row label{display:block;font-size:.62rem;letter-spacing:.14em;color:#7a6a5a;text-transform:uppercase;margin-bottom:.4rem;}
+.form-row input{width:100%;background:#0d0b0f;border:0.5px solid #2e2535;border-radius:6px;padding:.65rem 1rem;font-family:'Josefin Sans',sans-serif;font-size:.82rem;color:#e8d5a0;letter-spacing:.04em;outline:none;}
+.form-row input:focus{border-color:#c8901a;}
+.form-row input::placeholder{color:#3a3040;}
+.cta-btn{width:100%;background:#c8901a;border:none;border-radius:6px;padding:.75rem;font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#0d0b0f;cursor:pointer;font-weight:400;margin-top:.25rem;}
+.cta-btn:hover{background:#d4a520;}
+
+.section{padding:2rem;}
+.section-label{font-size:.62rem;letter-spacing:.18em;color:#c8901a;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;}
+.section-label::after{content:'';flex:1;height:0.5px;background:#2a2330;}
+
+.readings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;}
+.reading-pill{background:#16121d;border:0.5px solid #2e2535;border-radius:8px;padding:.65rem 1rem;font-size:.68rem;letter-spacing:.08em;color:#a09080;text-align:center;cursor:pointer;}
+.reading-pill:hover{border-color:#c8901a;color:#c8901a;}
+
+.divider{height:0.5px;background:#2a2330;}
+
+.lang-section{padding:2rem;}
+.lang-grid{display:flex;flex-wrap:wrap;gap:.6rem;}
+.lang-pill{background:#16121d;border:0.5px solid #2e2535;border-radius:20px;padding:.4rem 1rem;font-size:.68rem;letter-spacing:.08em;color:#6a5a4a;cursor:pointer;}
+.lang-pill:hover{border-color:#c8901a;color:#e8d5a0;}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:0 2rem 2rem;}
+.feat-card{background:#16121d;border:0.5px solid #2e2535;border-radius:10px;padding:1.25rem;text-align:center;}
+.feat-icon{font-size:20px;color:#c8901a;margin-bottom:.75rem;}
+.feat-title{font-size:.75rem;letter-spacing:.1em;color:#e8d5a0;margin-bottom:.35rem;text-transform:uppercase;}
+.feat-desc{font-size:.65rem;letter-spacing:.04em;color:#5a4a3a;line-height:1.6;}
+
+.footer{padding:1.25rem 2rem;border-top:0.5px solid #2a2330;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:.62rem;letter-spacing:.1em;color:#3a3040;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links span{font-size:.62rem;letter-spacing:.1em;color:#3a3040;cursor:pointer;}
+.footer-links span:hover{color:#c8901a;}
+</style>
+
+<h2 class="sr-only">Khagatara — Vedic numerology homepage redesign mockup</h2>
+
+<div class="page">
+
+  <div class="nav">
+    <div class="nav-logo">
+      <div class="tri-wrap">
+        <div class="tr"><div class="t tu ta"></div><div class="t tu tb"></div><div class="t tu tc"></div></div>
+        <div class="tr"><div class="t tu tb"></div><div class="t tu tc"></div></div>
+        <div class="tr"><div class="t td te"></div></div>
+      </div>
+      <span class="logo-txt">khagatara</span>
+    </div>
+    <div class="nav-links">
+      <span>Readings</span>
+      <span>Astrology</span>
+      <span>About</span>
+      <span>Blog</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Vedic numerology</div>
+    <div class="hero-title">Discover your<br><em>cosmic path</em></div>
+    <div class="hero-sub">Ancient wisdom. Personal insight. Timeless guidance.</div>
+
+    <div class="form-card">
+      <div class="form-row">
+        <label>Your full name</label>
+        <input type="text" placeholder="Enter your full name" />
+      </div>
+      <div class="form-row">
+        <label>Date of birth</label>
+        <input type="text" placeholder="DD / MM / YYYY" />
+      </div>
+      <button class="cta-btn">Calculate my path</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Popular free readings</div>
+    <div class="readings-grid">
+      <div class="reading-pill">Free numerology reading</div>
+      <div class="reading-pill">Numerology by name</div>
+      <div class="reading-pill">Meaning of number 11</div>
+      <div class="reading-pill">Free Vedic astrology</div>
+      <div class="reading-pill">Free birth chart</div>
+      <div class="reading-pill">Compatibility</div>
+      <div class="reading-pill">Free astrology chart</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-universe" aria-hidden="true"></i></div>
+      <div class="feat-title">Life path</div>
+      <div class="feat-desc">Uncover your soul's purpose and destiny number</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-infinity" aria-hidden="true"></i></div>
+      <div class="feat-title">Birth chart</div>
+      <div class="feat-desc">Vedic planetary positions at your moment of birth</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+      <div class="feat-title">Compatibility</div>
+      <div class="feat-desc">Discover your cosmic match and relationship path</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="lang-section">
+    <div class="section-label">Read in your language</div>
+    <div class="lang-grid">
+      <div class="lang-pill">English</div>
+      <div class="lang-pill">Español</div>
+      <div class="lang-pill">Português</div>
+      <div class="lang-pill">Français</div>
+      <div class="lang-pill">Italiano</div>
+      <div class="lang-pill">Deutsch</div>
+      <div class="lang-pill">हिन्दी</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-txt">© 2026 khagatara.com</div>
+    <div class="footer-links">
+      <span>Privacy</span>
+      <span>Terms</span>
+      <span>Contact</span>
+    </div>
+  </div>
+
+</div>

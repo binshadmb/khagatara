@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -53,7 +54,7 @@ export default function Home() {
         throw new Error(data.detail || 'Payment failed')
       }
       window.location.href = data.checkout_url
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err)
       setError('Payment failed. Please try again.')
       alert('Payment failed. Please try again.')
@@ -63,39 +64,57 @@ export default function Home() {
 
   return (
     <main className="page">
-      <div className="header">
-        <h1>Khagatara</h1>
-        <p>Discover your cosmic path through Vedic numerology</p>
-      </div>
+      <nav className="nav">
+        <div className="nav-logo">
+          <div className="tri-wrap" aria-hidden="true">
+            <div className="tr"><div className="t tu ta"></div><div className="t tu tb"></div><div className="t tu tc"></div></div>
+            <div className="tr"><div className="t tu tb"></div><div className="t tu tc"></div></div>
+            <div className="tr"><div className="t td te"></div></div>
+          </div>
+          <span className="logo-txt">khagatara</span>
+        </div>
+        <div className="nav-links">
+          <Link href="/en/free-numerology-reading">Readings</Link>
+          <Link href="/en/free-vedic-astrology">Astrology</Link>
+          <Link href="/en/free-birth-chart">Birth Chart</Link>
+          <Link href="/en/numerology-compatibility">Compatibility</Link>
+        </div>
+      </nav>
 
-      <div className="card">
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
+      <section className="hero">
+        <div className="hero-eyebrow">Vedic numerology</div>
+        <h1 className="hero-title">Discover your<br /><em>cosmic path</em></h1>
+        <p className="hero-sub">Ancient wisdom. Personal insight. Timeless guidance.</p>
+
+        <div className="form-card">
+          <div className="form-row">
+            <label htmlFor="name">Your full name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <label htmlFor="dob">Date of birth</label>
+            <input
+              id="dob"
+              type="date"
+              value={dob}
+              onChange={e => setDob(e.target.value)}
+            />
+          </div>
+          <button className="cta-btn" onClick={calculate} disabled={loading}>
+            {loading ? 'Calculating...' : 'Calculate my path'}
+          </button>
+          {error && <p className="error">{error}</p>}
         </div>
-        <div className="form-group">
-          <input
-            type="date"
-            value={dob}
-            onChange={e => setDob(e.target.value)}
-          />
-        </div>
-        <button
-          className="btn-primary"
-          onClick={calculate}
-          disabled={loading}
-        >
-          {loading ? 'Calculating...' : 'Calculate My Path'}
-        </button>
-        {error && <p className="error">{error}</p>}
-      </div>
+      </section>
 
       {result && (
-        <div className="card">
+        <section className="result-card">
           <div className="numbers-grid">
             <div className="number-box">
               <div className="number-value">{result.life_path}</div>
@@ -118,7 +137,7 @@ export default function Home() {
           <p className="meaning">{result.meaning}</p>
 
           <div className="vedic-section">
-            <div className="vedic-title">✦ Vedic Reading</div>
+            <div className="vedic-title">Vedic Reading</div>
             <div className="vedic-row">
               <span>Moon Sign</span>
               <span>{result.rashi}</span>
@@ -134,47 +153,71 @@ export default function Home() {
           </div>
 
           <div className="premium-blur">
-            Your full Vedic report includes complete career forecast,
-            relationship compatibility, lucky dates and gemstone remedies,
-            detailed dasha analysis, and your complete soul blueprint PDF.
+            Your full Vedic report includes complete career forecast, relationship compatibility,
+            lucky dates and gemstone remedies, detailed dasha analysis, and your complete soul blueprint PDF.
           </div>
 
-          <button
-            className="btn-primary"
-            onClick={getFullReport}
-            disabled={loading}
-          >
-            {loading ? 'Loading...' : 'Get Full Report — €2.99'}
+          <button className="cta-btn" onClick={getFullReport} disabled={loading}>
+            {loading ? 'Loading...' : 'Get Full Report - EUR 2.99'}
           </button>
-          <p className="payment-note">Instant PDF download • Secure payment</p>
-        </div>
+          <p className="payment-note">Instant PDF download - Secure payment</p>
+        </section>
       )}
 
-      <div className="card link-card">
-        <h2>Popular Free Readings</h2>
-        <div className="internal-links">
-          <Link href="/en/free-numerology-reading">Free Numerology Reading</Link>
-          <Link href="/en/numerology-by-name">Numerology by Name</Link>
-          <Link href="/en/meaning-of-number-11">Meaning of Number 11</Link>
-          <Link href="/en/free-vedic-astrology">Free Vedic Astrology</Link>
-          <Link href="/en/free-birth-chart">Free Birth Chart</Link>
-          <Link href="/en/numerology-compatibility">Numerology Compatibility</Link>
-          <Link href="/en/free-astrology-chart">Free Astrology Chart</Link>
+      <section className="section">
+        <div className="section-label">Popular free readings</div>
+        <div className="readings-grid">
+          <Link className="reading-pill" href="/en/free-numerology-reading">Free numerology reading</Link>
+          <Link className="reading-pill" href="/en/numerology-by-name">Numerology by name</Link>
+          <Link className="reading-pill" href="/en/meaning-of-number-11">Meaning of number 11</Link>
+          <Link className="reading-pill" href="/en/free-vedic-astrology">Free Vedic astrology</Link>
+          <Link className="reading-pill" href="/en/free-birth-chart">Free birth chart</Link>
+          <Link className="reading-pill" href="/en/numerology-compatibility">Compatibility</Link>
+          <Link className="reading-pill" href="/en/free-astrology-chart">Free astrology chart</Link>
         </div>
-      </div>
+      </section>
 
-      <div className="card link-card">
-        <h2>Read in Your Language</h2>
-        <div className="internal-links language-links">
-          <Link href="/en/free-numerology-reading">English</Link>
-          <Link href="/es/numerologia-gratis">Español</Link>
-          <Link href="/pt/numerologia-gratis">Português</Link>
-          <Link href="/fr/numerologie-gratuite">Français</Link>
-          <Link href="/it/numerologia-gratis">Italiano</Link>
-          <Link href="/de/numerologie-kostenlos">Deutsch</Link>
-          <Link href="/hi/numerology-hindi">हिन्दी</Link>
+      <section className="features">
+        <div className="feat-card">
+          <div className="feat-icon">01</div>
+          <div className="feat-title">Life path</div>
+          <div className="feat-desc">Uncover your soul&apos;s purpose and destiny number</div>
         </div>
-      </div>
+        <div className="feat-card">
+          <div className="feat-icon">02</div>
+          <div className="feat-title">Birth chart</div>
+          <div className="feat-desc">Vedic planetary positions at your moment of birth</div>
+        </div>
+        <div className="feat-card">
+          <div className="feat-icon">03</div>
+          <div className="feat-title">Compatibility</div>
+          <div className="feat-desc">Discover your cosmic match and relationship path</div>
+        </div>
+      </section>
+
+      <div className="divider"></div>
+
+      <section className="lang-section">
+        <div className="section-label">Read in your language</div>
+        <div className="lang-grid">
+          <Link className="lang-pill" href="/en/free-numerology-reading">English</Link>
+          <Link className="lang-pill" href="/es/numerologia-gratis">Español</Link>
+          <Link className="lang-pill" href="/pt/numerologia-gratis">Português</Link>
+          <Link className="lang-pill" href="/fr/numerologie-gratuite">Français</Link>
+          <Link className="lang-pill" href="/it/numerologia-gratis">Italiano</Link>
+          <Link className="lang-pill" href="/de/numerologie-kostenlos">Deutsch</Link>
+          <Link className="lang-pill" href="/hi/numerology-hindi">हिन्दी</Link>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-txt">© 2026 khagatara.com</div>
+        <div className="footer-links">
+          <Link href="#">Privacy</Link>
+          <Link href="#">Terms</Link>
+          <Link href="#">Contact</Link>
+        </div>
+      </footer>
     </main>
   )
 }

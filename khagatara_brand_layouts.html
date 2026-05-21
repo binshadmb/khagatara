@@ -1,0 +1,142 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Josefin+Sans:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{display:flex;flex-direction:column;gap:2rem;padding:1.5rem 0;}
+.label{font-size:11px;letter-spacing:.12em;color:var(--color-text-tertiary);text-transform:uppercase;margin-bottom:.75rem;font-family:var(--font-sans);}
+
+/* LAYOUT 1 — Website Header */
+.site-header{background:#f5f0e8;border-radius:12px;overflow:hidden;border:.5px solid var(--color-border-tertiary);}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;background:#fff;border-bottom:.5px solid #e8e0d0;}
+.logo-lockup{display:flex;align-items:center;gap:.75rem;}
+.tri-logo{display:flex;flex-direction:column;align-items:center;gap:1px;}
+.tri-row{display:flex;gap:2px;}
+.tri{width:0;height:0;}
+.tri-up{border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:10px solid;}
+.tri-down{border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid;}
+.t1{border-bottom-color:#b8860b;}
+.t2{border-bottom-color:#d4a017;}
+.t3{border-bottom-color:#e8c547;}
+.t4{border-top-color:#c8901a;}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:#3a2e1a;letter-spacing:.05em;}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{font-family:'Josefin Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;color:#7a6a50;text-decoration:none;text-transform:uppercase;}
+.hero{padding:3rem 2rem;display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(160deg,#f5f0e8 60%,#ede5d0);}
+.hero-logo{margin-bottom:1.25rem;}
+.tri-lg .tri-up{border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:19px solid;}
+.tri-lg .tri-down{border-left:14px solid transparent;border-right:14px solid transparent;border-top:19px solid;}
+.tri-lg .tri-row{gap:3px;}
+.tri-lg{gap:2px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:500;color:#2a1f0a;letter-spacing:.08em;margin-bottom:.5rem;}
+.hero p{font-family:'Josefin Sans',sans-serif;font-size:.75rem;letter-spacing:.18em;color:#9a845a;text-transform:uppercase;}
+.cta{margin-top:1.5rem;background:#b8860b;color:#fff;font-family:'Josefin Sans',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.8rem;border:none;border-radius:2px;cursor:pointer;}
+
+/* LAYOUT 2 — Business Card */
+.cards-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.biz-card{border-radius:10px;padding:1.5rem;aspect-ratio:1.75;display:flex;flex-direction:column;justify-content:space-between;border:.5px solid var(--color-border-tertiary);}
+.biz-front{background:#2a1f0a;}
+.biz-back{background:#f5f0e8;}
+.biz-front .brand-name{color:#e8d5a0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;letter-spacing:.08em;}
+.biz-front .tagline{font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.15em;color:#9a845a;text-transform:uppercase;}
+.biz-back-name{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:#2a1f0a;font-weight:600;}
+.biz-back-title{font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.1em;color:#9a845a;text-transform:uppercase;margin-top:2px;}
+.contact-info{font-family:'Josefin Sans',sans-serif;font-size:.58rem;letter-spacing:.06em;color:#7a6a50;line-height:1.8;}
+
+/* LAYOUT 3 — Email / Letterhead */
+.letter{background:#fff;border-radius:12px;border:.5px solid var(--color-border-tertiary);overflow:hidden;}
+.letter-head{background:#2a1f0a;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.letter-head .brand-name{color:#e8d5a0;font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.08em;}
+.letter-head .tagline{font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.12em;color:#9a845a;text-transform:uppercase;margin-top:2px;}
+.letter-body{padding:1.5rem 2rem;}
+.letter-body p{font-family:'Cormorant Garamond',serif;font-size:.95rem;color:var(--color-text-secondary);line-height:1.8;}
+.letter-footer{border-top:.5px solid #e8e0d0;padding:.75rem 2rem;font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.08em;color:#b8a888;display:flex;justify-content:space-between;}
+</style>
+
+<div class="wrap">
+
+<div>
+  <p class="label">Layout 1 — Website / Landing Page</p>
+  <div class="site-header">
+    <div class="nav">
+      <div class="logo-lockup">
+        <div class="tri-logo">
+          <div class="tri-row"><div class="tri tri-up t1"></div><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+          <div class="tri-row"><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+          <div class="tri-row"><div class="tri tri-down t4"></div></div>
+        </div>
+        <span class="brand-name">khagatara</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">About</a><a href="#">Services</a><a href="#">Work</a><a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hero-logo tri-logo tri-lg">
+        <div class="tri-row"><div class="tri tri-up t1"></div><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-down t4"></div></div>
+      </div>
+      <h1>khagatara</h1>
+      <p>Where Vision Takes Flight</p>
+      <button class="cta">Get Started</button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <p class="label">Layout 2 — Business Card</p>
+  <div class="cards-row">
+    <div class="biz-card biz-front">
+      <div class="tri-logo">
+        <div class="tri-row"><div class="tri tri-up t1"></div><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-down t4"></div></div>
+      </div>
+      <div>
+        <div class="brand-name">khagatara</div>
+        <div class="tagline">Where Vision Takes Flight</div>
+      </div>
+    </div>
+    <div class="biz-card biz-back">
+      <div class="tri-logo">
+        <div class="tri-row"><div class="tri tri-up t1"></div><div class="tri tri-up t2"></div></div>
+        <div class="tri-row"><div class="tri tri-down t4"></div></div>
+      </div>
+      <div>
+        <div class="biz-back-name">Your Name</div>
+        <div class="biz-back-title">Founder & CEO</div>
+      </div>
+      <div class="contact-info">
+        hello@khagatara.com<br>
+        www.khagatara.com
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <p class="label">Layout 3 — Email / Letterhead</p>
+  <div class="letter">
+    <div class="letter-head">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#e8d5a0;letter-spacing:.08em;">khagatara</div>
+        <div style="font-family:'Josefin Sans',sans-serif;font-size:.6rem;letter-spacing:.12em;color:#9a845a;text-transform:uppercase;margin-top:2px;">Where Vision Takes Flight</div>
+      </div>
+      <div class="tri-logo">
+        <div class="tri-row"><div class="tri tri-up t1"></div><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-up t2"></div><div class="tri tri-up t3"></div></div>
+        <div class="tri-row"><div class="tri tri-down t4"></div></div>
+      </div>
+    </div>
+    <div class="letter-body">
+      <p>Dear [Client Name],<br><br>
+      Thank you for your interest in Khagatara. We are delighted to present our proposal and look forward to building something extraordinary together...</p>
+    </div>
+    <div class="letter-footer">
+      <span>hello@khagatara.com</span>
+      <span>www.khagatara.com</span>
+    </div>
+  </div>
+</div>
+
+</div>
