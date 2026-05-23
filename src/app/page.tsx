@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface Result {
   life_path: number
@@ -27,6 +27,12 @@ export default function Home() {
   const [result, setResult] = useState<Result | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isIndia, setIsIndia] = useState(false)
+
+  useEffect(() => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+    setIsIndia(tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta'))
+  }, [])
 
   const showDisclaimer = timeUnknown || gender === 'prefer_not'
 
@@ -62,20 +68,44 @@ export default function Home() {
   async function getFullReport() {
     setLoading(true)
     try {
-      const res = await fetch('https://khagatara-api.onrender.com/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(buildPayload())
-      })
-      const data = await res.json()
-      if (!res.ok || !data.checkout_url) {
-        throw new Error(data.detail || 'Payment failed')
+      if (isIndia) {
+        // Razorpay flow for India
+        const res = await fetch('https://khagatara-api.onrender.com/create-checkout-inr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildPayload())
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.detail || 'Payment failed')
+
+        const rzp = new (window as any).Razorpay({
+          key:         data.key_id,
+          amount:      data.amount,
+          currency:    data.currency,
+          order_id:    data.order_id,
+          name:        'Khagatara',
+          description: 'Your Complete Vedic Blueprint',
+          prefill:     { name: data.name },
+          theme:       { color: '#c8901a' },
+          handler: function() {
+            window.location.href = 'https://khagatara.com/success'
+          }
+        })
+        rzp.open()
+      } else {
+        // Stripe flow for rest of world
+        const res = await fetch('https://khagatara-api.onrender.com/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildPayload())
+        })
+        const data = await res.json()
+        if (!res.ok || !data.checkout_url) throw new Error(data.detail || 'Payment failed')
+        window.location.href = data.checkout_url
       }
-      window.location.href = data.checkout_url
     } catch (err: unknown) {
       console.error(err)
       setError('Payment failed. Please try again.')
-      alert('Payment failed. Please try again.')
     }
     setLoading(false)
   }
@@ -249,7 +279,7 @@ export default function Home() {
           </div>
 
           <button className="cta-btn" onClick={getFullReport} disabled={loading}>
-            {loading ? 'Loading...' : 'Get Full Report - EUR 2.99'}
+            {loading ? 'Loading...' : isIndia ? 'Get Full Report - ₹99' : 'Get Full Report - EUR 2.99'}
           </button>
           <p className="payment-note">Instant PDF download - Secure payment</p>
         </section>

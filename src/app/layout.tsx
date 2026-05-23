@@ -47,6 +47,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="dark">
+      <head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
+      </head>
       <body>
         <ThemeToggle />
         {children}
