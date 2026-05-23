@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { siteUrl } from './seo'
+import ThemeToggle from './ThemeToggle'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,8 +46,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-theme="dark">
+      <body>
+        <ThemeToggle />
+        {children}
+      </body>
     </html>
   )
 }
