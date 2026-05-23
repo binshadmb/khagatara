@@ -407,6 +407,21 @@ input {
   color: var(--accent);
 }
 
+.internal-links a {
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 20px;
+  color: var(--text-low);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 1rem;
+  display: inline-block;
+}
+.internal-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .numbers-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
