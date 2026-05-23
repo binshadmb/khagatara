@@ -284,6 +284,11 @@ export default function Home() {
           <div className="feat-title">Compatibility</div>
           <div className="feat-desc">Discover your cosmic match and relationship path</div>
         </div>
+        <Link href="/en/numerology-compatibility" className="feat-card feat-card--marriage">
+          <div className="feat-icon">04</div>
+          <div className="feat-title">Relationship &amp; Marriage</div>
+          <div className="feat-desc">Partnership energy, karmic cycles, and relationship timing</div>
+        </Link>
       </section>
 
       <div className="divider"></div>
