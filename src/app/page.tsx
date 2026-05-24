@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { LANGUAGE_CONFIG, TOPIC_SLUGS } from '@/app/seo-config'
 
 interface Result {
   life_path: number
@@ -322,13 +323,14 @@ export default function Home() {
       <section className="lang-section">
         <div className="section-label">Read in your language</div>
         <div className="lang-grid">
-          <Link className="lang-pill" href="/en/free-numerology-reading">English</Link>
-          <Link className="lang-pill" href="/es/numerologia-gratis">Español</Link>
-          <Link className="lang-pill" href="/pt/numerologia-gratis">Português</Link>
-          <Link className="lang-pill" href="/fr/numerologie-gratuite">Français</Link>
-          <Link className="lang-pill" href="/it/numerologia-gratis">Italiano</Link>
-          <Link className="lang-pill" href="/de/numerologie-kostenlos">Deutsch</Link>
-          <Link className="lang-pill" href="/hi/numerology-hindi">हिन्दी</Link>
+          {LANGUAGE_CONFIG.map(([code, name]) => {
+            const slug = TOPIC_SLUGS?.numerology?.[code] ?? 'free-numerology-reading'
+            return (
+              <Link key={code} className="lang-pill" href={`/${code}/${slug}`}>
+                {name}
+              </Link>
+            )
+          })}
         </div>
       </section>
 
