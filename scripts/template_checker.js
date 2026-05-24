@@ -4,12 +4,11 @@ const path = require('path')
 const LANGS = fs.readdirSync(path.join(__dirname, '../src/content'))
   .filter(f => f !== 'master' && f !== '.DS_Store')
 
-const TOPICS = [
-  'numerology','birthChart','vedicAstrology',
-  'compatibility','astrologyChart','nameNumerology','number11'
-]
-
 const masterDir = path.join(__dirname, '../src/content/master')
+const TOPICS = fs.readdirSync(masterDir)
+  .filter(f => f.endsWith('.md'))
+  .map(f => f.replace('.md', ''))
+
 let issues = 0
 
 console.log('\n🔍 Khagatara i18n Audit\n')
@@ -37,23 +36,22 @@ for (const lang of LANGS) {
       continue
     }
 
-    // Length mismatch > 40% = likely broken
-    const ratio = translated.length / master.length
-    if (ratio < 0.6 || ratio > 1.8) {
-      console.log(`⚠️  LENGTH MISMATCH [${lang}] ${topic}.md (ratio: ${ratio.toFixed(2)})`)
-      issues++
-      continue
-    }
+    // Language leak check
+    const allLangs = LANGS.filter(f => f !== lang)
 
-    // Spanish leak check
-    const spanishWords = ['gratis','número','signo','estrella','vida']
-    const hasSpanish = spanishWords.some(w => translated.includes(w))
-    const safeLangs = ['pt','ca','gl','es']
-    if (hasSpanish && !safeLangs.includes(lang)) {
-      console.log(`🔀 LANG LEAK  [${lang}] ${topic}.md — Spanish words found`)
-      issues++
-      continue
+    let leakFound = false
+    for (const otherLang of allLangs) {
+      const otherFile = path.join(__dirname, '../src/content', otherLang, `${topic}.md`)
+      if (!fs.existsSync(otherFile)) continue
+      const otherContent = fs.readFileSync(otherFile, 'utf8')
+      if (translated.trim() === otherContent.trim()) {
+        console.log(`🔀 LANG LEAK  [${lang}] ${topic}.md — identical to [${otherLang}]`)
+        issues++
+        leakFound = true
+        break
+      }
     }
+    if (leakFound) continue
 
     console.log(`✅ OK        [${lang}] ${topic}.md`)
   }

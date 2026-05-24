@@ -104,15 +104,9 @@ const LANGUAGE_CONFIG = [
   ['ny',    'Chichewa',             'ltr']
 ]
 
-const TOPIC_KEYS = [
-  'numerology',
-  'birthChart',
-  'vedicAstrology',
-  'compatibility',
-  'astrologyChart',
-  'nameNumerology',
-  'number11'
-]
+const TOPIC_KEYS = fs.readdirSync(path.join(__dirname, '../src/content/master'))
+  .filter(f => f.endsWith('.md'))
+  .map(f => f.replace('.md', ''))
 
 async function translateText(text, targetLang) {
   if (!text || text.trim() === '') return ''
