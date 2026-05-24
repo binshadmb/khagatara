@@ -7,12 +7,12 @@
   --surface2: #1e1826;
   --border:   #2a2330;
   --border2:  #2e2535;
-  --text:     #f0e4c0;
-  --text-mid: #c8b89a;
-  --text-low: #a09080;
-  --muted:    #6a5a4a;
-  --faint:    #5a4a3a;
-  --ghost:    #3a3040;
+  --text:     #cdd6f4;
+  --text-mid: #b0bcda;
+  --text-low: #9399b2;
+  --muted:    #7c83a8;
+  --faint:    #6b7394;
+  --ghost:    #4a5278;
   --accent:   #c8901a;
   --accent-h: #d4a520;
   --logo:     #e8d5a0;
@@ -38,12 +38,12 @@
   --secondary:     #7dcfff;
 
   /* Text Contrast Hierarchy */
-  --text:          #a9b1d6;
+  --text:          #cdd6f4;
   --text-high:     #ffffff;
-  --text-low:      #565f89;
+  --text-low:      #9399b2;
 
   /* Microscopic Border Framework */
-  --border-clean:  rgba(255, 255, 255, 0.05);
+  --border-clean:  rgba(255, 255, 255, 0.08);
   --border-active: #bb9af7;
 }
 
@@ -355,7 +355,7 @@ input {
   background: var(--surface);
   border: 0.5px solid var(--border2);
   border-radius: 8px;
-  color: var(--text-low);
+  color: var(--text);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   padding: 0.65rem 1rem;
@@ -411,7 +411,7 @@ input {
 }
 
 .feat-desc {
-  color: var(--faint);
+  color: var(--text-low);
   font-size: 0.65rem;
   letter-spacing: 0.04em;
   line-height: 1.6;
@@ -432,7 +432,7 @@ input {
   background: var(--surface);
   border: 0.5px solid var(--border2);
   border-radius: 20px;
-  color: var(--muted);
+  color: var(--text);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   padding: 0.4rem 1rem;
