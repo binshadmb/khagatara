@@ -18,6 +18,33 @@
   --logo:     #e8d5a0;
   --btn-txt:  #0d0b0f;
   --error:    #d46a6a;
+
+  /* ==========================================================================
+     TOKYO NIGHT AESTHETIC LAYER
+     ========================================================================== */
+
+  /* Velvet Obsidian Base */
+  --background:    #1a1b26;
+  --surface:       #1f2335;
+  --surface2:      #24283b;
+
+  /* High-Saturation Neon Accents */
+  --accent:        #9ece6a;
+  --accent-glow:   rgba(158, 206, 106, 0.15);
+
+  --primary:       #bb9af7;
+  --primary-glow:  rgba(187, 154, 247, 0.25);
+
+  --secondary:     #7dcfff;
+
+  /* Text Contrast Hierarchy */
+  --text:          #a9b1d6;
+  --text-high:     #ffffff;
+  --text-low:      #565f89;
+
+  /* Microscopic Border Framework */
+  --border-clean:  rgba(255, 255, 255, 0.05);
+  --border-active: #bb9af7;
 }
 
 [data-theme="light"] {
@@ -72,7 +99,27 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Hardware accelerated text smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+/* Force Ultra-Crisp Subpixel Rendering & Typography Geometry */
+
+/* Monospace Override for Numerals & Technical Labels */
+.font-mono-crisp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  letter-spacing: 0.05em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* High Contrast Form Focus Engine */
+input::placeholder, select::placeholder {
+  color: var(--text-low) !important;
+  opacity: 1;
 }
 
 a {
