@@ -136,8 +136,8 @@ export default function Home() {
 
         <div className="form-card">
           <div className="form-row">
-            <label htmlFor="name">Your full name</label>
-            <input
+            <label htmlFor="name" className="font-mono-crisp text-[var(--text-low)] text-[10px] font-bold uppercase tracking-widest">Your full name</label>
+            <input className="font-sans tracking-wide"
               id="name"
               type="text"
               placeholder="Enter your full name"
@@ -218,16 +218,12 @@ export default function Home() {
           </div>
 
           {showDisclaimer && (
-            <div style={{
-              background:'var(--surface2)', border:'0.5px solid var(--accent)',
-              borderRadius:'8px', padding:'12px 14px', marginBottom:'12px',
-              fontSize:'0.72rem', color:'var(--text-mid)', lineHeight:'1.6'
-            }}>
+            <div className="bg-[var(--surface2)] border border-[var(--accent)] rounded-lg p-3 mb-3 text-[0.72rem] text-[var(--text)] opacity-90 leading-relaxed font-mono">
               ⚠️ Some readings may be approximate due to missing birth details. For accurate Nakshatra, Pada, Lagna, and Dasha calculations, exact birth time and birthplace are recommended.
             </div>
           )}
 
-          <button className="cta-btn" onClick={calculate} disabled={loading}>
+          <button className="w-full bg-[var(--primary)] text-[var(--background)] font-bold py-3 px-4 rounded-md transition-transform active:scale-[0.98] disabled:opacity-50 hover:brightness-110 tracking-wide uppercase text-xs" onClick={calculate} disabled={loading}>
             {loading ? 'Calculating...' : 'Calculate my path'}
           </button>
           {error && <p className="error">{error}</p>}
@@ -235,53 +231,53 @@ export default function Home() {
       </section>
 
       {result && (
-        <section className="result-card">
-          <div className="numbers-grid">
-            <div className="number-box">
-              <div className="number-value">{result.life_path}</div>
-              <div className="number-label">Life Path</div>
+        <section className="result-card mt-8 border border-[var(--border-clean)] p-6 bg-[var(--surface)] rounded-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="border border-[var(--border-clean)] bg-[var(--surface2)] p-4 rounded text-center">
+              <div className="text-4xl font-bold font-mono-crisp text-[var(--accent)] drop-shadow-[0_0_8px_var(--accent-glow)] antialiased">{result.life_path}</div>
+              <div className="text-[10px] text-[var(--text-low)] uppercase tracking-widest mt-2 font-bold font-mono-crisp">Life Path</div>
             </div>
-            <div className="number-box">
-              <div className="number-value">{result.name_number}</div>
-              <div className="number-label">Name Number</div>
+            <div className="border border-[var(--border-clean)] bg-[var(--surface2)] p-4 rounded text-center">
+              <div className="text-4xl font-bold font-mono-crisp text-[var(--accent)] drop-shadow-[0_0_8px_var(--accent-glow)] antialiased">{result.name_number}</div>
+              <div className="text-[10px] text-[var(--text-low)] uppercase tracking-widest mt-2 font-bold font-mono-crisp">Name Number</div>
             </div>
-            <div className="number-box">
-              <div className="number-value">{result.soul_urge}</div>
-              <div className="number-label">Soul Urge</div>
+            <div className="border border-[var(--border-clean)] bg-[var(--surface2)] p-4 rounded text-center">
+              <div className="text-4xl font-bold font-mono-crisp text-[var(--accent)] drop-shadow-[0_0_8px_var(--accent-glow)] antialiased">{result.soul_urge}</div>
+              <div className="text-[10px] text-[var(--text-low)] uppercase tracking-widest mt-2 font-bold font-mono-crisp">Soul Urge</div>
             </div>
-            <div className="number-box">
-              <div className="number-value">{result.personality}</div>
-              <div className="number-label">Personality</div>
-            </div>
-          </div>
-
-          <p className="meaning">{result.meaning}</p>
-
-          <div className="vedic-section">
-            <div className="vedic-title">Vedic Reading</div>
-            <div className="vedic-row">
-              <span>Moon Sign</span>
-              <span>{result.rashi}</span>
-            </div>
-            <div className="vedic-row">
-              <span>Birth Star</span>
-              <span>{result.nakshatra} (Pada {result.nakshatra_pada})</span>
-            </div>
-            <div className="vedic-row">
-              <span>Current Dasha</span>
-              <span>{result.dasha_lord} ({result.dasha_years} yrs)</span>
+            <div className="border border-[var(--border-clean)] bg-[var(--surface2)] p-4 rounded text-center">
+              <div className="text-4xl font-bold font-mono-crisp text-[var(--accent)] drop-shadow-[0_0_8px_var(--accent-glow)] antialiased">{result.personality}</div>
+              <div className="text-[10px] text-[var(--text-low)] uppercase tracking-widest mt-2 font-bold font-mono-crisp">Personality</div>
             </div>
           </div>
 
-          <div className="premium-blur">
+          <p className="meaning text-[var(--text-high)] font-medium leading-relaxed mb-6 text-sm bg-[var(--surface2)] p-4 rounded border border-[var(--border-clean)]">{result.meaning}</p>
+
+          <div className="border-t border-[var(--border-clean)] pt-4 space-y-2">
+            <div className="text-xs font-bold uppercase tracking-widest text-[var(--secondary)] mb-3 font-mono-crisp">Vedic Reading</div>
+            <div className="flex justify-between items-center text-xs py-2 border-b border-[var(--border-clean)] font-mono-crisp">
+              <span className="text-[var(--text)]">Moon Sign</span>
+              <span className="font-bold text-[var(--text-high)]">{result.rashi}</span>
+            </div>
+            <div className="flex justify-between items-center text-xs py-2 border-b border-[var(--border-clean)] font-mono-crisp">
+              <span className="text-[var(--text)]">Birth Star</span>
+              <span className="font-bold text-[var(--text-high)]">{result.nakshatra} <span className="text-[var(--secondary)] font-medium">(P-{result.nakshatra_pada})</span></span>
+            </div>
+            <div className="flex justify-between items-center text-xs py-2 font-mono-crisp">
+              <span className="text-[var(--text)]">Current Dasha</span>
+              <span className="font-bold text-[var(--text-high)]">{result.dasha_lord} <span className="text-[var(--accent)] font-medium">({result.dasha_years} YRS)</span></span>
+            </div>
+          </div>
+
+          <div className="premium-blur my-6 p-4 rounded-md bg-[var(--surface2)] bg-opacity-40 border border-[var(--secondary)] border-opacity-20 backdrop-blur-md text-xs text-[var(--text)] leading-relaxed">
             Your full Vedic report includes complete career forecast, relationship compatibility,
             lucky dates and gemstone remedies, detailed dasha analysis, and your complete soul blueprint PDF.
           </div>
 
-          <button className="cta-btn" onClick={getFullReport} disabled={loading}>
+          <button className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-[var(--background)] font-extrabold py-3 rounded-md uppercase tracking-wider text-sm shadow-lg hover:brightness-110 active:scale-[0.99] transition-all" onClick={getFullReport} disabled={loading}>
             {loading ? 'Loading...' : isIndia ? 'Get Full Report - ₹99' : 'Get Full Report - EUR 2.99'}
           </button>
-          <p className="payment-note">Instant PDF download - Secure payment</p>
+          <p className="payment-note text-center text-[var(--text-low)] text-[0.7rem] mt-2 font-mono">Instant PDF download - Secure payment</p>
         </section>
       )}
 
