@@ -2,7 +2,7 @@ import type { Metadata, MetadataRoute } from 'next'
 import { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode } from './seo-config'
 
 export { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode }
-export const siteUrl = 'https://khagatara.vercel.app'
+export const siteUrl = 'https://www.khagatara.com'
 
 // ─── Topic metadata: titles + descriptions per language ──────────────────────
 // Add a new language's translations here to activate localised meta tags.
