@@ -108,24 +108,59 @@ const TOPIC_KEYS = fs.readdirSync(path.join(__dirname, '../src/content/master'))
   .filter(f => f.endsWith('.md'))
   .map(f => f.replace('.md', ''))
 
-async function translateText(text, targetLang) {
-  if (!text || text.trim() === '') return ''
-  
-  // Free, keyless translation endpoint
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
-  
+const SANSKRIT_TERMS = [
+  'nakshatra','dasha','rashi','vedic','vimshottari','mahadasha',
+  'antardasha','kundali','jyotish','graha','lagna','ascendant',
+  'chaldean','pythagorean','numerology','astrology','karma',
+  'dharma','pada','atmakaraka','khagatara'
+]
+
+function restoreSanskrit(text) {
+  for (const term of SANSKRIT_TERMS) {
+    const re = new RegExp(term, 'gi')
+    text = text.replace(re, term)
+  }
+  return text
+}
+
+async function tryMyMemory(text, targetLang) {
   try {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`
     const res = await fetch(url)
     const data = await res.json()
-    if (data && data[0]) {
-      // Accumulate the multi-sentence translation array
-      return data[0].map(s => s[0]).join('')
+    if (data?.responseStatus === 200 &&
+        data.responseData.translatedText !== text) {
+      return data.responseData.translatedText
     }
-    return text
-  } catch (err) {
-    console.error(`Error translating text to ${targetLang}:`, err)
-    return text
+    return null
+  } catch {
+    return null
   }
+}
+
+async function tryGoogleFree(text, targetLang) {
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
+    const res = await fetch(url)
+    const data = await res.json()
+    if (data && data[0]) return data[0].map(s => s[0]).join('')
+    return null
+  } catch {
+    return null
+  }
+}
+
+async function translateText(text, targetLang) {
+  if (!text || text.trim() === '') return ''
+
+  const mymemory = await tryMyMemory(text, targetLang)
+  if (mymemory) return restoreSanskrit(mymemory)
+
+  const google = await tryGoogleFree(text, targetLang)
+  if (google) return restoreSanskrit(google)
+
+  console.warn(`  ⚠️  All failed [${targetLang}] — keeping original`)
+  return text
 }
 
 async function delay(ms) {
