@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { LANGUAGE_CONFIG, TOPIC_SLUGS } from './seo-config'
+import TrendingStrip from './components/TrendingStrip'
 
 interface Result {
   life_path: number
@@ -317,6 +318,10 @@ export default function Home() {
           <div className="feat-desc">Partnership energy, karmic cycles, and relationship timing</div>
         </Link>
       </section>
+
+      <div className="divider"></div>
+
+      <TrendingStrip />
 
       <div className="divider"></div>
 
