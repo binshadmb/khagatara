@@ -275,6 +275,172 @@ input {
   margin-top: 1rem;
 }
 
+.tool-page {
+  overflow: visible;
+}
+
+.tool-hero {
+  padding-bottom: 2rem;
+}
+
+.image-tool-shell,
+.tool-content {
+  background: #f5f3ef;
+  color: #111;
+  padding: 2rem;
+}
+
+.image-tool-card {
+  background: #fff;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 1.25rem;
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 1.5rem;
+}
+
+.upload-box {
+  align-items: center;
+  border: 1.5px dashed #b07a10;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.upload-box span,
+.compression-row strong,
+.file-stats strong {
+  color: #111;
+  font-weight: 700;
+}
+
+.upload-box small,
+.compression-row label,
+.file-stats span {
+  color: #6b6256;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.upload-box input {
+  display: none;
+}
+
+.compression-row {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.compression-row div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.compression-row input {
+  accent-color: #b07a10;
+  width: 100%;
+}
+
+.tool-action,
+.download-btn {
+  background: #111;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tool-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.download-btn {
+  background: #b07a10;
+}
+
+.tool-error {
+  color: #a84040;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.file-stats {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.file-stats div {
+  background: #f7f5f0;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.tool-content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tool-copy {
+  background: #fff;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  line-height: 1.7;
+  padding: 1.25rem;
+}
+
+.tool-copy h2 {
+  color: #111;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tool-copy h3 {
+  color: #111;
+  font-size: 0.95rem;
+  margin-top: 0.9rem;
+}
+
+.tool-copy ol,
+.tool-copy ul {
+  padding-left: 1.2rem;
+}
+
+.related-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.related-tools a {
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  color: #111;
+  padding: 0.55rem 0.8rem;
+}
+
 .form-card,
 .result-card {
   background: var(--surface);
@@ -706,9 +872,16 @@ input {
 
   .section,
   .lang-section,
+  .image-tool-shell,
+  .tool-content,
   .features {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .tool-content,
+  .file-stats {
+    grid-template-columns: 1fr;
   }
 
   .features {
