@@ -1,5 +1,6 @@
 import type { Metadata, MetadataRoute } from 'next'
 import { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode } from './seo-config'
+import { sitePages } from './site-structure'
 
 export { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode }
 export const siteUrl = 'https://www.khagatara.com'
@@ -806,6 +807,15 @@ export function liveSitemapEntries(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified, changeFrequency: 'weekly', priority: 1 },
   ]
+  for (const page of sitePages) {
+    if (page.path === '/') continue
+    entries.push({
+      url: absoluteUrl(page.path),
+      lastModified,
+      changeFrequency: page.kind === 'article' ? 'monthly' : 'weekly',
+      priority: page.kind === 'hub' ? 0.9 : 0.75,
+    })
+  }
   for (const [code] of LANGUAGE_CONFIG) {
     for (const topic of TOPIC_DEFS) {
       entries.push({
