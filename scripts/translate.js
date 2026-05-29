@@ -101,7 +101,67 @@ const LANGUAGE_CONFIG = [
   ['as',    'Assamese',             'ltr'],
   ['ug',    'Uyghur',               'rtl'],
   ['sn',    'Shona',                'ltr'],
-  ['ny',    'Chichewa',             'ltr']
+  ['ny',    'Chichewa',             'ltr'],
+
+  // ── Africa ──────────────────────────────────────────────────
+  ['om',    'Oromo',                'ltr'],
+  ['ff',    'Fula',                 'ltr'],
+  ['ln',    'Lingala',              'ltr'],
+  ['bm',    'Bambara',              'ltr'],
+  ['ak',    'Twi',                  'ltr'],
+  ['wo',    'Wolof',                'ltr'],
+  ['lg',    'Luganda',              'ltr'],
+  ['ee',    'Ewe',                  'ltr'],
+  ['tn',    'Tswana',               'ltr'],
+  ['ts',    'Tsonga',               'ltr'],
+  ['nr',    'Ndebele',              'ltr'],
+  ['ve',    'Venda',                'ltr'],
+  ['bem',   'Bemba',                'ltr'],
+  ['zgh',   'Tamazight',            'ltr'],
+
+  // ── Asia ────────────────────────────────────────────────────
+  ['yue',   'Cantonese',            'ltr'],
+  ['mai',   'Maithili',             'ltr'],
+  ['ks',    'Kashmiri',             'rtl'],
+  ['sat',   'Santali',              'ltr'],
+  ['kok',   'Konkani',              'ltr'],
+  ['doi',   'Dogri',                'ltr'],
+  ['mni',   'Manipuri',             'ltr'],
+  ['brx',   'Bodo',                 'ltr'],
+  ['tcy',   'Tulu',                 'ltr'],
+  ['bo',    'Tibetan',              'ltr'],
+  ['tg',    'Tajik',                'ltr'],
+  ['bal',   'Balochi',              'rtl'],
+  ['prs',   'Dari',                 'rtl'],
+  ['ilo',   'Ilocano',              'ltr'],
+  ['hil',   'Hiligaynon',           'ltr'],
+  ['tpi',   'Tok Pisin',            'ltr'],
+  ['dv',    'Dhivehi',              'rtl'],
+  ['dz',    'Dzongkha',             'ltr'],
+  ['syr',   'Assyrian',             'rtl'],
+
+  // ── Americas ────────────────────────────────────────────────
+  ['qu',    'Quechua',              'ltr'],
+  ['gn',    'Guaraní',              'ltr'],
+  ['ay',    'Aymara',               'ltr'],
+  ['nah',   'Nahuatl',              'ltr'],
+
+  // ── Europe ──────────────────────────────────────────────────
+  ['oc',    'Occitan',              'ltr'],
+  ['br',    'Breton',               'ltr'],
+  ['co',    'Corsican',             'ltr'],
+  ['fo',    'Faroese',              'ltr'],
+  ['gd',    'Scots Gaelic',         'ltr'],
+  ['rm',    'Romansh',              'ltr'],
+  ['cnr',   'Montenegrin',          'ltr'],
+  ['an',    'Aragonese',            'ltr'],
+
+  // ── Pacific ─────────────────────────────────────────────────
+  ['mi',    'Maori',                'ltr'],
+  ['sm',    'Samoan',               'ltr'],
+  ['fj',    'Fijian',               'ltr'],
+  ['to',    'Tongan',               'ltr'],
+  ['haw',   'Hawaiian',             'ltr'],
 ]
 
 const TOPIC_KEYS = fs.readdirSync(path.join(__dirname, '../src/content/master'))
@@ -229,6 +289,12 @@ async function translateFile(topicKey, targetLang) {
 
   if (!fs.existsSync(masterPath)) {
     console.error(`Master file for ${topicKey} not found!`)
+    return
+  }
+
+  // ── Skip already-translated files ────────────────────────────────────────
+  if (fs.existsSync(destPath)) {
+    console.log(`  ⏭  [${targetLang}] ${topicKey} already exists — skipping`)
     return
   }
 
