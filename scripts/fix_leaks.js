@@ -62,17 +62,127 @@ function audit() {
 }
 
 // ── Translate ──────────────────────────────────────────────────
-async function translateText(text, targetLang) {
-  if (!text || text.trim() === '') return ''
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
+const DEEPL_FREE_KEY = process.env.DEEPL_API_KEY || ''
+const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY || ''
+
+const DEEPL_LANG_MAP = {
+  'en':'EN','es':'ES','pt':'PT','fr':'FR','it':'IT',
+  'de':'DE','nl':'NL','pl':'PL','ru':'RU','ja':'JA',
+  'zh-cn':'ZH','bg':'BG','cs':'CS','da':'DA','el':'EL',
+  'et':'ET','fi':'FI','hu':'HU','id':'ID','ko':'KO',
+  'lt':'LT','lv':'LV','ro':'RO','sk':'SK','sl':'SL',
+  'sv':'SV','tr':'TR','uk':'UK'
+}
+
+const SANSKRIT_TERMS = [
+  'nakshatra','dasha','rashi','vedic','vimshottari','mahadasha',
+  'antardasha','kundali','jyotish','graha','lagna','ascendant',
+  'chaldean','pythagorean','numerology','astrology','karma',
+  'dharma','pada','atmakaraka','khagatara'
+]
+
+async function tryClaude(text, targetLang) {
+  if (!CLAUDE_API_KEY) return null
   try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': CLAUDE_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `Translate to ${targetLang}.\nKeep Sanskrit/Vedic terms as-is: ${SANSKRIT_TERMS.join(', ')}. Return ONLY the translation:\n\n${text}`
+        }]
+      })
+    })
+    const data = await res.json()
+    if (data?.content?.[0]?.text) return data.content[0].text
+    return null
+  } catch {
+    return null
+  }
+}
+
+async function tryDeepL(text, targetLang) {
+  if (!DEEPL_FREE_KEY) return null
+  const deeplLang = DEEPL_LANG_MAP[targetLang]
+  if (!deeplLang) return null
+  try {
+    const res = await fetch('https://api-free.deepl.com/v2/translate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `DeepL-Auth-Key ${DEEPL_FREE_KEY}`
+      },
+      body: JSON.stringify({ text: [text], target_lang: deeplLang })
+    })
+    const data = await res.json()
+    if (data?.translations?.[0]) return data.translations[0].text
+    return null
+  } catch {
+    return null
+  }
+}
+
+async function tryMyMemory(text, targetLang) {
+  try {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`
+    const res = await fetch(url)
+    const data = await res.json()
+    if (data?.responseStatus === 200 &&
+        data.responseData.translatedText !== text) {
+      return data.responseData.translatedText
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
+async function tryGoogleFree(text, targetLang) {
+  try {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
     const res = await fetch(url)
     const data = await res.json()
     if (data && data[0]) return data[0].map(s => s[0]).join('')
-    return text
+    return null
   } catch {
-    return text // fallback to original on error
+    return null
   }
+}
+
+async function translateText(text, targetLang) {
+  if (!text || text.trim() === '') return ''
+
+  const results = []
+
+  const claude = await tryClaude(text, targetLang)
+  if (claude) results.push({ source: 'claude', text: claude, weight: 4 })
+
+  const deepl = await tryDeepL(text, targetLang)
+  if (deepl) results.push({ source: 'deepl', text: deepl, weight: 3 })
+
+  const mymemory = await tryMyMemory(text, targetLang)
+  if (mymemory) results.push({ source: 'mymemory', text: mymemory, weight: 2 })
+
+  const google = await tryGoogleFree(text, targetLang)
+  if (google) results.push({ source: 'google', text: google, weight: 1 })
+
+  if (results.length === 0) {
+    console.warn(`  ⚠️  All failed [${targetLang}] — keeping original`)
+    return text
+  }
+
+  const claudeResult = results.find(r => r.source === 'claude')
+  if (claudeResult) return claudeResult.text
+
+  const best = results.sort((a, b) => b.weight - a.weight)[0]
+  return best.text
 }
 
 async function delay(ms) {
