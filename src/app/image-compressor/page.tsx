@@ -96,7 +96,7 @@ const softwareJsonLd = {
     'Compress JPG images online',
     'Compress PNG images online',
     'Compress WebP images online',
-    'Target 50 KB, 100 KB, 200 KB, and 500 KB output sizes',
+    'Target 40 KB, 50 KB, 100 KB, 200 KB, and 500 KB output sizes',
     'Browser-side image compression',
     'Drag and drop image upload',
     'Paste image from clipboard',
@@ -120,7 +120,7 @@ const howToJsonLd = {
   description: 'Compress JPG, PNG, and WebP images in your browser for websites, email, forms, and upload limits.',
   step: [
     { '@type': 'HowToStep', name: 'Upload an image', text: 'Choose, drag and drop, or paste a JPG, PNG, or WebP image.' },
-    { '@type': 'HowToStep', name: 'Choose compression', text: 'Select a quality preset or target file size such as 50 KB, 100 KB, 200 KB, or 500 KB.' },
+    { '@type': 'HowToStep', name: 'Choose compression', text: 'Select a quality preset or target file size such as 40 KB, 50 KB, 100 KB, 200 KB, or 500 KB. You can also move the KB slider for a custom target.' },
     { '@type': 'HowToStep', name: 'Compress the image', text: 'Click Compress Image and wait for browser-side compression to finish.' },
     { '@type': 'HowToStep', name: 'Download the result', text: 'Compare the preview, check the saved file size, and download the compressed image.' },
   ],
@@ -171,7 +171,7 @@ export default function ImageCompressorPage() {
           <h2>How to Use</h2>
           <ol>
             <li>Upload, drag and drop, or paste a JPG, PNG, or WebP image.</li>
-            <li>Choose a quality preset, target 50 KB, target 100 KB, target 200 KB, target 500 KB, or adjust the slider.</li>
+            <li>Choose a quality preset, target 40 KB, 50 KB, 100 KB, 200 KB, 500 KB, or move the KB slider for a custom target.</li>
             <li>Click compress and download the smaller image.</li>
           </ol>
         </div>
@@ -187,11 +187,12 @@ export default function ImageCompressorPage() {
         </div>
 
         <div className="tool-copy">
-          <h2>Compress Image to 50KB, 100KB, or 200KB</h2>
+          <h2>Compress Image to 40KB, 50KB, 100KB, or 200KB</h2>
           <p>
-            Many people do not just want a smaller photo. They need to compress image to 50KB, compress image to 100KB,
-            or reduce an image below 200KB for a strict upload limit. That is why this tool includes target-size buttons.
-            Choose 50 KB, 100 KB, 200 KB, or 500 KB and the compressor will try to create a file near that limit.
+            Many people do not just want a smaller photo. They need to compress image to 40KB, compress image to 50KB,
+            compress image to 100KB, or reduce an image below 200KB for a strict upload limit. That is why this tool
+            includes target-size buttons and a live KB slider. Choose 40 KB, 50 KB, 100 KB, 200 KB, or 500 KB, or move
+            the slider to a custom target, and the compressor will try to create a file near that limit.
           </p>
           <p>
             Target-size compression is useful for passport photos, government forms, school applications, job portals,

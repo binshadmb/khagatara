@@ -427,7 +427,7 @@ input {
 }
 
 .target-size-presets {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .compression-presets button,
@@ -458,6 +458,33 @@ input {
   display: grid;
   gap: 0.2rem;
   padding: 0.7rem 0.85rem;
+}
+
+.target-size-control {
+  background: #f7f5f0;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.7rem;
+}
+
+.target-size-control div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.target-size-control label,
+.target-size-control small {
+  color: #6b6256;
+  font-size: 0.72rem;
+}
+
+.target-size-control label {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .privacy-badge strong {

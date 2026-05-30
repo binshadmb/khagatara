@@ -25,6 +25,7 @@ const COMPRESSION_PRESETS: CompressionPreset[] = [
 ]
 
 const TARGET_SIZES: TargetSize[] = [
+  { label: '40 KB', kb: 40 },
   { label: '50 KB', kb: 50 },
   { label: '100 KB', kb: 100 },
   { label: '200 KB', kb: 200 },
@@ -32,6 +33,8 @@ const TARGET_SIZES: TargetSize[] = [
 ]
 
 const MAX_FILE_SIZE_MB = 25
+const MIN_TARGET_KB = 20
+const MAX_TARGET_KB = 1000
 
 function formatBytes(bytes: number) {
   if (!bytes) return '0 KB'
@@ -318,6 +321,22 @@ export default function ImageCompressorTool() {
                 Target {target.label}
               </button>
             ))}
+          </div>
+          <div className="target-size-control">
+            <div>
+              <label htmlFor="target-size">Target Size</label>
+              <strong>{targetKb ? `${targetKb} KB` : 'Off'}</strong>
+            </div>
+            <input
+              id="target-size"
+              min={MIN_TARGET_KB}
+              max={MAX_TARGET_KB}
+              step="10"
+              type="range"
+              value={targetKb ?? 100}
+              onChange={(event) => setTargetKb(Number(event.target.value))}
+            />
+            <small>Move the slider to reduce or increase the target file size before compressing.</small>
           </div>
           <input
             id="quality"
