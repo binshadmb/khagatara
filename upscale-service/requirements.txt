@@ -1,8 +1,4 @@
 fastapi
 uvicorn
 python-multipart
-opencv-contrib-python
-torch
-torchvision
-git+https://github.com/loseys/BasicSR.git
-realesrgan
+requests
