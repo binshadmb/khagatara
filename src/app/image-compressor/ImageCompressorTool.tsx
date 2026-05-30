@@ -35,8 +35,10 @@ const TARGET_SIZES: TargetSize[] = [
 const MAX_FILE_SIZE_MB = 25
 const MIN_TARGET_KB = 20
 const MAX_TARGET_KB = 1000
-const FREE_COMPRESSION_LIMIT = 2
-const FREE_COMPRESSION_COUNT_KEY = 'khagatara:image-compressor:free-count'
+
+type ImageCompressorToolProps = {
+  initialTargetKb?: number
+}
 
 function formatBytes(bytes: number) {
   if (!bytes) return '0 KB'
@@ -72,11 +74,11 @@ function getImageDimensions(url: string) {
   })
 }
 
-export default function ImageCompressorTool() {
+export default function ImageCompressorTool({ initialTargetKb }: ImageCompressorToolProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [file, setFile] = useState<File | null>(null)
   const [quality, setQuality] = useState(70)
-  const [targetKb, setTargetKb] = useState<number | null>(null)
+  const [targetKb, setTargetKb] = useState<number | null>(initialTargetKb ?? null)
   const [originalUrl, setOriginalUrl] = useState('')
   const [compressedFile, setCompressedFile] = useState<File | null>(null)
   const [downloadUrl, setDownloadUrl] = useState('')
@@ -85,11 +87,6 @@ export default function ImageCompressorTool() {
   const [isDragging, setIsDragging] = useState(false)
   const [isCompressing, setIsCompressing] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [freeCompressionsUsed, setFreeCompressionsUsed] = useState(() => {
-    if (typeof window === 'undefined') return 0
-    const storedCount = Number(window.localStorage.getItem(FREE_COMPRESSION_COUNT_KEY) || '0')
-    return Number.isFinite(storedCount) ? Math.max(0, storedCount) : 0
-  })
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
 
@@ -108,8 +105,6 @@ export default function ImageCompressorTool() {
     if (targetKb) return `around ${targetKb} KB`
     return formatBytes(Math.max(1024, Math.round(file.size * (quality / 100))))
   }, [file, quality, targetKb])
-
-  const remainingFreeCompressions = Math.max(0, FREE_COMPRESSION_LIMIT - freeCompressionsUsed)
 
   useEffect(() => {
     return () => {
@@ -224,11 +219,6 @@ export default function ImageCompressorTool() {
       return
     }
 
-    if (freeCompressionsUsed >= FREE_COMPRESSION_LIMIT) {
-      setError('You have used your 2 free compressions in this browser. Please use a premium or account flow to continue.')
-      return
-    }
-
     setIsCompressing(true)
     setProgress(1)
     setError('')
@@ -255,11 +245,6 @@ export default function ImageCompressorTool() {
       setCompressedFile(namedFile)
       setDownloadUrl(nextDownloadUrl)
       setProgress(100)
-      setFreeCompressionsUsed((current) => {
-        const next = Math.min(FREE_COMPRESSION_LIMIT, current + 1)
-        window.localStorage.setItem(FREE_COMPRESSION_COUNT_KEY, String(next))
-        return next
-      })
 
       try {
         setCompressedDimensions(await getImageDimensions(nextDownloadUrl))
@@ -386,16 +371,12 @@ export default function ImageCompressorTool() {
 
           <div className="privacy-badge">
             <strong>Private browser compression</strong>
-            <span>No upload required. Works offline after the page loads.</span>
+            <span>No upload required. Works offline after the page loads. Images wider than 2400px will be resized.</span>
           </div>
 
           <button className="tool-action" type="button" onClick={compressImage} disabled={isCompressing || !file}>
             {isCompressing ? `Compressing ${progress}%` : 'Compress Image'}
           </button>
-
-          <p className="conversion-limit">
-            {remainingFreeCompressions} of {FREE_COMPRESSION_LIMIT} free compressions remaining in this browser.
-          </p>
 
           {isCompressing && (
             <div className="compression-progress" aria-label="Compression progress">

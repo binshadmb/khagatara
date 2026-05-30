@@ -13,6 +13,10 @@ const ImageCompressorTool = dynamic(() => import('./ImageCompressorTool'), {
   ),
 })
 
-export default function ImageCompressorLoader() {
-  return <ImageCompressorTool />
+type ImageCompressorLoaderProps = {
+  initialTargetKb?: number
+}
+
+export default function ImageCompressorLoader({ initialTargetKb }: ImageCompressorLoaderProps) {
+  return <ImageCompressorTool initialTargetKb={initialTargetKb} />
 }
