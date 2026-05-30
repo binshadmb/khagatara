@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-multipart
+basicsr
+realesrgan
+opencv-contrib-python
+torch
+torchvision
