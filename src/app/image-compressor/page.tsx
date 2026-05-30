@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import ImageCompressorTool from './ImageCompressorTool'
+import ImageCompressorLoader from './ImageCompressorLoader'
+
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: 'Image Compressor Online Free - Compress JPG, PNG & WebP Images',
@@ -39,9 +41,31 @@ const faqItems = [
   },
   {
     question: 'What is the best compression setting for websites?',
-    answer: 'For most website images, use Balanced first. If the image is decorative or very large, Maximum Compression can reduce page weight further.',
+    answer: 'For most website images, use Balanced first. If the image is decorative or very large, Smallest File can reduce page weight further.',
+  },
+  {
+    question: 'How do I compress an image to 100 KB?',
+    answer: 'Upload the image, choose the Target 100 KB option, and click Compress Image. The tool will try to reduce the file close to that upload limit while keeping the image usable.',
+  },
+  {
+    question: 'How do I reduce photo size without losing quality?',
+    answer: 'Start with Low Compression (Best Quality) or Balanced. These settings reduce image size while avoiding the harsh artifacts that can appear with very aggressive compression.',
+  },
+  {
+    question: 'Why is my PNG still large after compression?',
+    answer: 'PNG files with many colors, transparency, or screenshot detail may stay large. For photos, JPG or WebP usually compresses better than PNG.',
+  },
+  {
+    question: 'Is JPG or WebP better for websites?',
+    answer: 'WebP is often smaller for modern websites, while JPG remains widely compatible and works well for photos. Test both if your publishing workflow supports them.',
+  },
+  {
+    question: 'Does image compression affect SEO?',
+    answer: 'Yes. Smaller images can improve page speed and Core Web Vitals, which helps visitors and can support better organic performance.',
   },
 ]
+
+const pageUrl = 'https://www.khagatara.com/image-compressor'
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
@@ -56,13 +80,64 @@ const faqJsonLd = {
   })),
 }
 
+const softwareJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Khagatara Image Compressor',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'Any',
+  url: pageUrl,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  featureList: [
+    'Compress JPG images online',
+    'Compress PNG images online',
+    'Compress WebP images online',
+    'Target 50 KB, 100 KB, 200 KB, and 500 KB output sizes',
+    'Browser-side image compression',
+    'Drag and drop image upload',
+    'Paste image from clipboard',
+  ],
+}
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.khagatara.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Image Tools', item: 'https://www.khagatara.com/image-tools' },
+    { '@type': 'ListItem', position: 3, name: 'Image Compressor', item: pageUrl },
+  ],
+}
+
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to compress an image online',
+  description: 'Compress JPG, PNG, and WebP images in your browser for websites, email, forms, and upload limits.',
+  step: [
+    { '@type': 'HowToStep', name: 'Upload an image', text: 'Choose, drag and drop, or paste a JPG, PNG, or WebP image.' },
+    { '@type': 'HowToStep', name: 'Choose compression', text: 'Select a quality preset or target file size such as 50 KB, 100 KB, 200 KB, or 500 KB.' },
+    { '@type': 'HowToStep', name: 'Compress the image', text: 'Click Compress Image and wait for browser-side compression to finish.' },
+    { '@type': 'HowToStep', name: 'Download the result', text: 'Compare the preview, check the saved file size, and download the compressed image.' },
+  ],
+}
+
+const structuredData = [faqJsonLd, softwareJsonLd, breadcrumbJsonLd, howToJsonLd]
+
 export default function ImageCompressorPage() {
   return (
     <main className="page tool-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      {structuredData.map((item) => (
+        <script
+          key={item['@type']}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
+        />
+      ))}
       <nav className="nav">
         <Link className="nav-logo" href="/">
           <div className="tri-wrap" aria-hidden="true">
@@ -89,14 +164,14 @@ export default function ImageCompressorPage() {
         </p>
       </section>
 
-      <ImageCompressorTool />
+      <ImageCompressorLoader />
 
       <section className="tool-content">
         <div className="tool-copy">
           <h2>How to Use</h2>
           <ol>
-            <li>Upload a JPG, PNG, or WEBP image.</li>
-            <li>Choose Low Compression, Balanced, Maximum Compression, or adjust the quality slider.</li>
+            <li>Upload, drag and drop, or paste a JPG, PNG, or WebP image.</li>
+            <li>Choose a quality preset, target 50 KB, target 100 KB, target 200 KB, target 500 KB, or adjust the slider.</li>
             <li>Click compress and download the smaller image.</li>
           </ol>
         </div>
@@ -107,7 +182,64 @@ export default function ImageCompressorPage() {
             <li>Works in the browser, so no server upload is needed for this version.</li>
             <li>Helps reduce page weight for websites and blogs.</li>
             <li>Useful for forms, email attachments, and social posts.</li>
+            <li>Shows before and after previews, dimensions, and saved file size.</li>
           </ul>
+        </div>
+
+        <div className="tool-copy">
+          <h2>Compress Image to 50KB, 100KB, or 200KB</h2>
+          <p>
+            Many people do not just want a smaller photo. They need to compress image to 50KB, compress image to 100KB,
+            or reduce an image below 200KB for a strict upload limit. That is why this tool includes target-size buttons.
+            Choose 50 KB, 100 KB, 200 KB, or 500 KB and the compressor will try to create a file near that limit.
+          </p>
+          <p>
+            Target-size compression is useful for passport photos, government forms, school applications, job portals,
+            visa forms, and online profiles. If the result is still larger than the limit, try a smaller target or crop
+            the image first with the <Link href="/crop-image">Crop Image</Link> tool. If the image dimensions are too
+            large, use the <Link href="/image-resizer">Image Resizer</Link> before compressing.
+          </p>
+        </div>
+
+        <div className="tool-copy">
+          <h2>Compress Images for Online Forms</h2>
+          <p>
+            Online applications often reject images that are too large. A photo may look normal on your phone but still
+            be several megabytes. Use this image size reducer when a form asks for a smaller JPG, PNG, or WebP file.
+            The 100 KB and 200 KB targets are good starting points for job portals, exam forms, profile photos, and
+            document upload pages.
+          </p>
+          <p>
+            For passport-style photos, check both file size and dimensions. Compression reduces file weight, while
+            resizing changes pixel width and height. If your form mentions exact dimensions, resize first, then compress.
+          </p>
+        </div>
+
+        <div className="tool-copy">
+          <h2>Compress Images for Websites</h2>
+          <p>
+            Website images should load quickly without looking damaged. Before uploading to WordPress, Shopify, a blog,
+            or a landing page, compress image for website performance and compare the before and after preview. Smaller
+            files can improve page speed, reduce bandwidth, and make mobile pages feel faster.
+          </p>
+          <p>
+            If you need a different format, try the <Link href="/jpg-to-png">JPG to PNG converter</Link>,{' '}
+            <Link href="/png-to-jpg">PNG to JPG converter</Link>, or <Link href="/webp-to-png">WebP to PNG converter</Link>.
+            For documents, the <Link href="/pdf-compressor">PDF Compressor</Link> can help reduce PDF size too.
+          </p>
+        </div>
+
+        <div className="tool-copy">
+          <h2>Compress Images for Email</h2>
+          <p>
+            Email attachments can fail or send slowly when photos are too large. A quick photo compressor helps shrink
+            images before attaching them to Gmail, Outlook, support tickets, or application emails. For everyday email,
+            Balanced is usually enough. If the message still feels heavy, use Smallest File or a target size like 500 KB.
+          </p>
+          <p>
+            Smaller images also make it easier for recipients on mobile data to open your message. When image quality
+            matters, check the preview before downloading and use Low Compression (Best Quality).
+          </p>
         </div>
 
         <div className="tool-copy">
@@ -144,14 +276,14 @@ export default function ImageCompressorPage() {
             Lossy compression removes some image data to make the file much smaller. JPG compression is the most common
             example. A balanced lossy setting can look nearly identical to the original while creating a noticeably
             smaller file. Push the setting too far and you may see blur, blocky areas, color banding, or rough edges.
-            That is why this tool includes Low Compression, Balanced, and Maximum Compression presets along with the
+            That is why this tool includes Low Compression (Best Quality), Balanced, and Smallest File presets along with the
             manual slider.
           </p>
           <p>
             WebP can support both lossy and lossless compression, which makes it a strong web format. A WebP compressor
             is often useful when you want modern browser support and smaller website assets. For everyday work, start
-            with Balanced. Use Low Compression when image quality is more important than file size, and use Maximum
-            Compression when you need the smallest possible result for sharing or uploading.
+            with Balanced. Use Low Compression (Best Quality) when image quality is more important than file size, and
+            use Smallest File when you need the smallest possible result for sharing or uploading.
           </p>
         </div>
 
