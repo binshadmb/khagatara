@@ -816,6 +816,7 @@ input {
 
 .image-remaker-actions,
 .image-remaker-presets,
+.image-remaker-resolution,
 .image-remaker-targets {
   display: grid;
   gap: 0.6rem;
@@ -833,8 +834,13 @@ input {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.image-remaker-resolution {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .image-remaker-actions button,
 .image-remaker-presets button,
+.image-remaker-resolution button,
 .image-remaker-targets button {
   background: var(--tool-card-soft);
   border: 1px solid var(--tool-border);
@@ -853,10 +859,22 @@ input {
 }
 
 .image-remaker-presets button.active,
+.image-remaker-resolution button.active,
 .image-remaker-targets button.active {
   background: var(--tool-text);
   border-color: var(--tool-text);
   color: var(--tool-card-bg);
+}
+
+.image-remaker-resolution button {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.image-remaker-resolution button small {
+  color: inherit;
+  font-size: 0.68rem;
+  opacity: 0.72;
 }
 
 .image-remaker-slider {

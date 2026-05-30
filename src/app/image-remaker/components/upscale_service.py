@@ -14,12 +14,25 @@ Weights (download once, place in ./weights/):
 
 import io
 import os
+import sys
+import types
 import cv2
 import numpy as np
 import torch
 from fastapi import FastAPI, File, Form, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+
+# BasicSR still imports this old torchvision path. New torchvision versions moved it.
+try:
+    import torchvision.transforms.functional_tensor
+except ModuleNotFoundError:
+    from torchvision.transforms.functional import rgb_to_grayscale
+
+    functional_tensor = types.ModuleType("torchvision.transforms.functional_tensor")
+    functional_tensor.rgb_to_grayscale = rgb_to_grayscale
+    sys.modules["torchvision.transforms.functional_tensor"] = functional_tensor
+
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from realesrgan import RealESRGANer
 
@@ -33,6 +46,11 @@ app.add_middleware(
 )
 
 WEIGHTS_DIR = os.path.join(os.path.dirname(__file__), "weights")
+RESOLUTION_TARGETS = {
+    "2k": 2560,
+    "4k": 3840,
+    "8k": 7680,
+}
 
 # ── Model cache ──────────────────────────────────────────────────────────────
 _models: dict = {}
@@ -87,6 +105,22 @@ def upscale_swinir(img_bgr: np.ndarray) -> np.ndarray:
     return cv2.resize(img_bgr, (w * 4, h * 4), interpolation=cv2.INTER_LANCZOS4)
 
 
+def resize_to_long_edge(img_bgr: np.ndarray, long_edge: int | None) -> np.ndarray:
+    if not long_edge:
+        return img_bgr
+
+    h, w = img_bgr.shape[:2]
+    current_long_edge = max(w, h)
+    if current_long_edge == long_edge:
+        return img_bgr
+
+    scale = long_edge / current_long_edge
+    next_w = max(1, round(w * scale))
+    next_h = max(1, round(h * scale))
+    interpolation = cv2.INTER_LANCZOS4 if scale > 1 else cv2.INTER_AREA
+    return cv2.resize(img_bgr, (next_w, next_h), interpolation=interpolation)
+
+
 def encode_output(img_bgr: np.ndarray, target_kb: int | None) -> tuple[bytes, str]:
     if target_kb is None:
         success, encoded = cv2.imencode(".png", img_bgr)
@@ -123,6 +157,7 @@ async def upscale(
     file: UploadFile = File(...),
     mode: str = Form("realesrgan_x4"),   # realesrgan_x2 | realesrgan_x4 | swinir
     target_kb: int | None = Form(None),
+    resolution_target: str = Form("auto"),
 ):
     # ── Read image ────────────────────────────────────────────────────────────
     data = await file.read()
@@ -155,11 +190,13 @@ async def upscale(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Upscale failed: {str(exc)}")
 
+    output_bgr = resize_to_long_edge(output_bgr, RESOLUTION_TARGETS.get(resolution_target.lower()))
+
     # ── Encode and return ─────────────────────────────────────────────────────
     output_bytes, media_type = encode_output(output_bgr, target_kb)
 
     return StreamingResponse(
         io.BytesIO(output_bytes),
         media_type=media_type,
-        headers={"X-Original-Mode": mode},
+        headers={"X-Original-Mode": mode, "X-Resolution-Target": resolution_target},
     )
