@@ -279,8 +279,17 @@ input {
   overflow: visible;
 }
 
+.tool-page .nav {
+  padding-bottom: 0.85rem;
+  padding-top: 0.85rem;
+}
+
+.tool-page .hero {
+  padding-top: 1.55rem;
+}
+
 .tool-hero {
-  padding-bottom: 2rem;
+  padding-bottom: 1.35rem;
 }
 
 .image-tool-shell,
@@ -290,16 +299,20 @@ input {
   padding: 2rem;
 }
 
+.image-tool-shell {
+  padding-top: 1.45rem;
+}
+
 .image-tool-card {
   background: #fff;
   border: 1px solid #d8d0c2;
   border-radius: 8px;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
   display: grid;
-  gap: 1.25rem;
+  gap: 0.9rem;
   margin: 0 auto;
   max-width: 720px;
-  padding: 1.5rem;
+  padding: 1.2rem;
 }
 
 .upload-box {
@@ -310,7 +323,7 @@ input {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  padding: 2rem 1rem;
+  padding: 1.45rem 1rem;
   text-align: center;
 }
 
@@ -335,11 +348,14 @@ input {
 }
 
 .tool-trust-points {
+  align-items: center;
   color: #356442;
   display: grid;
-  gap: 0.4rem;
-  font-size: 0.82rem;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  font-size: 0.76rem;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .tool-trust-points span::before {
@@ -348,7 +364,7 @@ input {
 
 .compression-row {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .compression-row div {
@@ -374,11 +390,11 @@ input {
   border-radius: 8px;
   color: #111;
   cursor: pointer;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  min-height: 2.5rem;
-  padding: 0.55rem;
+  min-height: 2.25rem;
+  padding: 0.45rem;
 }
 
 .compression-presets button.active {
@@ -398,7 +414,7 @@ input {
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  padding: 0.85rem 1rem;
+  padding: 0.78rem 1rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -429,7 +445,7 @@ input {
   border-radius: 8px;
   display: grid;
   gap: 0.35rem;
-  padding: 1rem;
+  padding: 0.85rem;
   text-align: center;
 }
 
@@ -922,6 +938,10 @@ input {
   }
 
   .compression-presets {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-trust-points {
     grid-template-columns: 1fr;
   }
 
