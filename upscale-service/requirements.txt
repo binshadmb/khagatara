@@ -1,4 +1,8 @@
 fastapi
 uvicorn
 python-multipart
-requests
+opencv-contrib-python-headless
+torch
+torchvision
+basicsr==1.4.2
+realesrgan
