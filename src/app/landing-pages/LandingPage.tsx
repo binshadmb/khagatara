@@ -35,7 +35,13 @@ function toolIntro(page: LandingConfig) {
 
 function renderTool(page: LandingConfig) {
   if (page.tool === 'remaker') {
-    return <ImageRemakerTool initialTargetKb={page.targetKb} initialMode={page.mode} />
+    return (
+      <ImageRemakerTool
+        initialTargetKb={page.targetKb}
+        initialMode={page.mode}
+        initialResolution={page.resolution}
+      />
+    )
   }
 
   return <ImageCompressorLoader initialTargetKb={page.targetKb} />

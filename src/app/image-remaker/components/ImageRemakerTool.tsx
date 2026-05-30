@@ -14,9 +14,18 @@ const MODES = [
 type ImageRemakerToolProps = {
   initialTargetKb?: number
   initialMode?: string
+  initialResolution?: string
 }
 
 const TARGETS = [100, 200, 500, 1024, 2048]
+const RESOLUTIONS = [
+  { label: 'HD', value: 'hd' },
+  { label: '2K', value: '2k' },
+  { label: '4K', value: '4k' },
+  { label: '8K', value: '8k' },
+] as const
+
+type TargetResolution = (typeof RESOLUTIONS)[number]['value']
 
 const FREE_LIMIT = 1
 const FREE_KEY   = 'khagatara:image-remaker:free-count'
@@ -24,6 +33,12 @@ const FREE_KEY   = 'khagatara:image-remaker:free-count'
 function getInitialModeIndex(initialMode?: string) {
   const modeIndex = MODES.findIndex((mode) => mode.apiMode === initialMode)
   return modeIndex >= 0 ? modeIndex : 1
+}
+
+function getInitialResolution(initialResolution?: string): TargetResolution {
+  return RESOLUTIONS.some((resolution) => resolution.value === initialResolution)
+    ? initialResolution as TargetResolution
+    : '4k'
 }
 
 function formatBytes(bytes: number) {
@@ -45,7 +60,7 @@ function getImageDimensions(url: string): Promise<RemakerDimensions> {
   })
 }
 
-export default function ImageRemakerTool({ initialTargetKb, initialMode }: ImageRemakerToolProps) {
+export default function ImageRemakerTool({ initialTargetKb, initialMode, initialResolution }: ImageRemakerToolProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [file,               setFile]               = useState<File | null>(null)
@@ -58,6 +73,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
 
   const [modeIndex,    setModeIndex]    = useState(() => getInitialModeIndex(initialMode))
   const [targetKb,     setTargetKb]     = useState(initialTargetKb ?? 500)
+  const [resolution,   setResolution]   = useState(() => getInitialResolution(initialResolution))
   const [isDragging,   setIsDragging]   = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress,     setProgress]     = useState('')
@@ -151,6 +167,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
       const form = new FormData()
       form.append('file', file)
       form.append('mode', selectedMode.apiMode)
+      form.append('target_resolution', resolution)
       form.append('paid', isPaid ? '1' : '0')
 
       setProgress('Processing with Real-ESRGAN / SwinIR...')
@@ -233,6 +250,19 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
                 title={mode.description}
               >
                 {mode.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="image-remaker-targets">
+            {RESOLUTIONS.map((item) => (
+              <button
+                key={item.value}
+                className={resolution === item.value ? 'active' : ''}
+                type="button"
+                onClick={() => setResolution(item.value)}
+              >
+                {item.label}
               </button>
             ))}
           </div>
