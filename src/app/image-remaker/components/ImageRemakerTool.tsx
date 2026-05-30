@@ -2,17 +2,29 @@
 
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 'react'
 
-type RemakerDimensions = {
-  width: number
-  height: number
-}
+type RemakerDimensions = { width: number; height: number }
+
+// UI mode → API mode key
+const MODES = [
+  { label: 'Increase KB',        apiMode: 'increase_kb',  description: 'Real-ESRGAN 2x — enlarge & enhance' },
+  { label: 'AI-style Upscale',   apiMode: 'ai_upscale',   description: 'Real-ESRGAN 4x — full AI upscale' },
+  { label: 'Screenshot Enhancer',apiMode: 'screenshot',   description: 'SwinIR — sharpens text & UI screenshots' },
+]
 
 const TARGETS = [100, 200, 500, 1024, 2048]
-const MODES = [
-  { label: 'Increase KB', scale: 1.4, quality: 0.92 },
-  { label: 'AI-style Upscale', scale: 2, quality: 0.94 },
-  { label: 'Screenshot Enhancer', scale: 1.6, quality: 0.96 },
-]
+const MODE_BY_KEY: Record<string, number> = {
+  increase_kb: 0,
+  ai_upscale: 1,
+  screenshot: 2,
+}
+
+const FREE_LIMIT = 1
+const FREE_KEY   = 'khagatara:image-remaker:free-count'
+
+type ImageRemakerToolProps = {
+  initialTargetKb?: number
+  initialMode?: string
+}
 
 function formatBytes(bytes: number) {
   if (!bytes) return '0 KB'
@@ -20,76 +32,69 @@ function formatBytes(bytes: number) {
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-function formatDimensions(dimensions: RemakerDimensions | null) {
-  if (!dimensions) return '-'
-  return `${dimensions.width} x ${dimensions.height}`
+function formatDimensions(d: RemakerDimensions | null) {
+  return d ? `${d.width} × ${d.height}` : '-'
 }
 
-function outputName(file: File) {
-  const base = file.name.replace(/\.[^.]+$/, '') || 'image'
-  return `${base}-remade.jpg`
-}
-
-function readImage(url: string) {
-  return new Promise<HTMLImageElement>((resolve, reject) => {
-    const image = new Image()
-    image.onload = () => resolve(image)
-    image.onerror = reject
-    image.src = url
+function getImageDimensions(url: string): Promise<RemakerDimensions> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight })
+    img.onerror = reject
+    img.src = url
   })
 }
 
-function canvasToBlob(canvas: HTMLCanvasElement, quality: number) {
-  return new Promise<Blob>((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) resolve(blob)
-      else reject(new Error('Could not create image output.'))
-    }, 'image/jpeg', quality)
-  })
-}
-
-export default function ImageRemakerTool() {
+export default function ImageRemakerTool({ initialTargetKb, initialMode }: ImageRemakerToolProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const [file, setFile] = useState<File | null>(null)
-  const [originalUrl, setOriginalUrl] = useState('')
-  const [remadeUrl, setRemadeUrl] = useState('')
-  const [remadeFile, setRemadeFile] = useState<File | null>(null)
-  const [originalDimensions, setOriginalDimensions] = useState<RemakerDimensions | null>(null)
-  const [remadeDimensions, setRemadeDimensions] = useState<RemakerDimensions | null>(null)
-  const [targetKb, setTargetKb] = useState(500)
-  const [modeIndex, setModeIndex] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const [isProcessing, setIsProcessing] = useState(false)
-  const [error, setError] = useState('')
 
-  const selectedMode = MODES[modeIndex]
+  const [file,               setFile]               = useState<File | null>(null)
+  const [originalUrl,        setOriginalUrl]        = useState('')
+  const [originalDimensions, setOriginalDimensions] = useState<RemakerDimensions | null>(null)
+
+  const [remadeFile,       setRemadeFile]       = useState<File | null>(null)
+  const [remadeUrl,        setRemadeUrl]        = useState('')
+  const [remadeDimensions, setRemadeDimensions] = useState<RemakerDimensions | null>(null)
+
+  const [modeIndex,    setModeIndex]    = useState(initialMode ? MODE_BY_KEY[initialMode] ?? 1 : 1)
+  const [targetKb,     setTargetKb]     = useState(initialTargetKb ?? 500)
+  const [isDragging,   setIsDragging]   = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [progress,     setProgress]     = useState('')
+  const [error,        setError]        = useState('')
+
+  const [freeUsed, setFreeUsed] = useState(() => {
+    if (typeof window === 'undefined') return 0
+    return Math.max(0, Number(localStorage.getItem(FREE_KEY) ?? 0))
+  })
+
+  const isPaid          = false   // wire to your auth/subscription check
+  const remainingFree   = Math.max(0, FREE_LIMIT - freeUsed)
+  const selectedMode    = MODES[modeIndex]
 
   const beforeAfterLabel = useMemo(() => {
     if (!file || !remadeFile) return null
-    return `${formatBytes(file.size)} to ${formatBytes(remadeFile.size)}`
+    return `${formatBytes(file.size)} → ${formatBytes(remadeFile.size)}`
   }, [file, remadeFile])
 
+  // Revoke object URLs on unmount
   useEffect(() => {
     return () => {
       if (originalUrl) URL.revokeObjectURL(originalUrl)
-      if (remadeUrl) URL.revokeObjectURL(remadeUrl)
+      if (remadeUrl)   URL.revokeObjectURL(remadeUrl)
     }
   }, [originalUrl, remadeUrl])
 
-  async function setSelectedFile(selected: File | null) {
+  // ── File selection ─────────────────────────────────────────────────────────
+  async function selectFile(selected: File | null) {
     setError('')
     setRemadeFile(null)
     setRemadeDimensions(null)
-    if (remadeUrl) URL.revokeObjectURL(remadeUrl)
-    setRemadeUrl('')
-    if (originalUrl) URL.revokeObjectURL(originalUrl)
-    setOriginalUrl('')
+    if (remadeUrl)   { URL.revokeObjectURL(remadeUrl);   setRemadeUrl('') }
+    if (originalUrl) { URL.revokeObjectURL(originalUrl); setOriginalUrl('') }
     setOriginalDimensions(null)
 
-    if (!selected) {
-      setFile(null)
-      return
-    }
+    if (!selected) { setFile(null); return }
 
     if (!selected.type.startsWith('image/')) {
       setFile(null)
@@ -102,84 +107,106 @@ export default function ImageRemakerTool() {
     setOriginalUrl(url)
 
     try {
-      const image = await readImage(url)
-      setOriginalDimensions({ width: image.naturalWidth, height: image.naturalHeight })
-    } catch {
-      setError('Could not read this image.')
-    }
+      setOriginalDimensions(await getImageDimensions(url))
+    } catch { /* non-fatal */ }
   }
 
-  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
-    setSelectedFile(event.target.files?.[0] ?? null)
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    selectFile(e.target.files?.[0] ?? null)
   }
 
-  function handleDragOver(event: DragEvent<HTMLLabelElement>) {
-    event.preventDefault()
-    setIsDragging(true)
+  function handleDragOver(e: DragEvent<HTMLLabelElement>) {
+    e.preventDefault(); setIsDragging(true)
+  }
+  function handleDragLeave() { setIsDragging(false) }
+  function handleDrop(e: DragEvent<HTMLLabelElement>) {
+    e.preventDefault(); setIsDragging(false)
+    selectFile(e.dataTransfer.files?.[0] ?? null)
   }
 
-  function handleDragLeave() {
-    setIsDragging(false)
-  }
-
-  function handleDrop(event: DragEvent<HTMLLabelElement>) {
-    event.preventDefault()
-    setIsDragging(false)
-    setSelectedFile(event.dataTransfer.files?.[0] ?? null)
-  }
-
+  // ── Main upscale call ──────────────────────────────────────────────────────
   async function remakeImage() {
-    if (!file || !originalUrl) {
-      setError('Upload an image first.')
+    if (!file) { setError('Upload an image first.'); return }
+
+    // Free tier gate
+    if (!isPaid && freeUsed >= FREE_LIMIT) {
+      setError(`Free tier allows ${FREE_LIMIT} upscale. Upgrade for unlimited use.`)
+      return
+    }
+
+    // Free tier file size cap
+    if (!isPaid && file.size > 5 * 1024 * 1024) {
+      setError('Free tier supports images up to 5 MB. Upgrade for up to 20 MB.')
       return
     }
 
     setIsProcessing(true)
     setError('')
-    if (remadeUrl) URL.revokeObjectURL(remadeUrl)
-    setRemadeUrl('')
+    setProgress('Sending to AI engine...')
+    if (remadeUrl) { URL.revokeObjectURL(remadeUrl); setRemadeUrl('') }
     setRemadeFile(null)
     setRemadeDimensions(null)
 
     try {
-      const image = await readImage(originalUrl)
-      const canvas = document.createElement('canvas')
-      const scale = selectedMode.scale
-      canvas.width = Math.round(image.naturalWidth * scale)
-      canvas.height = Math.round(image.naturalHeight * scale)
+      const form = new FormData()
+      form.append('file', file)
+      form.append('mode', selectedMode.apiMode)
+      form.append('target_kb', String(targetKb))
+      form.append('paid', isPaid ? '1' : '0')
 
-      const ctx = canvas.getContext('2d')
-      if (!ctx) throw new Error('Canvas is not available.')
-      ctx.imageSmoothingEnabled = true
-      ctx.imageSmoothingQuality = 'high'
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
+      setProgress('Processing with Real-ESRGAN / SwinIR...')
 
-      let quality = selectedMode.quality
-      let blob = await canvasToBlob(canvas, quality)
-      const targetBytes = targetKb * 1024
+      const res = await fetch('/api/upscale', { method: 'POST', body: form })
 
-      while (blob.size > targetBytes && quality > 0.55) {
-        quality -= 0.06
-        blob = await canvasToBlob(canvas, quality)
+      if (!res.ok) {
+        const { error: msg } = await res.json().catch(() => ({ error: 'Upscale failed.' }))
+        throw new Error(msg)
       }
 
-      const nextFile = new File([blob], outputName(file), { type: 'image/jpeg' })
-      const nextUrl = URL.createObjectURL(nextFile)
-      setRemadeFile(nextFile)
-      setRemadeUrl(nextUrl)
-      setRemadeDimensions({ width: canvas.width, height: canvas.height })
-    } catch (err) {
-      console.error('Image remaker failed', err)
-      setError('Image remaking failed. Try another image or a smaller target.')
+      setProgress('Finalising output...')
+
+      const blob     = await res.blob()
+      const ext      = blob.type.includes('jpeg') ? 'jpg' : 'png'
+      const baseName = file.name.replace(/\.[^.]+$/, '')
+      const outFile  = new File([blob], `${baseName}-upscaled.${ext}`, { type: blob.type || 'image/png' })
+      const outUrl   = URL.createObjectURL(outFile)
+
+      setRemadeFile(outFile)
+      setRemadeUrl(outUrl)
+
+      try {
+        setRemadeDimensions(await getImageDimensions(outUrl))
+      } catch { /* non-fatal */ }
+
+      // Increment free usage counter
+      if (!isPaid) {
+        const next = freeUsed + 1
+        setFreeUsed(next)
+        localStorage.setItem(FREE_KEY, String(next))
+      }
+
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Upscale failed. Try another image.'
+      setError(msg)
     } finally {
       setIsProcessing(false)
+      setProgress('')
     }
   }
 
+  function reset() {
+    if (inputRef.current) inputRef.current.value = ''
+    selectFile(null)
+  }
+
+  // ── UI ─────────────────────────────────────────────────────────────────────
   return (
     <section className="image-remaker-shell">
       <div className="image-remaker-layout">
+
+        {/* Controls */}
         <div className="image-remaker-controls">
+
           <label
             className={`image-remaker-upload ${isDragging ? 'is-dragging' : ''}`}
             onDragOver={handleDragOver}
@@ -187,15 +214,16 @@ export default function ImageRemakerTool() {
             onDrop={handleDrop}
           >
             <span>{file ? file.name : 'Upload Image'}</span>
-            <small>Increase KB, upscale, or enhance a screenshot</small>
+            <small>Drag & drop or choose — JPG, PNG, WebP up to {isPaid ? '20 MB' : '5 MB'}</small>
             <input ref={inputRef} accept="image/*" type="file" onChange={handleFileChange} />
           </label>
 
           <div className="image-remaker-actions">
             <button type="button" onClick={() => inputRef.current?.click()}>Choose Image</button>
-            <button type="button" onClick={() => setSelectedFile(null)} disabled={!file}>Reset</button>
+            <button type="button" onClick={reset} disabled={!file}>Reset</button>
           </div>
 
+          {/* Mode selector */}
           <div className="image-remaker-presets">
             {MODES.map((mode, index) => (
               <button
@@ -203,12 +231,14 @@ export default function ImageRemakerTool() {
                 className={modeIndex === index ? 'active' : ''}
                 type="button"
                 onClick={() => setModeIndex(index)}
+                title={mode.description}
               >
                 {mode.label}
               </button>
             ))}
           </div>
 
+          {/* Target KB presets */}
           <div className="image-remaker-targets">
             {TARGETS.map((target) => (
               <button
@@ -222,6 +252,7 @@ export default function ImageRemakerTool() {
             ))}
           </div>
 
+          {/* Target slider */}
           <div className="image-remaker-slider">
             <div>
               <label htmlFor="image-remaker-target">Target Size</label>
@@ -229,44 +260,46 @@ export default function ImageRemakerTool() {
             </div>
             <input
               id="image-remaker-target"
-              min="100"
-              max="2048"
-              step="50"
+              min="100" max="2048" step="50"
               type="range"
               value={targetKb}
-              onChange={(event) => setTargetKb(Number(event.target.value))}
+              onChange={(e) => setTargetKb(Number(e.target.value))}
             />
           </div>
 
-          <button className="image-remaker-primary" type="button" onClick={remakeImage} disabled={!file || isProcessing}>
-            {isProcessing ? 'Remaking...' : 'Remake Image'}
+          <button
+            className="image-remaker-primary"
+            type="button"
+            onClick={remakeImage}
+            disabled={!file || isProcessing}
+          >
+            {isProcessing ? progress || 'Processing...' : 'Remake Image'}
           </button>
+
+          {!isPaid && (
+            <p className="conversion-limit">
+              {remainingFree} of {FREE_LIMIT} free upscale remaining.
+            </p>
+          )}
 
           {error && <p className="tool-error">{error}</p>}
         </div>
 
+        {/* Results */}
         <div className="image-remaker-results">
           <div className="image-remaker-preview-grid">
             <figure>
-              {originalUrl ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={originalUrl} alt="Original image preview" />
-                </>
-              ) : (
-                <div className="preview-placeholder">Original preview</div>
-              )}
+              {originalUrl
+                ? <img src={originalUrl} alt="Original image preview" />
+                : <div className="preview-placeholder">Original preview</div>
+              }
               <figcaption>Original {file ? formatBytes(file.size) : ''}</figcaption>
             </figure>
             <figure>
-              {remadeUrl ? (
-                <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={remadeUrl} alt="Enhanced image preview" />
-                </>
-              ) : (
-                <div className="preview-placeholder">Enhanced preview</div>
-              )}
+              {remadeUrl
+                ? <img src={remadeUrl} alt="AI upscaled image preview" />
+                : <div className="preview-placeholder">Enhanced preview</div>
+              }
               <figcaption>Enhanced {remadeFile ? formatBytes(remadeFile.size) : ''}</figcaption>
             </figure>
           </div>
@@ -285,14 +318,19 @@ export default function ImageRemakerTool() {
             </div>
           </div>
 
-          {beforeAfterLabel && <p className="image-remaker-note">Before vs After: {beforeAfterLabel}</p>}
+          {beforeAfterLabel && (
+            <p className="image-remaker-note">Before vs After: {beforeAfterLabel}</p>
+          )}
 
           {remadeUrl && remadeFile && (
-            <a className="download-btn" href={remadeUrl} download={remadeFile.name}>
-              Download Enhanced Image
-            </a>
+            <div className="download-actions">
+              <a className="download-btn" href={remadeUrl} download={remadeFile.name}>
+                Download Enhanced Image
+              </a>
+            </div>
           )}
         </div>
+
       </div>
     </section>
   )

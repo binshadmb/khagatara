@@ -473,8 +473,7 @@ input {
   text-align: center;
 }
 
-.detected-file,
-.conversion-limit {
+.detected-file {
   background: var(--tool-card-soft);
   border: 1px solid var(--tool-border);
   border-radius: 8px;
@@ -497,10 +496,6 @@ input {
 
 .detected-file strong {
   color: var(--tool-text);
-}
-
-.conversion-limit {
-  text-align: center;
 }
 
 .compression-row {
@@ -988,6 +983,62 @@ input {
   padding: 0.55rem 0.8rem;
 }
 
+.landing-tool-shell {
+  background: var(--tool-page-bg);
+  color: var(--tool-text);
+}
+
+.landing-tool-intro {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 1.2rem 2rem 0;
+}
+
+.landing-tool-intro span {
+  color: var(--tool-muted);
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.landing-tool-intro h2 {
+  color: var(--tool-text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  letter-spacing: 0;
+  margin: 0.25rem 0;
+}
+
+.landing-tool-intro p {
+  color: var(--tool-muted);
+  margin: 0;
+  max-width: 760px;
+}
+
+.landing-faq-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.landing-faq-list details {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.landing-faq-list summary {
+  color: var(--tool-text);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.landing-faq-list p {
+  color: var(--tool-muted);
+  margin-bottom: 0;
+}
+
 html[data-theme="dark"] .tool-page .image-tool-shell,
 html[data-theme="dark"] .tool-page .tool-content,
 html[data-theme="dark"] .tool-page {
@@ -1009,8 +1060,7 @@ html[data-theme="dark"] .tool-page .preview-placeholder,
 html[data-theme="dark"] .tool-page .target-size-control,
 html[data-theme="dark"] .tool-page .compression-presets button,
 html[data-theme="dark"] .tool-page .target-size-presets button,
-html[data-theme="dark"] .tool-page .detected-file,
-html[data-theme="dark"] .tool-page .conversion-limit {
+html[data-theme="dark"] .tool-page .detected-file {
   background: #1e1826;
   border-color: #2e2535;
 }
@@ -1036,8 +1086,7 @@ html[data-theme="midnight"] .tool-page .preview-placeholder,
 html[data-theme="midnight"] .tool-page .target-size-control,
 html[data-theme="midnight"] .tool-page .compression-presets button,
 html[data-theme="midnight"] .tool-page .target-size-presets button,
-html[data-theme="midnight"] .tool-page .detected-file,
-html[data-theme="midnight"] .tool-page .conversion-limit {
+html[data-theme="midnight"] .tool-page .detected-file {
   background: #141840;
   border-color: #252c5a;
 }
