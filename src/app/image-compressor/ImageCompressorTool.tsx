@@ -35,6 +35,8 @@ const TARGET_SIZES: TargetSize[] = [
 const MAX_FILE_SIZE_MB = 25
 const MIN_TARGET_KB = 20
 const MAX_TARGET_KB = 1000
+const FREE_COMPRESSION_LIMIT = 2
+const FREE_COMPRESSION_COUNT_KEY = 'khagatara:image-compressor:free-count'
 
 function formatBytes(bytes: number) {
   if (!bytes) return '0 KB'
@@ -45,6 +47,13 @@ function formatBytes(bytes: number) {
 function formatDimensions(dimensions: ImageDimensions | null) {
   if (!dimensions) return '-'
   return `${dimensions.width} x ${dimensions.height}`
+}
+
+function formatType(file: File | null) {
+  if (!file) return 'No file detected'
+  const fromMime = file.type.split('/')[1]
+  const fromName = file.name.split('.').pop()
+  return (fromMime || fromName || 'image').replace('jpeg', 'jpg').toUpperCase()
 }
 
 function outputName(file: File) {
@@ -76,6 +85,11 @@ export default function ImageCompressorTool() {
   const [isDragging, setIsDragging] = useState(false)
   const [isCompressing, setIsCompressing] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [freeCompressionsUsed, setFreeCompressionsUsed] = useState(() => {
+    if (typeof window === 'undefined') return 0
+    const storedCount = Number(window.localStorage.getItem(FREE_COMPRESSION_COUNT_KEY) || '0')
+    return Number.isFinite(storedCount) ? Math.max(0, storedCount) : 0
+  })
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
 
@@ -94,6 +108,8 @@ export default function ImageCompressorTool() {
     if (targetKb) return `around ${targetKb} KB`
     return formatBytes(Math.max(1024, Math.round(file.size * (quality / 100))))
   }, [file, quality, targetKb])
+
+  const remainingFreeCompressions = Math.max(0, FREE_COMPRESSION_LIMIT - freeCompressionsUsed)
 
   useEffect(() => {
     return () => {
@@ -208,6 +224,11 @@ export default function ImageCompressorTool() {
       return
     }
 
+    if (freeCompressionsUsed >= FREE_COMPRESSION_LIMIT) {
+      setError('You have used your 2 free compressions in this browser. Please use a premium or account flow to continue.')
+      return
+    }
+
     setIsCompressing(true)
     setProgress(1)
     setError('')
@@ -234,6 +255,11 @@ export default function ImageCompressorTool() {
       setCompressedFile(namedFile)
       setDownloadUrl(nextDownloadUrl)
       setProgress(100)
+      setFreeCompressionsUsed((current) => {
+        const next = Math.min(FREE_COMPRESSION_LIMIT, current + 1)
+        window.localStorage.setItem(FREE_COMPRESSION_COUNT_KEY, String(next))
+        return next
+      })
 
       try {
         setCompressedDimensions(await getImageDimensions(nextDownloadUrl))
@@ -290,6 +316,11 @@ export default function ImageCompressorTool() {
           </div>
 
           {notice && <p className="tool-notice">{notice}</p>}
+
+          <div className="detected-file">
+            <span>Detected {formatType(file)}</span>
+            <strong>{file ? formatBytes(file.size) : 'Waiting for upload'}</strong>
+          </div>
 
           <div className="compression-row">
             <div>
@@ -362,6 +393,10 @@ export default function ImageCompressorTool() {
             {isCompressing ? `Compressing ${progress}%` : 'Compress Image'}
           </button>
 
+          <p className="conversion-limit">
+            {remainingFreeCompressions} of {FREE_COMPRESSION_LIMIT} free compressions remaining in this browser.
+          </p>
+
           {isCompressing && (
             <div className="compression-progress" aria-label="Compression progress">
               <span style={{ width: `${progress}%` }} />
@@ -400,7 +435,7 @@ export default function ImageCompressorTool() {
           <div className="file-stats">
             <div>
               <span>Original</span>
-              <strong>{file ? formatBytes(file.size) : '-'}</strong>
+              <strong>{file ? `${formatType(file)} • ${formatBytes(file.size)}` : '-'}</strong>
               <small>{formatDimensions(originalDimensions)}</small>
             </div>
             <div>
@@ -410,7 +445,7 @@ export default function ImageCompressorTool() {
             </div>
             <div>
               <span>Compressed</span>
-              <strong>{compressedFile ? formatBytes(compressedFile.size) : '-'}</strong>
+              <strong>{compressedFile ? `${formatType(compressedFile)} • ${formatBytes(compressedFile.size)}` : '-'}</strong>
               <small>{formatDimensions(compressedDimensions)}</small>
             </div>
             <div>
