@@ -327,6 +327,11 @@ input {
   text-align: center;
 }
 
+.upload-box.is-dragging {
+  background: #fff8e8;
+  border-color: #111;
+}
+
 .upload-box span,
 .compression-row strong,
 .file-stats strong {
@@ -362,12 +367,48 @@ input {
   content: "✓ ";
 }
 
+.tool-inline-actions,
+.download-actions {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tool-inline-actions button,
+.download-actions button {
+  background: #fff;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  color: #111;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-height: 2.3rem;
+  padding: 0.5rem;
+}
+
+.tool-inline-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.tool-notice {
+  background: #eef7ef;
+  border: 1px solid #cfe5d2;
+  border-radius: 8px;
+  color: #356442;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.65rem 0.75rem;
+  text-align: center;
+}
+
 .compression-row {
   display: grid;
   gap: 0.65rem;
 }
 
-.compression-row div {
+.compression-row > div:first-child {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -378,13 +419,19 @@ input {
   width: 100%;
 }
 
-.compression-presets {
+.compression-presets,
+.target-size-presets {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.compression-presets button {
+.target-size-presets {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.compression-presets button,
+.target-size-presets button {
   background: #f7f5f0;
   border: 1px solid #d8d0c2;
   border-radius: 8px;
@@ -397,10 +444,29 @@ input {
   padding: 0.45rem;
 }
 
-.compression-presets button.active {
+.compression-presets button.active,
+.target-size-presets button.active {
   background: #111;
   border-color: #111;
   color: #fff;
+}
+
+.privacy-badge {
+  background: #101010;
+  border-radius: 8px;
+  color: #fff;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem 0.85rem;
+}
+
+.privacy-badge strong {
+  font-size: 0.76rem;
+}
+
+.privacy-badge span {
+  color: #d8d0c2;
+  font-size: 0.72rem;
 }
 
 .tool-action,
@@ -434,10 +500,24 @@ input {
   text-align: center;
 }
 
+.compression-progress {
+  background: #eee8dc;
+  border-radius: 999px;
+  height: 7px;
+  overflow: hidden;
+}
+
+.compression-progress span {
+  background: #b07a10;
+  display: block;
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
 .file-stats {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .file-stats div {
@@ -446,6 +526,53 @@ input {
   display: grid;
   gap: 0.35rem;
   padding: 0.85rem;
+  text-align: center;
+}
+
+.file-stats small {
+  color: #6b6256;
+  font-size: 0.68rem;
+}
+
+.preview-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.preview-grid figure {
+  background: #f7f5f0;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.45rem;
+  overflow: hidden;
+  padding: 0.6rem;
+}
+
+.preview-grid img {
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.preview-grid figcaption {
+  color: #6b6256;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.download-actions {
+  grid-template-columns: 1fr 1fr;
+}
+
+.tool-loading {
+  color: #6b6256;
+  font-size: 0.86rem;
+  padding: 2rem;
   text-align: center;
 }
 
@@ -933,11 +1060,15 @@ input {
   }
 
   .tool-content,
-  .file-stats {
+  .file-stats,
+  .preview-grid,
+  .download-actions,
+  .tool-inline-actions {
     grid-template-columns: 1fr;
   }
 
-  .compression-presets {
+  .compression-presets,
+  .target-size-presets {
     grid-template-columns: 1fr;
   }
 
