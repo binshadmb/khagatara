@@ -3,6 +3,7 @@
 import { ChangeEvent, DragEvent, useEffect, useMemo, useRef, useState } from 'react'
 
 type RemakerDimensions = { width: number; height: number }
+type ResolutionTarget = 'auto' | '2k' | '4k' | '8k'
 
 // UI mode → API mode key
 const MODES = [
@@ -12,6 +13,12 @@ const MODES = [
 ]
 
 const TARGETS = [100, 200, 500, 1024, 2048]
+const RESOLUTION_TARGETS: { label: string; value: ResolutionTarget; detail: string }[] = [
+  { label: 'Auto', value: 'auto', detail: 'AI scale' },
+  { label: '2K', value: '2k', detail: '2560px' },
+  { label: '4K', value: '4k', detail: '3840px' },
+  { label: '8K', value: '8k', detail: '7680px' },
+]
 const MODE_BY_KEY: Record<string, number> = {
   increase_kb: 0,
   ai_upscale: 1,
@@ -58,6 +65,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
 
   const [modeIndex,    setModeIndex]    = useState(initialMode ? MODE_BY_KEY[initialMode] ?? 1 : 1)
   const [targetKb,     setTargetKb]     = useState(initialTargetKb ?? 500)
+  const [resolutionTarget, setResolutionTarget] = useState<ResolutionTarget>('auto')
   const [isDragging,   setIsDragging]   = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress,     setProgress]     = useState('')
@@ -152,6 +160,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
       form.append('file', file)
       form.append('mode', selectedMode.apiMode)
       form.append('target_kb', String(targetKb))
+      form.append('resolution_target', resolutionTarget)
       form.append('paid', isPaid ? '1' : '0')
 
       setProgress('Processing with Real-ESRGAN / SwinIR...')
@@ -238,6 +247,22 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
             ))}
           </div>
 
+          {/* Resolution presets */}
+          <div className="image-remaker-resolution" aria-label="Resolution upgrade target">
+            {RESOLUTION_TARGETS.map((target) => (
+              <button
+                key={target.value}
+                className={resolutionTarget === target.value ? 'active' : ''}
+                type="button"
+                onClick={() => setResolutionTarget(target.value)}
+                title={target.detail}
+              >
+                <span>{target.label}</span>
+                <small>{target.detail}</small>
+              </button>
+            ))}
+          </div>
+
           {/* Target KB presets */}
           <div className="image-remaker-targets">
             {TARGETS.map((target) => (
@@ -256,7 +281,10 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
           <div className="image-remaker-slider">
             <div>
               <label htmlFor="image-remaker-target">Target Size</label>
-              <strong>{targetKb >= 1024 ? `${targetKb / 1024} MB` : `${targetKb} KB`}</strong>
+              <strong>
+                {resolutionTarget === 'auto' ? 'Auto' : resolutionTarget.toUpperCase()} /{' '}
+                {targetKb >= 1024 ? `${targetKb / 1024} MB` : `${targetKb} KB`}
+              </strong>
             </div>
             <input
               id="image-remaker-target"
@@ -313,7 +341,11 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode }: Image
             <b aria-hidden="true">↓</b>
             <div>
               <span>Enhanced</span>
-              <strong>{remadeFile ? formatBytes(remadeFile.size) : `${targetKb} KB target`}</strong>
+              <strong>
+                {remadeFile
+                  ? formatBytes(remadeFile.size)
+                  : `${resolutionTarget === 'auto' ? `${targetKb} KB` : resolutionTarget.toUpperCase()} target`}
+              </strong>
               <small>{formatDimensions(remadeDimensions)}</small>
             </div>
           </div>

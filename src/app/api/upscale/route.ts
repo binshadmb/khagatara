@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
     const file = formData.get('file')
     const uiMode = (formData.get('mode') as string) ?? 'ai_upscale'
     const targetKb = formData.get('target_kb')
+    const resolutionTarget = formData.get('resolution_target')
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json({ error: 'No image file provided.' }, { status: 400 })
@@ -33,6 +34,7 @@ export async function POST(req: NextRequest) {
     upstream.append('file', file)
     upstream.append('mode', MODE_MAP[uiMode] ?? 'realesrgan_x4')
     if (targetKb) upstream.append('target_kb', targetKb)
+    if (resolutionTarget) upstream.append('resolution_target', resolutionTarget)
 
     const serviceRes = await fetch(`${UPSCALE_SERVICE_URL}/upscale`, {
       method: 'POST',
