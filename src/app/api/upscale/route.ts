@@ -1,16 +1,20 @@
-// app/api/upscale/route.ts
-// Proxies browser upload → Python upscale service → returns image to client
-// Never exposes the internal Python service URL to the browser.
+// Proxies browser upload to the Python upscale service and returns the image.
 
 import { NextRequest, NextResponse } from 'next/server'
 
 const UPSCALE_SERVICE_URL = process.env.UPSCALE_SERVICE_URL ?? 'http://localhost:8000'
 
-// Mode map: UI mode string → Python service mode string
 const MODE_MAP: Record<string, string> = {
   increase_kb: 'realesrgan_x2',
   ai_upscale: 'realesrgan_x4',
   screenshot: 'swinir',
+}
+
+const RESOLUTION_MAP: Record<string, string> = {
+  hd: 'hd',
+  '2k': '2k',
+  '4k': '4k',
+  '8k': '8k',
 }
 
 export async function POST(req: NextRequest) {
@@ -18,12 +22,12 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const file = formData.get('file')
     const uiMode = (formData.get('mode') as string) ?? 'ai_upscale'
+    const uiResolution = (formData.get('target_resolution') as string) ?? '4k'
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json({ error: 'No image file provided.' }, { status: 400 })
     }
 
-    // File size guard — free tier max 5 MB, paid max 20 MB
     const isPaid = formData.get('paid') === '1'
     const maxBytes = isPaid ? 20 * 1024 * 1024 : 5 * 1024 * 1024
     if (file.size > maxBytes) {
@@ -34,11 +38,12 @@ export async function POST(req: NextRequest) {
     }
 
     const serviceMode = MODE_MAP[uiMode] ?? 'realesrgan_x4'
+    const serviceResolution = RESOLUTION_MAP[uiResolution] ?? '4k'
 
-    // Forward to Python service
     const upstream = new FormData()
     upstream.append('file', file)
     upstream.append('mode', serviceMode)
+    upstream.append('target_resolution', serviceResolution)
 
     const serviceRes = await fetch(`${UPSCALE_SERVICE_URL}/upscale`, {
       method: 'POST',
@@ -51,7 +56,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Upscale failed. Try a smaller image or different mode.' }, { status: 502 })
     }
 
-    // Stream the PNG back to the browser
     const imageBuffer = await serviceRes.arrayBuffer()
     return new NextResponse(imageBuffer, {
       status: 200,

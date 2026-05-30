@@ -37,6 +37,13 @@ WEIGHTS_DIR = os.path.join(os.path.dirname(__file__), "weights")
 # ── Model cache ──────────────────────────────────────────────────────────────
 _models: dict = {}
 
+TARGET_LONG_EDGE = {
+    "hd": 1920,
+    "2k": 2048,
+    "4k": 4096,
+    "8k": 8192,
+}
+
 def get_realesrgan(scale: int) -> RealESRGANer:
     key = f"realesrgan_x{scale}"
     if key not in _models:
@@ -87,6 +94,23 @@ def upscale_swinir(img_bgr: np.ndarray) -> np.ndarray:
     return cv2.resize(img_bgr, (w * 4, h * 4), interpolation=cv2.INTER_LANCZOS4)
 
 
+def fit_long_edge(img_bgr: np.ndarray, target_resolution: str) -> np.ndarray:
+    target_long_edge = TARGET_LONG_EDGE.get(target_resolution)
+    if not target_long_edge:
+        return img_bgr
+
+    h, w = img_bgr.shape[:2]
+    long_edge = max(h, w)
+    if long_edge == target_long_edge:
+        return img_bgr
+
+    ratio = target_long_edge / long_edge
+    next_w = max(1, round(w * ratio))
+    next_h = max(1, round(h * ratio))
+    interpolation = cv2.INTER_AREA if ratio < 1 else cv2.INTER_LANCZOS4
+    return cv2.resize(img_bgr, (next_w, next_h), interpolation=interpolation)
+
+
 # ── Routes ───────────────────────────────────────────────────────────────────
 
 @app.get("/health")
@@ -98,6 +122,7 @@ def health():
 async def upscale(
     file: UploadFile = File(...),
     mode: str = Form("realesrgan_x4"),   # realesrgan_x2 | realesrgan_x4 | swinir
+    target_resolution: str = Form("4k"),  # hd | 2k | 4k | 8k
 ):
     # ── Read image ────────────────────────────────────────────────────────────
     data = await file.read()
@@ -125,6 +150,8 @@ async def upscale(
         else:
             raise HTTPException(status_code=400, detail=f"Unknown mode: {mode}")
 
+        output_bgr = fit_long_edge(output_bgr, target_resolution.lower())
+
     except HTTPException:
         raise
     except Exception as exc:
@@ -138,5 +165,5 @@ async def upscale(
     return StreamingResponse(
         io.BytesIO(encoded.tobytes()),
         media_type="image/png",
-        headers={"X-Original-Mode": mode},
+        headers={"X-Original-Mode": mode, "X-Target-Resolution": target_resolution},
     )
