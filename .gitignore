@@ -42,3 +42,19 @@ yarn-error.log*
 next-env.d.ts
 
 upscale-service/weights/
+
+# Model weights (all formats)
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.pb
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Large files
+*.zip
+*.tar.gz
