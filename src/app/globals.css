@@ -286,6 +286,7 @@ input {
   --tool-success: #356442;
   --tool-success-bg: #eef7ef;
   --tool-success-border: #cfe5d2;
+  background: var(--tool-page-bg);
   overflow: visible;
 }
 
@@ -551,9 +552,9 @@ input {
 }
 
 .privacy-badge {
-  background: #101010;
+  background: var(--tool-text);
   border-radius: 8px;
-  color: #fff;
+  color: var(--tool-card-bg);
   display: grid;
   gap: 0.2rem;
   padding: 0.7rem 0.85rem;
@@ -591,7 +592,7 @@ input {
 }
 
 .privacy-badge span {
-  color: #d8d0c2;
+  color: var(--tool-card-soft);
   font-size: 0.72rem;
 }
 
@@ -621,7 +622,7 @@ input {
 }
 
 .tool-error {
-  color: #a84040;
+  color: var(--error);
   font-size: 0.85rem;
   text-align: center;
 }
@@ -759,6 +760,66 @@ input {
   border-radius: 8px;
   color: var(--tool-text);
   padding: 0.55rem 0.8rem;
+}
+
+html[data-theme="dark"] .tool-page .image-tool-shell,
+html[data-theme="dark"] .tool-page .tool-content,
+html[data-theme="dark"] .tool-page {
+  background: #0d0b0f;
+}
+
+html[data-theme="dark"] .tool-page .tool-controls,
+html[data-theme="dark"] .tool-page .tool-results,
+html[data-theme="dark"] .tool-page .tool-copy,
+html[data-theme="dark"] .tool-page .image-tool-card {
+  background: #16121d;
+  border-color: #2e2535;
+  color: #cdd6f4;
+}
+
+html[data-theme="dark"] .tool-page .file-stats div,
+html[data-theme="dark"] .tool-page .preview-grid figure,
+html[data-theme="dark"] .tool-page .preview-placeholder,
+html[data-theme="dark"] .tool-page .target-size-control,
+html[data-theme="dark"] .tool-page .compression-presets button,
+html[data-theme="dark"] .tool-page .target-size-presets button,
+html[data-theme="dark"] .tool-page .detected-file,
+html[data-theme="dark"] .tool-page .conversion-limit {
+  background: #1e1826;
+  border-color: #2e2535;
+}
+
+html[data-theme="midnight"] .tool-page .image-tool-shell,
+html[data-theme="midnight"] .tool-page .tool-content,
+html[data-theme="midnight"] .tool-page {
+  background: #060818;
+}
+
+html[data-theme="midnight"] .tool-page .tool-controls,
+html[data-theme="midnight"] .tool-page .tool-results,
+html[data-theme="midnight"] .tool-page .tool-copy,
+html[data-theme="midnight"] .tool-page .image-tool-card {
+  background: #0e1230;
+  border-color: #252c5a;
+  color: #dde4ff;
+}
+
+html[data-theme="midnight"] .tool-page .file-stats div,
+html[data-theme="midnight"] .tool-page .preview-grid figure,
+html[data-theme="midnight"] .tool-page .preview-placeholder,
+html[data-theme="midnight"] .tool-page .target-size-control,
+html[data-theme="midnight"] .tool-page .compression-presets button,
+html[data-theme="midnight"] .tool-page .target-size-presets button,
+html[data-theme="midnight"] .tool-page .detected-file,
+html[data-theme="midnight"] .tool-page .conversion-limit {
+  background: #141840;
+  border-color: #252c5a;
+}
+
+html[data-theme="light"] .tool-page .image-tool-shell,
+html[data-theme="light"] .tool-page .tool-content,
+html[data-theme="light"] .tool-page {
+  background: #f5f3ef;
 }
 
 .form-card,
