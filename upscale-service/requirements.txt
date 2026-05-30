@@ -1,8 +1,8 @@
 fastapi
 uvicorn
 python-multipart
-basicsr
-realesrgan
 opencv-contrib-python
 torch
 torchvision
+basicsr==1.4.2
+realesrgan
