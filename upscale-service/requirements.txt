@@ -4,5 +4,5 @@ python-multipart
 opencv-contrib-python
 torch
 torchvision
-basicsr==1.4.2
+git+https://github.com/loseys/BasicSR.git
 realesrgan
