@@ -350,6 +350,31 @@ input {
   width: 100%;
 }
 
+.compression-presets {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.compression-presets button {
+  background: #f7f5f0;
+  border: 1px solid #d8d0c2;
+  border-radius: 8px;
+  color: #111;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  min-height: 2.5rem;
+  padding: 0.55rem;
+}
+
+.compression-presets button.active {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
 .tool-action,
 .download-btn {
   background: #111;
@@ -881,6 +906,10 @@ input {
 
   .tool-content,
   .file-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .compression-presets {
     grid-template-columns: 1fr;
   }
 
