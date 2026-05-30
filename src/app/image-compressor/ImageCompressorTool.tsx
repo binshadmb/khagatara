@@ -17,9 +17,9 @@ function outputName(file: File) {
 }
 
 const COMPRESSION_PRESETS = [
-  { label: 'Low Compression', quality: 85 },
+  { label: 'Low Compression (Best Quality)', quality: 90 },
   { label: 'Balanced', quality: 70 },
-  { label: 'Maximum Compression', quality: 40 },
+  { label: 'Smallest File', quality: 40 },
 ]
 
 export default function ImageCompressorTool() {
@@ -99,6 +99,12 @@ export default function ImageCompressorTool() {
           <small>JPG, PNG or WEBP</small>
           <input accept="image/*" type="file" onChange={handleFileChange} />
         </label>
+
+        <div className="tool-trust-points" aria-label="Tool privacy and format support">
+          <span>Files never leave your device</span>
+          <span>JPG, PNG & WebP supported</span>
+          <span>Free and unlimited</span>
+        </div>
 
         <div className="compression-row">
           <div>
