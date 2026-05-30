@@ -2,7 +2,7 @@ fastapi
 uvicorn
 python-multipart
 opencv-contrib-python-headless
-torch
-torchvision
+torch==2.0.1
+torchvision==0.15.2
 basicsr==1.4.2
 realesrgan
