@@ -9,12 +9,22 @@ const MODES = [
   { label: 'Increase KB',        apiMode: 'increase_kb',  description: 'Real-ESRGAN 2x — enlarge & enhance' },
   { label: 'AI-style Upscale',   apiMode: 'ai_upscale',   description: 'Real-ESRGAN 4x — full AI upscale' },
   { label: 'Screenshot Enhancer',apiMode: 'screenshot',   description: 'SwinIR — sharpens text & UI screenshots' },
-]
+] as const
+
+type ImageRemakerToolProps = {
+  initialTargetKb?: number
+  initialMode?: string
+}
 
 const TARGETS = [100, 200, 500, 1024, 2048]
 
 const FREE_LIMIT = 1
 const FREE_KEY   = 'khagatara:image-remaker:free-count'
+
+function getInitialModeIndex(initialMode?: string) {
+  const modeIndex = MODES.findIndex((mode) => mode.apiMode === initialMode)
+  return modeIndex >= 0 ? modeIndex : 1
+}
 
 function formatBytes(bytes: number) {
   if (!bytes) return '0 KB'
@@ -35,7 +45,7 @@ function getImageDimensions(url: string): Promise<RemakerDimensions> {
   })
 }
 
-export default function ImageRemakerTool() {
+export default function ImageRemakerTool({ initialTargetKb, initialMode }: ImageRemakerToolProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [file,               setFile]               = useState<File | null>(null)
@@ -46,8 +56,8 @@ export default function ImageRemakerTool() {
   const [remadeUrl,        setRemadeUrl]        = useState('')
   const [remadeDimensions, setRemadeDimensions] = useState<RemakerDimensions | null>(null)
 
-  const [modeIndex,    setModeIndex]    = useState(1)           // default: AI-style Upscale
-  const [targetKb,     setTargetKb]     = useState(500)
+  const [modeIndex,    setModeIndex]    = useState(() => getInitialModeIndex(initialMode))
+  const [targetKb,     setTargetKb]     = useState(initialTargetKb ?? 500)
   const [isDragging,   setIsDragging]   = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress,     setProgress]     = useState('')
