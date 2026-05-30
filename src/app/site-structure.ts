@@ -17,6 +17,7 @@ const imageTools = [
   ['webp-to-png', 'WEBP to PNG'],
   ['image-resizer', 'Image Resizer'],
   ['image-compressor', 'Image Compressor'],
+  ['image-remaker', 'Image Remaker'],
   ['crop-image', 'Crop Image'],
 ] as const
 
