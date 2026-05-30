@@ -455,6 +455,20 @@ export default function ImageCompressorTool() {
             </div>
           </div>
 
+          {file && compressedFile && (
+            <div className="before-after-strip">
+              <div>
+                <span>Original</span>
+                <strong>{formatBytes(file.size)}</strong>
+              </div>
+              <b aria-hidden="true">↓</b>
+              <div>
+                <span>Compressed</span>
+                <strong>{formatBytes(compressedFile.size)}</strong>
+              </div>
+            </div>
+          )}
+
           {downloadUrl && compressedFile && (
             <div className="download-actions">
               <a className="download-btn" href={downloadUrl} download={compressedFile.name}>

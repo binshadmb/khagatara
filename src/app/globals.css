@@ -717,6 +717,232 @@ input {
   text-align: center;
 }
 
+.before-after-strip {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.before-after-strip div {
+  background: var(--tool-card-soft);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem;
+  text-align: center;
+}
+
+.before-after-strip span,
+.before-after-strip small {
+  color: var(--tool-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.before-after-strip strong {
+  color: var(--tool-text);
+}
+
+.image-remaker-shell {
+  background: var(--tool-page-bg);
+  color: var(--tool-text);
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 1.45rem 2rem 2rem;
+}
+
+.image-remaker-layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 460px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.image-remaker-controls,
+.image-remaker-results,
+.image-remaker-price-card {
+  background: var(--tool-card-bg);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.2rem;
+}
+
+.image-remaker-results {
+  align-self: start;
+  position: sticky;
+  top: 1rem;
+}
+
+.image-remaker-upload {
+  align-items: center;
+  border: 1.5px dashed var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.65rem 1rem;
+  text-align: center;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.image-remaker-upload:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+  transform: scale(1.012);
+}
+
+.image-remaker-upload.is-dragging {
+  background: var(--tool-card-soft);
+}
+
+.image-remaker-upload input {
+  display: none;
+}
+
+.image-remaker-upload span,
+.image-remaker-slider strong,
+.image-remaker-price-card strong {
+  color: var(--tool-text);
+  font-weight: 700;
+}
+
+.image-remaker-upload small,
+.image-remaker-slider label {
+  color: var(--tool-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.image-remaker-actions,
+.image-remaker-presets,
+.image-remaker-targets {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.image-remaker-actions {
+  grid-template-columns: 1fr 1fr;
+}
+
+.image-remaker-presets {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.image-remaker-targets {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.image-remaker-actions button,
+.image-remaker-presets button,
+.image-remaker-targets button {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  color: var(--tool-text);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-height: 2.35rem;
+  padding: 0.5rem;
+}
+
+.image-remaker-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.image-remaker-presets button.active,
+.image-remaker-targets button.active {
+  background: var(--tool-text);
+  border-color: var(--tool-text);
+  color: var(--tool-card-bg);
+}
+
+.image-remaker-slider {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.75rem;
+}
+
+.image-remaker-slider div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-remaker-slider input {
+  accent-color: var(--accent);
+  width: 100%;
+}
+
+.image-remaker-primary {
+  background: var(--tool-text);
+  border: none;
+  border-radius: 8px;
+  color: var(--tool-card-bg);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.82rem 1rem;
+  text-transform: uppercase;
+}
+
+.image-remaker-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.image-remaker-preview-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+.image-remaker-preview-grid figure {
+  background: var(--tool-card-soft);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.6rem;
+}
+
+.image-remaker-preview-grid img {
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.image-remaker-preview-grid figcaption,
+.image-remaker-note,
+.image-remaker-price-card p {
+  color: var(--tool-muted);
+  font-size: 0.76rem;
+}
+
+.image-remaker-pricing {
+  background: var(--tool-page-bg);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0 2rem 2rem;
+}
+
+.image-remaker-price-card h3 {
+  color: var(--tool-text);
+}
+
 .tool-content {
   display: grid;
   gap: 1rem;
@@ -1262,6 +1488,8 @@ html[data-theme="light"] .tool-page {
 
   .tool-content,
   .image-tool-layout,
+  .image-remaker-layout,
+  .image-remaker-pricing,
   .file-stats,
   .preview-grid,
   .download-actions,
@@ -1279,6 +1507,10 @@ html[data-theme="light"] .tool-page {
   }
 
   .tool-results {
+    position: static;
+  }
+
+  .image-remaker-results {
     position: static;
   }
 
