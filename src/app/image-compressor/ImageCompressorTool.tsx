@@ -16,6 +16,12 @@ function outputName(file: File) {
   return `${base}-compressed.${ext}`
 }
 
+const COMPRESSION_PRESETS = [
+  { label: 'Low Compression', quality: 85 },
+  { label: 'Balanced', quality: 70 },
+  { label: 'Maximum Compression', quality: 40 },
+]
+
 export default function ImageCompressorTool() {
   const [file, setFile] = useState<File | null>(null)
   const [quality, setQuality] = useState(70)
@@ -98,6 +104,18 @@ export default function ImageCompressorTool() {
           <div>
             <label htmlFor="quality">Compression Quality</label>
             <strong>{quality}%</strong>
+          </div>
+          <div className="compression-presets" aria-label="Compression presets">
+            {COMPRESSION_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                className={quality === preset.quality ? 'active' : ''}
+                type="button"
+                onClick={() => setQuality(preset.quality)}
+              >
+                {preset.label}
+              </button>
+            ))}
           </div>
           <input
             id="quality"
