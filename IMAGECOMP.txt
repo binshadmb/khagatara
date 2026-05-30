@@ -1,0 +1,122 @@
+That's a solid recommendation. Looking at where Khagatara is now, I'd structure the next learning phase like this:
+
+Phase 1 — CRO (Next Topic)
+
+Goal: Turn more visitors into users and buyers.
+
+Learn:
+
+For Cosmic Blueprint
+Landing page psychology
+CTA placement
+Pricing presentation
+Trust signals
+Progress indicators
+FAQ placement
+Checkout friction reduction
+Email confirmation UX
+
+Questions to ask:
+
+Where do users abandon?
+Do they understand what they're buying?
+Is the value obvious in 5 seconds?
+For Free Tools
+How many people upload a file?
+How many complete the action?
+How many use a second tool?
+How many visit premium offerings afterward?
+Phase 2 — Analytics (Immediately After CRO)
+
+Before making major CRO changes, install measurement.
+
+Track:
+
+Tool Events
+Upload Started
+Compression Completed
+Download Clicked
+Second Tool Clicked
+Blueprint Events
+Landing Viewed
+Checkout Started
+Payment Completed
+Report Delivered
+
+Without tracking, CRO becomes guessing.
+
+Phase 3 — Programmatic SEO
+
+This is likely your biggest future traffic lever.
+
+Create keyword-focused pages:
+
+Compress Image to 50KB
+Compress Image to 100KB
+Compress Image to 200KB
+Compress Image to 500KB
+Compress Image for WhatsApp
+Compress Image for Email
+Compress Image for Passport Photo
+
+Then repeat the model for:
+
+PDF tools
+Converters
+Calculators
+Phase 4 — Product Funnels
+
+Start connecting products.
+
+Example:
+
+Free Birth Chart
+↓
+Mini Personality Report
+↓
+Cosmic Blueprint
+↓
+Premium Forecast
+↓
+Yearly Reading
+
+Or:
+
+Image Compressor
+↓
+Image Resizer
+↓
+PDF Compressor
+↓
+Newsletter Signup
+
+Think in journeys, not pages.
+
+Phase 5 — Link Building & Authority
+
+After the site has:
+
+Good UX
+Good CRO
+Good tracking
+Strong content clusters
+
+Then pursue:
+
+Guest posts
+Tool directories
+Product Hunt
+Reddit participation
+Digital PR
+Resource page links
+My adjusted roadmap for Khagatara
+CRO
+Analytics & Event Tracking
+Programmatic SEO
+Funnel Design
+Email Marketing
+Link Building
+Core Web Vitals Optimization
+Digital PR
+
+If you're studying one topic at a time, I'd spend the next block of learning on CRO + Analytics together, because every future improvement becomes much easier once you can measure what users actually do.

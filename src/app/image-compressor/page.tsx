@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import ImageCompressorLoader from './ImageCompressorLoader'
 
-export const revalidate = 86400
-
 export const metadata: Metadata = {
   title: 'Image Compressor Online Free - Compress JPG, PNG & WebP Images',
   description:
@@ -17,12 +15,14 @@ export const metadata: Metadata = {
       'Compress JPG, PNG and WebP images online for free. Reduce image file size instantly in your browser without uploading files to a server.',
     type: 'website',
     url: 'https://www.khagatara.com/image-compressor',
+    images: ['https://www.khagatara.com/og/image-compressor.png'],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Image Compressor Online Free - Compress JPG, PNG & WebP Images',
     description:
       'Compress JPG, PNG and WebP images online for free. Reduce image file size instantly in your browser without uploading files to a server.',
+    images: ['https://www.khagatara.com/og/image-compressor.png'],
   },
 }
 
