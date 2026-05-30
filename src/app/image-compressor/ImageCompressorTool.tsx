@@ -261,164 +261,174 @@ export default function ImageCompressorTool() {
 
   return (
     <section className="image-tool-shell">
-      <div className="image-tool-card">
-        <label
-          className={`upload-box ${isDragging ? 'is-dragging' : ''}`}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <span>{file ? file.name : 'Upload Image'}</span>
-          <small>Drag & drop, choose from gallery, or paste from clipboard</small>
-          <input ref={inputRef} accept="image/*" type="file" onChange={handleFileChange} />
-        </label>
+      <div className="image-tool-layout">
+        <div className="tool-controls">
+          <label
+            className={`upload-box ${isDragging ? 'is-dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <span>{file ? file.name : 'Upload Image'}</span>
+            <small>Drag & drop, choose from gallery, or paste from clipboard</small>
+            <input ref={inputRef} accept="image/*" type="file" onChange={handleFileChange} />
+          </label>
 
-        <div className="tool-trust-points" aria-label="Tool privacy and format support">
-          <span>Files never leave your device</span>
-          <span>No signup</span>
-          <span>Free forever</span>
-          <span>Unlimited use</span>
-          <span>JPG, PNG & WebP supported</span>
-          <span>Processed locally in browser</span>
-        </div>
-
-        <div className="tool-inline-actions">
-          <button type="button" onClick={() => inputRef.current?.click()}>Choose Image</button>
-          <button type="button" onClick={handlePasteFromClipboard}>Paste Image</button>
-          <button type="button" onClick={resetTool} disabled={!file && !compressedFile}>Reset Tool</button>
-        </div>
-
-        {notice && <p className="tool-notice">{notice}</p>}
-
-        <div className="compression-row">
-          <div>
-            <label htmlFor="quality">Compression Quality</label>
-            <strong>{targetKb ? `Target ${targetKb} KB` : `${quality}%`}</strong>
+          <div className="tool-trust-points" aria-label="Tool privacy and format support">
+            <span>Files never leave your device</span>
+            <span>No signup</span>
+            <span>Free forever</span>
+            <span>Unlimited use</span>
+            <span>JPG, PNG & WebP supported</span>
+            <span>Processed locally in browser</span>
           </div>
-          <div className="compression-presets" aria-label="Compression presets">
-            {COMPRESSION_PRESETS.map((preset) => (
-              <button
-                key={preset.label}
-                className={!targetKb && quality === preset.quality ? 'active' : ''}
-                type="button"
-                onClick={() => {
-                  setTargetKb(null)
-                  setQuality(preset.quality)
-                }}
-              >
-                {preset.label}
-              </button>
-            ))}
+
+          <div className="tool-inline-actions">
+            <button type="button" onClick={() => inputRef.current?.click()}>Choose Image</button>
+            <button type="button" onClick={handlePasteFromClipboard}>Paste Image</button>
+            <button type="button" onClick={resetTool} disabled={!file && !compressedFile}>Reset Tool</button>
           </div>
-          <div className="target-size-presets" aria-label="Target file size presets">
-            {TARGET_SIZES.map((target) => (
-              <button
-                key={target.kb}
-                className={targetKb === target.kb ? 'active' : ''}
-                type="button"
-                onClick={() => setTargetKb(target.kb)}
-              >
-                Target {target.label}
-              </button>
-            ))}
-          </div>
-          <div className="target-size-control">
+
+          {notice && <p className="tool-notice">{notice}</p>}
+
+          <div className="compression-row">
             <div>
-              <label htmlFor="target-size">Target Size</label>
-              <strong>{targetKb ? `${targetKb} KB` : 'Off'}</strong>
+              <label htmlFor="quality">Compression Quality</label>
+              <strong>{targetKb ? `Target ${targetKb} KB` : `${quality}%`}</strong>
+            </div>
+            <div className="compression-presets" aria-label="Compression presets">
+              {COMPRESSION_PRESETS.map((preset) => (
+                <button
+                  key={preset.label}
+                  className={!targetKb && quality === preset.quality ? 'active' : ''}
+                  type="button"
+                  onClick={() => {
+                    setTargetKb(null)
+                    setQuality(preset.quality)
+                  }}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+            <div className="target-size-presets" aria-label="Target file size presets">
+              {TARGET_SIZES.map((target) => (
+                <button
+                  key={target.kb}
+                  className={targetKb === target.kb ? 'active' : ''}
+                  type="button"
+                  onClick={() => setTargetKb(target.kb)}
+                >
+                  Target {target.label}
+                </button>
+              ))}
+            </div>
+            <div className="target-size-control">
+              <div>
+                <label htmlFor="target-size">Target Size</label>
+                <strong>{targetKb ? `${targetKb} KB` : 'Off'}</strong>
+              </div>
+              <input
+                id="target-size"
+                min={MIN_TARGET_KB}
+                max={MAX_TARGET_KB}
+                step="10"
+                type="range"
+                value={targetKb ?? 100}
+                onChange={(event) => setTargetKb(Number(event.target.value))}
+              />
+              <small>Move the slider to reduce or increase the target file size before compressing.</small>
             </div>
             <input
-              id="target-size"
-              min={MIN_TARGET_KB}
-              max={MAX_TARGET_KB}
-              step="10"
+              id="quality"
+              min="20"
+              max="95"
+              step="5"
               type="range"
-              value={targetKb ?? 100}
-              onChange={(event) => setTargetKb(Number(event.target.value))}
+              value={quality}
+              onChange={(event) => {
+                setTargetKb(null)
+                setQuality(Number(event.target.value))
+              }}
             />
-            <small>Move the slider to reduce or increase the target file size before compressing.</small>
           </div>
-          <input
-            id="quality"
-            min="20"
-            max="95"
-            step="5"
-            type="range"
-            value={quality}
-            onChange={(event) => {
-              setTargetKb(null)
-              setQuality(Number(event.target.value))
-            }}
-          />
+
+          <div className="privacy-badge">
+            <strong>Private browser compression</strong>
+            <span>No upload required. Works offline after the page loads.</span>
+          </div>
+
+          <button className="tool-action" type="button" onClick={compressImage} disabled={isCompressing || !file}>
+            {isCompressing ? `Compressing ${progress}%` : 'Compress Image'}
+          </button>
+
+          {isCompressing && (
+            <div className="compression-progress" aria-label="Compression progress">
+              <span style={{ width: `${progress}%` }} />
+            </div>
+          )}
+
+          {error && <p className="tool-error">{error}</p>}
         </div>
 
-        <div className="privacy-badge">
-          <strong>Private browser compression</strong>
-          <span>No upload required. Works offline after the page loads.</span>
-        </div>
-
-        <button className="tool-action" type="button" onClick={compressImage} disabled={isCompressing || !file}>
-          {isCompressing ? `Compressing ${progress}%` : 'Compress Image'}
-        </button>
-
-        {isCompressing && (
-          <div className="compression-progress" aria-label="Compression progress">
-            <span style={{ width: `${progress}%` }} />
-          </div>
-        )}
-
-        {error && <p className="tool-error">{error}</p>}
-
-        <div className="file-stats">
-          <div>
-            <span>Original</span>
-            <strong>{file ? formatBytes(file.size) : '-'}</strong>
-            <small>{formatDimensions(originalDimensions)}</small>
-          </div>
-          <div>
-            <span>Estimated</span>
-            <strong>{estimatedSize}</strong>
-            <small>Before compression</small>
-          </div>
-          <div>
-            <span>Compressed</span>
-            <strong>{compressedFile ? formatBytes(compressedFile.size) : '-'}</strong>
-            <small>{formatDimensions(compressedDimensions)}</small>
-          </div>
-          <div>
-            <span>Saved</span>
-            <strong>{compressedFile ? `${reduction}%` : '-'}</strong>
-            <small>{compressedFile ? formatBytes(savedBytes) : '-'}</small>
-          </div>
-        </div>
-
-        {(originalUrl || downloadUrl) && (
+        <div className="tool-results">
           <div className="preview-grid">
-            {originalUrl && (
-              <figure>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={originalUrl} alt="Original uploaded preview" />
-                <figcaption>Original</figcaption>
-              </figure>
-            )}
-            {downloadUrl && (
-              <figure>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={downloadUrl} alt="Compressed image preview" />
-                <figcaption>Compressed</figcaption>
-              </figure>
-            )}
+            <figure>
+              {originalUrl ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={originalUrl} alt="Original uploaded preview" />
+                </>
+              ) : (
+                <div className="preview-placeholder">Original preview</div>
+              )}
+              <figcaption>Original</figcaption>
+            </figure>
+            <figure>
+              {downloadUrl ? (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={downloadUrl} alt="Compressed image preview" />
+                </>
+              ) : (
+                <div className="preview-placeholder">Compressed preview</div>
+              )}
+              <figcaption>Compressed</figcaption>
+            </figure>
           </div>
-        )}
 
-        {downloadUrl && compressedFile && (
-          <div className="download-actions">
-            <a className="download-btn" href={downloadUrl} download={compressedFile.name}>
-              Download Image
-            </a>
-            <button type="button" onClick={compressAnotherImage}>Compress Another Image</button>
+          <div className="file-stats">
+            <div>
+              <span>Original</span>
+              <strong>{file ? formatBytes(file.size) : '-'}</strong>
+              <small>{formatDimensions(originalDimensions)}</small>
+            </div>
+            <div>
+              <span>Estimated</span>
+              <strong>{estimatedSize}</strong>
+              <small>Before compression</small>
+            </div>
+            <div>
+              <span>Compressed</span>
+              <strong>{compressedFile ? formatBytes(compressedFile.size) : '-'}</strong>
+              <small>{formatDimensions(compressedDimensions)}</small>
+            </div>
+            <div>
+              <span>Saved</span>
+              <strong>{compressedFile ? `${reduction}%` : '-'}</strong>
+              <small>{compressedFile ? formatBytes(savedBytes) : '-'}</small>
+            </div>
           </div>
-        )}
+
+          {downloadUrl && compressedFile && (
+            <div className="download-actions">
+              <a className="download-btn" href={downloadUrl} download={compressedFile.name}>
+                Download Image
+              </a>
+              <button type="button" onClick={compressAnotherImage}>Compress Another Image</button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )

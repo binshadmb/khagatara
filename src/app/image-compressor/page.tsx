@@ -297,7 +297,7 @@ export default function ImageCompressorPage() {
           </p>
           <p>
             For WhatsApp and other messaging apps, smaller files are easier to send and faster for the receiver to open.
-            Maximum Compression is often fine for casual sharing. For email, reduce image size before attaching files so
+            Smallest File is often fine for casual sharing. For email, reduce image size before attaching files so
             messages send quickly and avoid attachment limits. A JPG compressor is usually best for photos, while a PNG
             compressor is better for graphics, transparency, and screenshots.
           </p>
