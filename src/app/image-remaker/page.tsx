@@ -3,8 +3,6 @@ import Link from 'next/link'
 import ImageRemakerTool from './components/ImageRemakerTool'
 import ImageRemakerPricing from './pricing'
 
-export const revalidate = 86400
-
 export const metadata: Metadata = {
   title: 'Image Remaker Online - Upscale & Increase Image Size',
   description:
@@ -18,6 +16,13 @@ export const metadata: Metadata = {
       'Upload an image, choose a target size, preview before vs after, and download an enhanced image.',
     type: 'website',
     url: 'https://www.khagatara.com/image-remaker',
+    images: ['https://www.khagatara.com/og/image-remaker.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Image Remaker Online - Upscale & Increase Image Size',
+    description: 'Upload an image and enhance it with Real-ESRGAN AI upscaling.',
+    images: ['https://www.khagatara.com/og/image-remaker.png'],
   },
 }
 
@@ -28,11 +33,11 @@ const imageRemakerFaq = [
   },
   {
     question: 'Is this an AI image upscaler?',
-    answer: 'This first version provides browser-side upscale and enhancement. A deeper AI upscaler backend can be added later as a paid feature.',
+    answer: 'Yes. This tool uses Real-ESRGAN AI upscaling to enhance image resolution and quality.',
   },
   {
     question: 'Can I enhance screenshots?',
-    answer: 'Yes. Choose Screenshot Enhancer to upscale screenshots with high smoothing before downloading the result.',
+    answer: 'Yes. Choose Screenshot Enhancer mode — it uses SwinIR to sharpen text and UI elements in screenshots.',
   },
 ]
 

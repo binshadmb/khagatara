@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const file = formData.get('file')
     const uiMode = (formData.get('mode') as string) ?? 'ai_upscale'
-    const targetKb = formData.get('target_kb')
-    const resolutionTarget = formData.get('resolution_target')
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json({ error: 'No image file provided.' }, { status: 400 })
@@ -41,8 +39,6 @@ export async function POST(req: NextRequest) {
     const upstream = new FormData()
     upstream.append('file', file)
     upstream.append('mode', serviceMode)
-    if (targetKb) upstream.append('target_kb', targetKb)
-    if (resolutionTarget) upstream.append('resolution_target', resolutionTarget)
 
     const serviceRes = await fetch(`${UPSCALE_SERVICE_URL}/upscale`, {
       method: 'POST',
@@ -55,15 +51,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Upscale failed. Try a smaller image or different mode.' }, { status: 502 })
     }
 
+    // Stream the PNG back to the browser
     const imageBuffer = await serviceRes.arrayBuffer()
-    const contentType = serviceRes.headers.get('content-type') ?? 'image/png'
-    const extension = contentType.includes('jpeg') ? 'jpg' : 'png'
-
     return new NextResponse(imageBuffer, {
       status: 200,
       headers: {
-        'Content-Type': contentType,
-        'Content-Disposition': `inline; filename="upscaled.${extension}"`,
+        'Content-Type': 'image/png',
+        'Content-Disposition': 'inline; filename="upscaled.png"',
         'Cache-Control': 'no-store',
       },
     })

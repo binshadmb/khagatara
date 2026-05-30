@@ -1,0 +1,174 @@
+If you're already running an Image Compressor, I'd add the "Image Remaker / Upscaler" as a separate module, not mixed into the compressor logic.
+
+A clean Next.js + FastAPI structure would be:
+
+khagatara-tools/
+│
+├── frontend/
+│   ├── app/
+│   │   ├── image-compressor/
+│   │   │   ├── page.tsx
+│   │   │   └── components/
+│   │   │
+│   │   ├── image-remaker/
+│   │   │   ├── page.tsx
+│   │   │   ├── pricing.tsx
+│   │   │   └── components/
+│   │   │
+│   │   └── api/
+│   │
+│   └── components/
+│       ├── UploadBox.tsx
+│       ├── PricingCard.tsx
+│       ├── ImagePreview.tsx
+│       └── DownloadButton.tsx
+│
+├── backend/
+│   ├── routes/
+│   │   ├── compress.py
+│   │   ├── remaker.py
+│   │   └── billing.py
+│   │
+│   ├── services/
+│   │   ├── compressor.py
+│   │   ├── upscaler.py
+│   │   ├── moderation.py
+│   │   └── target_size.py
+│   │
+│   ├── storage/
+│   │   ├── uploads/
+│   │   └── outputs/
+│   │
+│   └── models/
+│       ├── user.py
+│       └── usage.py
+│
+└── database/
+    ├── users
+    ├── uploads
+    ├── credits
+    └── payments
+Route Design
+Frontend
+/image-remaker
+
+Features:
+
+Upload image
+Select target size
+Preview
+Download
+API
+POST /api/remaker/upload
+POST /api/remaker/process
+GET  /api/remaker/status/{job_id}
+GET  /api/remaker/download/{job_id}
+Target Size Options
+
+User chooses:
+
+100 KB
+200 KB
+500 KB
+1 MB
+2 MB
+Custom
+
+or
+
+Instagram
+LinkedIn
+WhatsApp
+Print Quality
+HD
+4K
+Moderation Layer
+
+Before processing:
+
+moderation.py
+
+Check:
+
+Nudity
+Pornography
+Violence (optional)
+
+If flagged:
+
+{
+  "success": false,
+  "message": "Unsupported image"
+}
+
+This helps with:
+
+AdSense
+Stripe
+Razorpay
+legal compliance
+Usage Limits
+Anonymous
+3 uploads/day
+Registered
+10 uploads/day
+Pro
+Unlimited
+Pricing Example
+Starter
+₹99/month
+100 images
+Pro
+₹299/month
+500 images
+Agency
+₹999/month
+Unlimited
+API Access
+SEO Landing Pages
+
+Create pages like:
+
+/image-remaker
+/image-upscaler
+/image-enhancer
+/increase-image-size
+/convert-100kb-to-500kb
+/instagram-image-enhancer
+
+These rank surprisingly well because users search exact phrases such as:
+
+"increase image size without losing quality"
+"convert 50kb image to 200kb"
+"upscale screenshot online"
+Tech Stack
+
+Backend:
+
+FastAPI
+Pillow
+OpenCV
+Real-ESRGAN
+
+Storage:
+
+Cloudflare R2
+AWS S3
+
+Queue:
+
+Redis
+RQ/Celery
+
+Payments:
+
+Razorpay
+Stripe
+
+If I were building this tomorrow, I'd launch with just 3 features:
+
+Increase image size to desired KB
+AI upscale image
+Screenshot enhancer
+
+Everything else can come later. Those three solve a real problem and are much easier to monetize than a plain image compressor.
