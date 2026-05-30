@@ -300,10 +300,14 @@ input {
 }
 
 .image-tool-shell {
+  margin: 0 auto;
+  max-width: 1240px;
   padding-top: 1.45rem;
 }
 
-.image-tool-card {
+.image-tool-card,
+.tool-controls,
+.tool-results {
   background: #fff;
   border: 1px solid #d8d0c2;
   border-radius: 8px;
@@ -311,8 +315,30 @@ input {
   display: grid;
   gap: 0.9rem;
   margin: 0 auto;
-  max-width: 720px;
   padding: 1.2rem;
+}
+
+.image-tool-card {
+  max-width: 720px;
+}
+
+.image-tool-layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.tool-controls,
+.tool-results {
+  align-self: start;
+  margin: 0;
+}
+
+.tool-results {
+  position: sticky;
+  top: 1rem;
 }
 
 .upload-box {
@@ -544,7 +570,7 @@ input {
 .file-stats {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .file-stats div {
@@ -564,7 +590,7 @@ input {
 .preview-grid {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .preview-grid figure {
@@ -577,11 +603,25 @@ input {
 }
 
 .preview-grid img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   border-radius: 6px;
   height: 100%;
   object-fit: contain;
   width: 100%;
+}
+
+.preview-placeholder {
+  align-items: center;
+  aspect-ratio: 16 / 9;
+  background: #eee8dc;
+  border: 1px dashed #d8d0c2;
+  border-radius: 6px;
+  color: #6b6256;
+  display: flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  justify-content: center;
+  text-align: center;
 }
 
 .preview-grid figcaption {
@@ -1087,6 +1127,7 @@ input {
   }
 
   .tool-content,
+  .image-tool-layout,
   .file-stats,
   .preview-grid,
   .download-actions,
@@ -1101,6 +1142,10 @@ input {
 
   .tool-trust-points {
     grid-template-columns: 1fr;
+  }
+
+  .tool-results {
+    position: static;
   }
 
   .features {
