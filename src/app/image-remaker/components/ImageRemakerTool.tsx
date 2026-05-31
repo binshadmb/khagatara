@@ -62,6 +62,7 @@ function getImageDimensions(url: string): Promise<RemakerDimensions> {
 
 export default function ImageRemakerTool({ initialTargetKb, initialMode, initialResolution }: ImageRemakerToolProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const [file,               setFile]               = useState<File | null>(null)
   const [originalUrl,        setOriginalUrl]        = useState('')
@@ -77,6 +78,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
   const [isDragging,   setIsDragging]   = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress,     setProgress]     = useState('')
+  const [progressValue, setProgressValue] = useState(0)
   const [error,        setError]        = useState('')
 
   const [freeUsed, setFreeUsed] = useState(() => {
@@ -98,8 +100,27 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
     return () => {
       if (originalUrl) URL.revokeObjectURL(originalUrl)
       if (remadeUrl)   URL.revokeObjectURL(remadeUrl)
+      if (progressTimerRef.current) clearInterval(progressTimerRef.current)
     }
   }, [originalUrl, remadeUrl])
+
+  function startProgressTimer() {
+    if (progressTimerRef.current) clearInterval(progressTimerRef.current)
+    progressTimerRef.current = setInterval(() => {
+      setProgressValue((current) => {
+        if (current < 55) return current + 4
+        if (current < 82) return current + 2
+        if (current < 94) return current + 1
+        return current
+      })
+    }, 650)
+  }
+
+  function stopProgressTimer() {
+    if (!progressTimerRef.current) return
+    clearInterval(progressTimerRef.current)
+    progressTimerRef.current = null
+  }
 
   // ── File selection ─────────────────────────────────────────────────────────
   async function selectFile(selected: File | null) {
@@ -159,6 +180,8 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
     setIsProcessing(true)
     setError('')
     setProgress('Sending to AI engine...')
+    setProgressValue(8)
+    startProgressTimer()
     if (remadeUrl) { URL.revokeObjectURL(remadeUrl); setRemadeUrl('') }
     setRemadeFile(null)
     setRemadeDimensions(null)
@@ -170,7 +193,8 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       form.append('target_resolution', resolution)
       form.append('paid', isPaid ? '1' : '0')
 
-      setProgress('Processing with Real-ESRGAN / SwinIR...')
+      setProgress('Processing your image...')
+      setProgressValue((current) => Math.max(current, 35))
 
       const res = await fetch('/api/upscale', { method: 'POST', body: form })
 
@@ -180,6 +204,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       }
 
       setProgress('Finalising output...')
+      setProgressValue(92)
 
       const blob     = await res.blob()
       const ext      = 'png'
@@ -201,12 +226,18 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
         localStorage.setItem(FREE_KEY, String(next))
       }
 
+      setProgressValue(100)
+
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Upscale failed. Try another image.'
       setError(msg)
     } finally {
+      stopProgressTimer()
       setIsProcessing(false)
-      setProgress('')
+      window.setTimeout(() => {
+        setProgress('')
+        setProgressValue(0)
+      }, 450)
     }
   }
 
@@ -254,7 +285,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
             ))}
           </div>
 
-          <div className="image-remaker-targets">
+          <div className="image-remaker-resolution">
             {RESOLUTIONS.map((item) => (
               <button
                 key={item.value}
@@ -304,6 +335,18 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
           >
             {isProcessing ? progress || 'Processing...' : 'Remake Image'}
           </button>
+
+          {isProcessing && (
+            <div className="image-remaker-progress" aria-label="Image regeneration progress">
+              <div>
+                <span>{progress || 'Processing...'}</span>
+                <strong>{progressValue}%</strong>
+              </div>
+              <b>
+                <i style={{ width: `${progressValue}%` }} />
+              </b>
+            </div>
+          )}
 
           {!isPaid && (
             <p className="conversion-limit">
