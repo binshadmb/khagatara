@@ -8,6 +8,10 @@ const nextConfig = {
         source: '/sitemap-1.xml',
         destination: '/sitemap.xml',
       },
+      {
+        source: '/api/upscale-proxy/:path*',
+        destination: 'https://binshad81-khagatara-upscale.hf.space/:path*',
+      },
     ]
   },
 }
