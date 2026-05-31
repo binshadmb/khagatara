@@ -179,7 +179,10 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       setProgress('Processing your image...')
       setProgressValue((current) => Math.max(current, 35))
 
-      const res = await fetch('/api/upscale-proxy/upscale', { method: 'POST', body: form })
+      const res = await fetch('https://khagatara-api.onrender.com/upscale-proxy/upscale', {
+        method: 'POST',
+        body: form,
+      })
 
       if (!res.ok) {
         const contentType = res.headers.get('content-type') || ''
@@ -387,3 +390,4 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
     </section>
   )
 }
+
