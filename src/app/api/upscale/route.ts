@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-const UPSCALE_SERVICE_URL = process.env.UPSCALE_SERVICE_URL ?? 'http://localhost:8000'
+const UPSCALE_SERVICE_URL = 'https://khagatara-api.onrender.com/upscale-proxy'
 
 const MODE_MAP: Record<string, string> = {
   increase_kb: 'realesrgan_x2',
@@ -28,9 +28,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No image file provided.' }, { status: 400 })
     }
 
-    const maxBytes = 20 * 1024 * 1024
+    const isPaid = formData.get('paid') === '1'
+    const maxBytes = isPaid ? 20 * 1024 * 1024 : 5 * 1024 * 1024
     if (file.size > maxBytes) {
-      return NextResponse.json({ error: 'File exceeds 20 MB limit.' }, { status: 413 })
+      return NextResponse.json(
+        { error: isPaid ? 'File exceeds 20 MB limit.' : 'Free tier limit is 5 MB. Upgrade for larger images.' },
+        { status: 413 },
+      )
     }
 
     const serviceMode = MODE_MAP[uiMode] ?? 'realesrgan_x4'
