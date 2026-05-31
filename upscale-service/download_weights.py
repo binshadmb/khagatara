@@ -17,6 +17,22 @@ WEIGHTS = {
         "https://github.com/xinntao/Real-ESRGAN/releases/download/"
         "v0.1.0/RealESRGAN_x4plus.pth"
     ),
+    "GFPGANv1.4.pth": (
+        "https://github.com/TencentARC/GFPGAN/releases/download/"
+        "v1.3.4/GFPGANv1.4.pth"
+    ),
+    "codeformer.pth": (
+        "https://github.com/sczhou/CodeFormer/releases/download/"
+        "v0.1.0/codeformer.pth"
+    ),
+    "detection_Resnet50_Final.pth": (
+        "https://github.com/xinntao/facexlib/releases/download/"
+        "v0.1.0/detection_Resnet50_Final.pth"
+    ),
+    "parsing_parsenet.pth": (
+        "https://github.com/xinntao/facexlib/releases/download/"
+        "v0.2.2/parsing_parsenet.pth"
+    ),
 }
 
 def download(name, url):

@@ -7,3 +7,6 @@ torchvision==0.16.0
 numpy==1.26.4
 basicsr==1.4.2
 realesrgan
+gfpgan
+facexlib
+codeformer-pytorch
