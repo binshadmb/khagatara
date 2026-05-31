@@ -109,7 +109,7 @@ def has_faces(img_bgr: np.ndarray) -> bool:
     return len(bboxes) > 0
 
 
-def restore_faces_codeformer(img_bgr: np.ndarray, fidelity: float = 0.7) -> np.ndarray:
+def restore_faces_codeformer(img_bgr: np.ndarray, fidelity: float = 0.5) -> np.ndarray:
     helper = FaceRestoreHelper(
         upscale_factor=1,
         face_size=512,
@@ -182,28 +182,35 @@ async def upscale(
         faces_present = has_faces(img_bgr)
 
         if mode == "realesrgan_x2":
-            upscaler = get_realesrgan(2)
-            output_bgr, _ = upscaler.enhance(img_bgr, outscale=2)
             if faces_present:
-                output_bgr = restore_faces_codeformer(output_bgr, fidelity=0.75)
+                output_bgr = restore_faces_codeformer(img_bgr, fidelity=0.5)
+                upscaler = get_realesrgan(2)
+                output_bgr, _ = upscaler.enhance(output_bgr, outscale=2)
+            else:
+                upscaler = get_realesrgan(2)
+                output_bgr, _ = upscaler.enhance(img_bgr, outscale=2)
 
         elif mode == "realesrgan_x4":
-            upscaler = get_realesrgan(4)
-            output_bgr, _ = upscaler.enhance(img_bgr, outscale=4)
             if faces_present:
-                output_bgr = restore_faces_codeformer(output_bgr, fidelity=0.75)
+                output_bgr = restore_faces_codeformer(img_bgr, fidelity=0.5)
+                upscaler = get_realesrgan(4)
+                output_bgr, _ = upscaler.enhance(output_bgr, outscale=4)
+            else:
+                upscaler = get_realesrgan(4)
+                output_bgr, _ = upscaler.enhance(img_bgr, outscale=4)
 
         elif mode == "swinir":
             upscaler = get_realesrgan(2)
             output_bgr, _ = upscaler.enhance(img_bgr, outscale=2)
-            if faces_present:
-                output_bgr = restore_faces_codeformer(output_bgr, fidelity=0.9)
 
         elif mode == "auto":
-            upscaler = get_realesrgan(4)
-            output_bgr, _ = upscaler.enhance(img_bgr, outscale=4)
             if faces_present:
-                output_bgr = restore_faces_codeformer(output_bgr, fidelity=0.8)
+                output_bgr = restore_faces_codeformer(img_bgr, fidelity=0.5)
+                upscaler = get_realesrgan(4)
+                output_bgr, _ = upscaler.enhance(output_bgr, outscale=4)
+            else:
+                upscaler = get_realesrgan(4)
+                output_bgr, _ = upscaler.enhance(img_bgr, outscale=4)
 
         else:
             raise HTTPException(status_code=400, detail=f"Unknown mode: {mode}")
