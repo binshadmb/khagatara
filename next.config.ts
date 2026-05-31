@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         source: '/api/upscale-proxy/:path*',
-        destination: 'https://binshad81-khagatara-upscale.hf.space/:path*',
+        destination: 'https://khagatara-api.onrender.com/upscale-proxy/:path*',
       },
     ]
   },
