@@ -179,7 +179,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       setProgress('Processing your image...')
       setProgressValue((current) => Math.max(current, 35))
 
-      const res = await fetch('/api/upscale', { method: 'POST', body: form })
+      const res = await fetch('/api/upscale-proxy/upscale', { method: 'POST', body: form })
 
       if (!res.ok) {
         const { error: msg } = await res.json().catch(() => ({ error: 'Upscale failed.' }))
