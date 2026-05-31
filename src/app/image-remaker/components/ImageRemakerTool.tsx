@@ -182,7 +182,11 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       const res = await fetch('/api/upscale-proxy/upscale', { method: 'POST', body: form })
 
       if (!res.ok) {
-        const { error: msg } = await res.json().catch(() => ({ error: 'Upscale failed.' }))
+        const contentType = res.headers.get('content-type') || ''
+        const msg = contentType.includes('application/json')
+          ? await res.json().then((body) => body.error || body.detail || 'Upscale failed.')
+          : await res.text().then((text) => text || 'Upscale failed.')
+
         throw new Error(msg)
       }
 
