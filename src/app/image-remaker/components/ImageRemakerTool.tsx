@@ -27,9 +27,6 @@ const RESOLUTIONS = [
 
 type TargetResolution = (typeof RESOLUTIONS)[number]['value']
 
-const FREE_LIMIT = 1
-const FREE_KEY   = 'khagatara:image-remaker:free-count'
-
 function getInitialModeIndex(initialMode?: string) {
   const modeIndex = MODES.findIndex((mode) => mode.apiMode === initialMode)
   return modeIndex >= 0 ? modeIndex : 1
@@ -81,13 +78,6 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
   const [progressValue, setProgressValue] = useState(0)
   const [error,        setError]        = useState('')
 
-  const [freeUsed, setFreeUsed] = useState(() => {
-    if (typeof window === 'undefined') return 0
-    return Math.max(0, Number(localStorage.getItem(FREE_KEY) ?? 0))
-  })
-
-  const isPaid          = false   // wire to your auth/subscription check
-  const remainingFree   = Math.max(0, FREE_LIMIT - freeUsed)
   const selectedMode    = MODES[modeIndex]
 
   const beforeAfterLabel = useMemo(() => {
@@ -110,7 +100,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       setProgressValue((current) => {
         if (current < 55) return current + 4
         if (current < 82) return current + 2
-        if (current < 94) return current + 1
+        if (current < 98) return current + 1
         return current
       })
     }, 650)
@@ -165,15 +155,8 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
   async function remakeImage() {
     if (!file) { setError('Upload an image first.'); return }
 
-    // Free tier gate
-    if (!isPaid && freeUsed >= FREE_LIMIT) {
-      setError(`Free tier allows ${FREE_LIMIT} upscale. Upgrade for unlimited use.`)
-      return
-    }
-
-    // Free tier file size cap
-    if (!isPaid && file.size > 5 * 1024 * 1024) {
-      setError('Free tier supports images up to 5 MB. Upgrade for up to 20 MB.')
+    if (file.size > 20 * 1024 * 1024) {
+      setError('Images up to 20 MB are supported.')
       return
     }
 
@@ -191,7 +174,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       form.append('file', file)
       form.append('mode', selectedMode.apiMode)
       form.append('target_resolution', resolution)
-      form.append('paid', isPaid ? '1' : '0')
+      form.append('paid', '1')
 
       setProgress('Processing your image...')
       setProgressValue((current) => Math.max(current, 35))
@@ -203,10 +186,13 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
         throw new Error(msg)
       }
 
-      setProgress('Finalising output...')
+      setProgress('Downloading enhanced image...')
       setProgressValue(92)
 
       const blob     = await res.blob()
+      setProgress('Finalising output...')
+      setProgressValue(98)
+
       const ext      = 'png'
       const baseName = file.name.replace(/\.[^.]+$/, '')
       const outFile  = new File([blob], `${baseName}-upscaled.${ext}`, { type: 'image/png' })
@@ -218,13 +204,6 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
       try {
         setRemadeDimensions(await getImageDimensions(outUrl))
       } catch { /* non-fatal */ }
-
-      // Increment free usage counter
-      if (!isPaid) {
-        const next = freeUsed + 1
-        setFreeUsed(next)
-        localStorage.setItem(FREE_KEY, String(next))
-      }
 
       setProgressValue(100)
 
@@ -261,7 +240,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
             onDrop={handleDrop}
           >
             <span>{file ? file.name : 'Upload Image'}</span>
-            <small>Drag & drop or choose — JPG, PNG, WebP up to {isPaid ? '20 MB' : '5 MB'}</small>
+            <small>Drag & drop or choose — JPG, PNG, WebP up to 20 MB</small>
             <input ref={inputRef} accept="image/*" type="file" onChange={handleFileChange} />
           </label>
 
@@ -337,7 +316,10 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
           </button>
 
           {isProcessing && (
-            <div className="image-remaker-progress" aria-label="Image regeneration progress">
+            <div
+              className={`image-remaker-progress ${progressValue >= 94 ? 'is-waiting' : ''}`}
+              aria-label="Image regeneration progress"
+            >
               <div>
                 <span>{progress || 'Processing...'}</span>
                 <strong>{progressValue}%</strong>
@@ -346,12 +328,6 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
                 <i style={{ width: `${progressValue}%` }} />
               </b>
             </div>
-          )}
-
-          {!isPaid && (
-            <p className="conversion-limit">
-              {remainingFree} of {FREE_LIMIT} free upscale remaining.
-            </p>
           )}
 
           {error && <p className="tool-error">{error}</p>}
