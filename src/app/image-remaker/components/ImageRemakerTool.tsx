@@ -6,6 +6,7 @@ type RemakerDimensions = { width: number; height: number }
 
 // UI mode → API mode key
 const MODES = [
+  { label: 'Auto',               apiMode: 'auto',        description: 'Smart — detects faces and picks best AI' },
   { label: 'Increase KB',        apiMode: 'increase_kb',  description: 'Real-ESRGAN 2x — enlarge & enhance' },
   { label: 'AI-style Upscale',   apiMode: 'ai_upscale',   description: 'Real-ESRGAN 4x — full AI upscale' },
   { label: 'Screenshot Enhancer',apiMode: 'screenshot',   description: 'SwinIR — sharpens text & UI screenshots' },
@@ -29,13 +30,13 @@ type TargetResolution = (typeof RESOLUTIONS)[number]['value']
 
 function getInitialModeIndex(initialMode?: string) {
   const modeIndex = MODES.findIndex((mode) => mode.apiMode === initialMode)
-  return modeIndex >= 0 ? modeIndex : 1
+  return modeIndex >= 0 ? modeIndex : 0
 }
 
 function getInitialResolution(initialResolution?: string): TargetResolution {
   return RESOLUTIONS.some((resolution) => resolution.value === initialResolution)
     ? initialResolution as TargetResolution
-    : '4k'
+    : 'hd'
 }
 
 function formatBytes(bytes: number) {
@@ -77,6 +78,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
   const [progress,     setProgress]     = useState('')
   const [progressValue, setProgressValue] = useState(0)
   const [error,        setError]        = useState('')
+  const [autoDetectedPipeline, setAutoDetectedPipeline] = useState('')
 
   const selectedMode    = MODES[modeIndex]
 
@@ -151,6 +153,46 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
     selectFile(e.dataTransfer.files?.[0] ?? null)
   }
 
+  async function compressFile(input: File): Promise<File> {
+    return new Promise((resolve) => {
+      const img = new Image()
+      const url = URL.createObjectURL(input)
+
+      img.onload = () => {
+        const maxSize = 1600
+        let { naturalWidth: width, naturalHeight: height } = img
+
+        if (width > maxSize || height > maxSize) {
+          const ratio = Math.min(maxSize / width, maxSize / height)
+          width = Math.round(width * ratio)
+          height = Math.round(height * ratio)
+        }
+
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        canvas.getContext('2d')?.drawImage(img, 0, 0, width, height)
+        URL.revokeObjectURL(url)
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) { resolve(input); return }
+            resolve(new File([blob], input.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }))
+          },
+          'image/jpeg',
+          0.82,
+        )
+      }
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url)
+        resolve(input)
+      }
+
+      img.src = url
+    })
+  }
+
   // ── Main upscale call ──────────────────────────────────────────────────────
   async function remakeImage() {
     if (!file) { setError('Upload an image first.'); return }
@@ -166,12 +208,16 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
     setProgressValue(8)
     startProgressTimer()
     if (remadeUrl) { URL.revokeObjectURL(remadeUrl); setRemadeUrl('') }
+    setAutoDetectedPipeline('')
     setRemadeFile(null)
     setRemadeDimensions(null)
 
     try {
+      setProgress('Optimising image for upload...')
+      const uploadFile = await compressFile(file)
+
       const form = new FormData()
-      form.append('file', file)
+      form.append('file', uploadFile)
       form.append('mode', selectedMode.apiMode)
       form.append('target_resolution', resolution)
       form.append('paid', '1')
@@ -183,6 +229,14 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
         method: 'POST',
         body: form,
       })
+
+      const pipeline = res.headers.get('X-Pipeline-Used') ?? ''
+      const facesFound = res.headers.get('X-Faces-Detected') === 'true'
+      if (selectedMode.apiMode === 'auto' && pipeline) {
+        setAutoDetectedPipeline(facesFound ? 'Faces detected → CodeFormer applied' : 'No faces → RealESRGAN only')
+      } else {
+        setAutoDetectedPipeline('')
+      }
 
       if (!res.ok) {
         const contentType = res.headers.get('content-type') || ''
@@ -338,6 +392,9 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
           )}
 
           {error && <p className="tool-error">{error}</p>}
+          {autoDetectedPipeline && (
+            <p className="tool-note">{autoDetectedPipeline}</p>
+          )}
         </div>
 
         {/* Results */}

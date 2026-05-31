@@ -8,6 +8,7 @@ const MODE_MAP: Record<string, string> = {
   increase_kb: 'realesrgan_x2',
   ai_upscale: 'realesrgan_x4',
   screenshot: 'swinir',
+  auto: 'auto',
 }
 
 const RESOLUTION_MAP: Record<string, string> = {
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData()
     const file = formData.get('file')
     const uiMode = (formData.get('mode') as string) ?? 'ai_upscale'
-    const uiResolution = (formData.get('target_resolution') as string) ?? '4k'
+    const uiResolution = (formData.get('target_resolution') as string) ?? 'hd'
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json({ error: 'No image file provided.' }, { status: 400 })
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
     }
 
     const serviceMode = MODE_MAP[uiMode] ?? 'realesrgan_x4'
-    const serviceResolution = RESOLUTION_MAP[uiResolution] ?? '4k'
+    const serviceResolution = RESOLUTION_MAP[uiResolution] ?? 'hd'
 
     const upstream = new FormData()
     upstream.append('file', file)
@@ -63,6 +64,8 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'image/png',
         'Content-Disposition': 'inline; filename="upscaled.png"',
         'Cache-Control': 'no-store',
+        'X-Faces-Detected': serviceRes.headers.get('X-Faces-Detected') ?? '',
+        'X-Pipeline-Used': serviceRes.headers.get('X-Pipeline-Used') ?? '',
       },
     })
   } catch (err) {
