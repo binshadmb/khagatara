@@ -51,11 +51,15 @@ class Enhancer:
         import sys
         import torch
 
-        sys.path.insert(0, "/opt/CodeFormer")
         from basicsr.archs.rrdbnet_arch import RRDBNet
-        from basicsr.archs.codeformer_arch import CodeFormer
         from basicsr.utils.download_util import load_file_from_url
         from realesrgan import RealESRGANer
+
+        sys.path.insert(0, "/opt/CodeFormer")
+        import basicsr
+
+        basicsr.__path__.append("/opt/CodeFormer/basicsr")
+        from basicsr.archs.codeformer_arch import CodeFormer
 
         pathlib.Path(MODEL_DIR).mkdir(parents=True, exist_ok=True)
         realesrgan_path = f"{MODEL_DIR}/RealESRGAN_x4plus.pth"
