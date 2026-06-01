@@ -1,28 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const PACKS: Record<string, { credits: number; amount: number }> = {
-  starter: { credits: 5, amount: 9900 },
-  popular: { credits: 15, amount: 24900 },
-  pro: { credits: 40, amount: 59900 },
+const PRICING: Record<string, Record<string, number>> = {
+  IN: { '4k': 4900, '8k': 7900 },
+  ASIA: { '4k': 9900, '8k': 14900 },
+  GLOBAL: { '4k': 24900, '8k': 39900 },
+}
+
+function getPricingTier(country: string): string {
+  if (country === 'IN') return 'IN'
+  const asiaTier = ['SG', 'MY', 'TH', 'PH', 'ID', 'VN', 'AE', 'SA', 'QA', 'KW', 'BH', 'OM']
+  if (asiaTier.includes(country)) return 'ASIA'
+  return 'GLOBAL'
 }
 
 export async function POST(req: NextRequest) {
-  const { pack, email } = await req.json()
-  const selected = PACKS[pack]
+  const { resolution, email } = await req.json()
 
-  if (!selected) {
-    return NextResponse.json({ error: 'Invalid pack.' }, { status: 400 })
-  }
-
-  if (!email) {
-    return NextResponse.json({ error: 'Email is required.' }, { status: 400 })
+  if (!email || !resolution) {
+    return NextResponse.json({ error: 'Email and resolution are required.' }, { status: 400 })
   }
 
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
     return NextResponse.json({ error: 'Razorpay is not configured.' }, { status: 503 })
   }
 
-  const auth = Buffer.from(`${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`).toString('base64')
+  const country = req.headers.get('x-vercel-ip-country') ?? 'IN'
+  const tier = getPricingTier(country)
+  const amount = PRICING[tier][resolution] ?? PRICING.IN['4k']
+
+  const auth = Buffer.from(
+    `${process.env.RAZORPAY_KEY_ID}:${process.env.RAZORPAY_KEY_SECRET}`,
+  ).toString('base64')
+
   const orderRes = await fetch('https://api.razorpay.com/v1/orders', {
     method: 'POST',
     headers: {
@@ -30,9 +39,9 @@ export async function POST(req: NextRequest) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      amount: selected.amount,
+      amount,
       currency: 'INR',
-      notes: { email, credits: String(selected.credits) },
+      notes: { email, resolution, tier },
     }),
   })
 
@@ -43,8 +52,10 @@ export async function POST(req: NextRequest) {
   const order = await orderRes.json()
   return NextResponse.json({
     order_id: order.id,
-    amount: selected.amount,
-    credits: selected.credits,
+    amount,
+    resolution,
     email,
+    tier,
+    display_price: `₹${(amount / 100).toFixed(0)}`,
   })
 }
