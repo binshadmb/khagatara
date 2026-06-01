@@ -26,6 +26,7 @@ image = (
         "facexlib>=0.3.0",
         "fastapi",
         "gfpgan>=1.3.8",
+        "numpy<2",
         "opencv-python-headless",
         "Pillow",
         "python-multipart",
