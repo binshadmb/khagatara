@@ -2326,6 +2326,20 @@ html[data-theme="light"] .tool-page {
   color: var(--btn-txt);
 }
 
+.studio-draggable-hero {
+  cursor: grab;
+  touch-action: none;
+  transition: box-shadow 0.18s ease;
+  user-select: none;
+  will-change: transform;
+}
+
+.studio-draggable-hero.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
