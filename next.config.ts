@@ -4,6 +4,14 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID ?? '',
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '25mb',
+    },
+  },
+  httpAgentOptions: {
+    keepAlive: true,
+  },
 
   async rewrites() {
     return [
