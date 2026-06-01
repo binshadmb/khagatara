@@ -169,7 +169,8 @@ export default function StudioTool() {
         const data = contentType.includes('application/json')
           ? await res.json()
           : { error: await res.text() }
-        throw new Error(data.error || 'Enhancement failed.')
+        const message = data.error || 'Enhancement failed.'
+        throw new Error(message.length > 240 ? `${message.slice(0, 240)}...` : message)
       }
 
       setProgress('Downloading enhanced image...')
