@@ -26,6 +26,7 @@ image = (
         "facexlib>=0.3.0",
         "fastapi",
         "gfpgan>=1.3.8",
+        "lpips",
         "numpy<2",
         "opencv-python-headless",
         "Pillow",
@@ -33,6 +34,9 @@ image = (
         "realesrgan>=0.3.0",
     )
     .run_commands("git clone --depth 1 https://github.com/sczhou/CodeFormer.git /opt/CodeFormer")
+    .run_commands(
+        "printf \"__version__ = '0.1.0'\\n__gitsha__ = 'modal'\\n\" > /opt/CodeFormer/basicsr/version.py"
+    )
 )
 
 app = modal.App("khagatara-premium", image=image)
