@@ -18,6 +18,7 @@ const imageTools = [
   ['image-resizer', 'Image Resizer'],
   ['image-compressor', 'Image Compressor'],
   ['image-remaker', 'Image Remaker'],
+  ['studio', 'Khagatara Studio'],
   ['crop-image', 'Crop Image'],
 ] as const
 
