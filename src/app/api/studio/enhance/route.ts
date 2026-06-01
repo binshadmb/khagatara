@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN
+const MODAL_ENHANCE_URL = process.env.MODAL_ENHANCE_URL
 const SUPIR_VERSION = 'cjwbw/supir:a0e8e2d0a17b4a40e89f1af72c68e3da9a94c15461bb91e73d8c7a9e0ca7e546'
 
 const CREDIT_COST: Record<string, number> = {
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'File and email are required.' }, { status: 400 })
     }
 
-    if (!REPLICATE_API_TOKEN || !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+    if ((!MODAL_ENHANCE_URL && !REPLICATE_API_TOKEN) || !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
       return NextResponse.json({ error: 'Khagatara Studio is not configured yet.' }, { status: 503 })
     }
 
@@ -46,6 +47,36 @@ export async function POST(req: NextRequest) {
     const balance = await getCredits(email)
     if (balance < cost) {
       return NextResponse.json({ error: 'Insufficient credits.' }, { status: 402 })
+    }
+
+    if (MODAL_ENHANCE_URL) {
+      const modalForm = new FormData()
+      modalForm.append('image', file)
+      modalForm.append('scale', resolution === '8k' ? '8' : '4')
+
+      const modalRes = await fetch(MODAL_ENHANCE_URL, {
+        method: 'POST',
+        body: modalForm,
+      })
+
+      if (!modalRes.ok) {
+        const detail = await modalRes.text()
+        return NextResponse.json({ error: detail || 'Modal enhancement failed.' }, { status: 502 })
+      }
+
+      await deductCredits(email, cost)
+      const imageBuffer = await modalRes.arrayBuffer()
+
+      return new NextResponse(imageBuffer, {
+        status: 200,
+        headers: {
+          'Content-Type': modalRes.headers.get('content-type') || 'image/png',
+          'Content-Disposition': 'inline; filename="studio-enhanced.png"',
+          'X-Pipeline-Used': 'modal-gpu',
+          'X-Faces-Detected': 'false',
+          'Cache-Control': 'no-store',
+        },
+      })
     }
 
     const arrayBuffer = await file.arrayBuffer()
