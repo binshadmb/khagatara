@@ -28,6 +28,14 @@ async function deductCredits(email: string, amount: number): Promise<void> {
   )
 }
 
+function cleanUpstreamError(text: string) {
+  if (!text) return 'Premium enhancement service failed.'
+  if (text.includes('<!DOCTYPE html') || text.includes('<html')) {
+    return 'Premium enhancement service is temporarily unavailable. Check the Modal endpoint URL and deployment status.'
+  }
+  return text.slice(0, 500)
+}
+
 export async function POST(req: NextRequest) {
   try {
     const form = await req.formData()
@@ -61,7 +69,7 @@ export async function POST(req: NextRequest) {
 
       if (!modalRes.ok) {
         const detail = await modalRes.text()
-        return NextResponse.json({ error: detail || 'Modal enhancement failed.' }, { status: 502 })
+        return NextResponse.json({ error: cleanUpstreamError(detail) }, { status: 502 })
       }
 
       await deductCredits(email, cost)
