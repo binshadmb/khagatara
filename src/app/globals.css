@@ -1968,6 +1968,364 @@ html[data-theme="light"] .tool-page {
   }
 }
 
+/* ==========================================================================
+   STUDIO - Premium Portrait Enhancement
+   ========================================================================== */
+
+.studio-shell {
+  background: var(--tool-page-bg);
+  color: var(--tool-text);
+  padding: 1.5rem 2rem 2rem;
+}
+
+.studio-layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.studio-controls {
+  align-self: start;
+  background: var(--tool-card-bg);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.4rem;
+}
+
+.studio-results {
+  align-self: start;
+  background: var(--tool-card-bg);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.4rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.studio-email {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.studio-email label {
+  color: var(--tool-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.studio-email input {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 6px;
+  color: var(--tool-text);
+  font-size: 0.85rem;
+  outline: none;
+  padding: 0.65rem 0.9rem;
+  transition: border-color 0.18s;
+  width: 100%;
+}
+
+.studio-email input:focus {
+  border-color: var(--accent);
+}
+
+.studio-upload {
+  align-items: center;
+  border: 1.5px dashed var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.45rem 1rem;
+  text-align: center;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.studio-upload span {
+  color: var(--tool-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.studio-upload small {
+  color: var(--tool-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.studio-upload input {
+  display: none;
+}
+
+.studio-upload.is-dragging {
+  background: var(--tool-card-soft);
+  border-color: var(--tool-text);
+}
+
+.studio-resolution {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.studio-resolution button {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 6px;
+  color: var(--tool-text);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.65rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.studio-resolution button.active {
+  background: var(--tool-text);
+  border-color: var(--tool-text);
+  color: var(--tool-card-bg);
+}
+
+.studio-primary {
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: var(--btn-txt);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 0.9rem;
+  text-transform: uppercase;
+  transition: background 0.18s, opacity 0.18s;
+  width: 100%;
+}
+
+.studio-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.studio-primary:not(:disabled):hover {
+  background: var(--accent-h);
+}
+
+.studio-progress {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.studio-progress > div {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.studio-progress > div span {
+  color: var(--tool-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+.studio-progress > div strong {
+  color: var(--tool-text);
+  font-size: 0.7rem;
+}
+
+.studio-progress b {
+  background: var(--tool-card-muted);
+  border-radius: 4px;
+  display: block;
+  height: 4px;
+  overflow: hidden;
+}
+
+.studio-progress b i {
+  background: var(--accent);
+  border-radius: 4px;
+  display: block;
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.studio-pipeline {
+  color: var(--accent);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.studio-preview-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.studio-preview-grid figure {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.studio-preview-grid img {
+  border: 1px solid var(--tool-border);
+  border-radius: 6px;
+  display: block;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.studio-preview-grid figcaption {
+  color: var(--tool-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.studio-preview-grid .preview-placeholder {
+  align-items: center;
+  background: var(--tool-card-soft);
+  border: 1px dashed var(--tool-border);
+  border-radius: 6px;
+  color: var(--tool-muted);
+  display: flex;
+  font-size: 0.7rem;
+  height: 200px;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.studio-pricing {
+  background: var(--tool-page-bg);
+  color: var(--tool-text);
+  padding: 2rem;
+}
+
+.studio-pricing h2 {
+  color: var(--tool-text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.pricing-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.pricing-card {
+  background: var(--tool-card-bg);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.pricing-card.is-popular {
+  border-color: var(--accent);
+}
+
+.popular-badge {
+  background: var(--accent);
+  border-radius: 20px;
+  color: var(--btn-txt);
+  font-size: 0.58rem;
+  font-weight: 700;
+  left: 50%;
+  letter-spacing: 0.12em;
+  padding: 0.25rem 0.75rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: -0.7rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.pricing-card h3 {
+  color: var(--tool-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pricing-card strong {
+  color: var(--tool-text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.pricing-card p {
+  color: var(--tool-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.pricing-card small {
+  color: var(--tool-muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.pricing-card button {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 6px;
+  color: var(--tool-text);
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-top: 0.5rem;
+  padding: 0.65rem;
+  text-transform: uppercase;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.pricing-card.is-popular button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--btn-txt);
+}
+
+.pricing-card button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pricing-card.is-popular button:hover {
+  background: var(--accent-h);
+  border-color: var(--accent-h);
+  color: var(--btn-txt);
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }

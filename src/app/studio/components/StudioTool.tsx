@@ -5,8 +5,8 @@ import { ChangeEvent, DragEvent, useRef, useState } from 'react'
 type Dimensions = { width: number; height: number }
 
 const RESOLUTIONS = [
-  { label: '4K', value: '4k', credits: 1 },
-  { label: '8K', value: '8k', credits: 2 },
+  { label: '4K', value: '4k' },
+  { label: '8K', value: '8k' },
 ] as const
 
 type Resolution = (typeof RESOLUTIONS)[number]['value']
@@ -67,26 +67,12 @@ export default function StudioTool() {
   const [resultDims, setResultDims] = useState<Dimensions | null>(null)
   const [resolution, setResolution] = useState<Resolution>('4k')
   const [email, setEmail] = useState('')
-  const [credits, setCredits] = useState<number | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress, setProgress] = useState('')
   const [progressValue, setProgressValue] = useState(0)
   const [pipeline, setPipeline] = useState('')
   const [error, setError] = useState('')
-
-  const creditCost = RESOLUTIONS.find((item) => item.value === resolution)?.credits ?? 1
-
-  async function loadCredits(userEmail: string) {
-    if (!userEmail) return
-    const res = await fetch(`/api/studio/credits?email=${encodeURIComponent(userEmail)}`)
-    const data = await res.json()
-    setCredits(data.credits ?? 0)
-  }
-
-  function handleEmailBlur() {
-    if (email) loadCredits(email)
-  }
 
   async function selectFile(selected: File | null) {
     setError('')
@@ -134,28 +120,77 @@ export default function StudioTool() {
   async function enhance() {
     if (!file) { setError('Upload an image first.'); return }
     if (!email) { setError('Enter your email to continue.'); return }
-    if (credits === null) await loadCredits(email)
-
-    if ((credits ?? 0) < creditCost) {
-      setError(`Not enough credits. This enhancement costs ${creditCost} credit${creditCost > 1 ? 's' : ''}.`)
-      return
-    }
 
     setIsProcessing(true)
     setError('')
     setPipeline('')
-    setProgress('Optimising image for upload...')
-    setProgressValue(8)
+    setProgress('Creating payment...')
+    setProgressValue(5)
 
     try {
+      const orderRes = await fetch('/api/studio/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resolution, email }),
+      })
+      const orderData = await orderRes.json()
+      if (!orderRes.ok) throw new Error(orderData.error || 'Could not create order.')
+
+      setProgressValue(10)
+
+      const paymentResult = await new Promise<{ payment_id: string; token: string }>((resolve, reject) => {
+        const options = {
+          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+          amount: orderData.amount,
+          currency: 'INR',
+          order_id: orderData.order_id,
+          name: 'Khagatara Studio',
+          description: `${resolution.toUpperCase()} Portrait Enhancement`,
+          prefill: { email },
+          handler: async (response: {
+            razorpay_order_id: string
+            razorpay_payment_id: string
+            razorpay_signature: string
+          }) => {
+            const verifyRes = await fetch('/api/studio/verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                email,
+                resolution,
+              }),
+            })
+            const verifyData = await verifyRes.json()
+            if (!verifyRes.ok || !verifyData.verified) {
+              reject(new Error('Payment verification failed.'))
+              return
+            }
+            resolve({ payment_id: response.razorpay_payment_id, token: verifyData.token })
+          },
+          modal: {
+            ondismiss: () => reject(new Error('Payment cancelled.')),
+          },
+        }
+        const rzp = new (window as any).Razorpay(options)
+        rzp.open()
+      })
+
+      setProgress('Optimising image for upload...')
+      setProgressValue(20)
+
       const uploadFile = await compressFile(file)
       const form = new FormData()
       form.append('file', uploadFile)
       form.append('resolution', resolution)
       form.append('email', email)
+      form.append('payment_token', paymentResult.token)
+      form.append('payment_id', paymentResult.payment_id)
 
-      setProgress('Sending to SUPIR engine...')
-      setProgressValue(20)
+      setProgress('Enhancing with AI...')
+      setProgressValue(30)
 
       const res = await fetch('/api/studio/enhance', {
         method: 'POST',
@@ -181,12 +216,11 @@ export default function StudioTool() {
       setResultUrl(outUrl)
 
       const facesHeader = res.headers.get('X-Faces-Detected') ?? ''
-      setPipeline(facesHeader === 'true' ? 'Faces detected - CodeFormer + SUPIR applied' : 'SUPIR applied')
+      setPipeline(facesHeader === 'true' ? 'Faces detected — CodeFormer + RealESRGAN applied' : 'RealESRGAN applied')
 
       try { setResultDims(await getImageDimensions(outUrl)) } catch { /* output dimensions are optional */ }
 
       setProgressValue(100)
-      await loadCredits(email)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Enhancement failed.')
     } finally {
@@ -207,11 +241,7 @@ export default function StudioTool() {
               placeholder="you@email.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              onBlur={handleEmailBlur}
             />
-            {credits !== null && (
-              <span className="credit-balance">{credits} credit{credits !== 1 ? 's' : ''} available</span>
-            )}
           </div>
 
           <label
@@ -233,13 +263,13 @@ export default function StudioTool() {
                 onClick={() => setResolution(item.value)}
                 type="button"
               >
-                {item.label} <small>({item.credits} credit{item.credits > 1 ? 's' : ''})</small>
+                {item.label}
               </button>
             ))}
           </div>
 
           <button className="studio-primary" type="button" onClick={enhance} disabled={!file || isProcessing || !email}>
-            {isProcessing ? progress || 'Enhancing...' : `Enhance - ${creditCost} Credit${creditCost > 1 ? 's' : ''}`}
+            {isProcessing ? progress || 'Enhancing...' : 'Enhance Portrait'}
           </button>
 
           {isProcessing && (
@@ -254,11 +284,6 @@ export default function StudioTool() {
 
           {pipeline && <p className="studio-pipeline">{pipeline}</p>}
           {error && <p className="tool-error">{error}</p>}
-
-          <div className="studio-buy-more">
-            <p>Need more credits?</p>
-            <a href="#studio-pricing">Buy Credits</a>
-          </div>
         </div>
 
         <div className="studio-results">

@@ -2,6 +2,7 @@ import os
 import pathlib
 
 import modal
+from starlette.requests import Request
 
 image = (
     modal.Image.debian_slim(python_version="3.10")
@@ -16,26 +17,30 @@ image = (
         "wget",
     )
     .pip_install(
-        "torch==2.1.0+cu118",
-        "torchvision==0.16.0+cu118",
-        extra_index_url="https://download.pytorch.org/whl/cu118",
+        "torch==2.1.0",
+        "torchvision==0.16.0",
     )
     .pip_install(
-        "basicsr>=1.4.2",
         "einops",
-        "facexlib>=0.3.0",
-        "fastapi",
-        "gfpgan>=1.3.8",
         "lpips",
-        "numpy<2",
-        "opencv-python-headless",
+        "numpy==1.26.4",
+        "opencv-python-headless==4.8.1.78",
         "Pillow",
+        "fastapi",
         "python-multipart",
-        "realesrgan>=0.3.0",
     )
-    .run_commands("git clone --depth 1 https://github.com/sczhou/CodeFormer.git /opt/CodeFormer")
     .run_commands(
-        "printf \"__version__ = '0.1.0'\\n__gitsha__ = 'modal'\\n\" > /opt/CodeFormer/basicsr/version.py"
+        "git clone https://github.com/sczhou/CodeFormer.git /opt/CodeFormer",
+        "pip install -r /opt/CodeFormer/requirements.txt",
+        "echo '/opt/CodeFormer' > /usr/local/lib/python3.10/site-packages/codeformer.pth",
+        "python -c 'v=open(\"/opt/CodeFormer/basicsr/VERSION\").read().strip(); parts=v.split(\".\"); info=\", \".join([x if x.isdigit() else \"\\\"\" + x + \"\\\"\" for x in parts]); open(\"/opt/CodeFormer/basicsr/version.py\",\"w\").write(f\"__version__ = \\\"{v}\\\"\\n__gitsha__ = \\\"unknown\\\"\\nversion_info = ({info})\\n\")'",
+        "pip install numpy==1.26.4 --force-reinstall",
+        "pip install facexlib>=0.3.0 gfpgan>=1.3.8",
+        "git clone https://github.com/xinntao/Real-ESRGAN.git /opt/RealESRGAN",
+        "echo '/opt/RealESRGAN' >> /usr/local/lib/python3.10/site-packages/codeformer.pth",
+        "pip install numpy==1.26.4 opencv-python==4.8.1.78 opencv-python-headless==4.8.1.78 --force-reinstall",
+        "python /opt/CodeFormer/scripts/download_pretrained_models.py facelib",
+        "python -c 'import importlib.util, sys; sys.path.insert(0,\"/opt/CodeFormer\"); from basicsr.archs.codeformer_arch import CodeFormer; spec=importlib.util.spec_from_file_location(\"realesrgan_utils\", \"/opt/RealESRGAN/realesrgan/utils.py\"); mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); RealESRGANer=mod.RealESRGANer; print(\"all imports ok\")'",
     )
 )
 
@@ -44,22 +49,35 @@ volume = modal.Volume.from_name("khagatara-model-weights", create_if_missing=Tru
 MODEL_DIR = "/models"
 
 
+@app.function()
+@modal.fastapi_endpoint(method="GET", label="health")
+async def health():
+    from fastapi.responses import JSONResponse
+
+    return JSONResponse({"status": "ok"})
+
+
 @app.cls(gpu="T4", memory=8192, timeout=300, volumes={MODEL_DIR: volume}, min_containers=0)
 class Enhancer:
     @modal.enter()
     def load_models(self):
         import sys
+
+        sys.path.insert(0, "/opt/CodeFormer")
+        sys.path.insert(1, "/opt/RealESRGAN")
         import torch
 
         from basicsr.archs.rrdbnet_arch import RRDBNet
-        from basicsr.utils.download_util import load_file_from_url
-        from realesrgan import RealESRGANer
-
-        sys.path.insert(0, "/opt/CodeFormer")
-        import basicsr
-
-        basicsr.__path__.append("/opt/CodeFormer/basicsr")
         from basicsr.archs.codeformer_arch import CodeFormer
+        from basicsr.utils.download_util import load_file_from_url
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "realesrgan_utils", "/opt/RealESRGAN/realesrgan/utils.py"
+        )
+        realesrgan_utils = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(realesrgan_utils)
+        RealESRGANer = realesrgan_utils.RealESRGANer
 
         pathlib.Path(MODEL_DIR).mkdir(parents=True, exist_ok=True)
         realesrgan_path = f"{MODEL_DIR}/RealESRGAN_x4plus.pth"
@@ -108,6 +126,9 @@ class Enhancer:
         self.codeformer.eval()
 
     def restore_faces(self, img_bgr, fidelity: float = 0.5):
+        import sys
+
+        sys.path.insert(0, "/opt/CodeFormer")
         import torch
         from basicsr.utils import img2tensor, tensor2img
         from facexlib.utils.face_restoration_helper import FaceRestoreHelper
@@ -143,7 +164,7 @@ class Enhancer:
         return helper.paste_faces_to_input_image(), True
 
     @modal.method()
-    def enhance(self, image_bytes: bytes, scale: int = 2) -> bytes:
+    def enhance(self, image_bytes: bytes, scale: int = 4, resolution: str = "4k") -> bytes:
         import cv2
         import numpy as np
 
@@ -157,13 +178,29 @@ class Enhancer:
             ratio = 2048 / max(height, width)
             img_bgr = cv2.resize(img_bgr, (int(width * ratio), int(height * ratio)))
 
-        img_bgr, _ = self.restore_faces(img_bgr, fidelity=0.5)
+        img_bgr, faces_found = self.restore_faces(img_bgr, fidelity=0.5)
         output_bgr, _ = self.upsampler.enhance(img_bgr, outscale=scale)
+        output_bgr = self._fit_long_edge(output_bgr, resolution)
         _, buffer = cv2.imencode(".png", output_bgr)
-        return buffer.tobytes()
+        return buffer.tobytes(), faces_found
+
+    def _fit_long_edge(self, img_bgr, resolution: str):
+        import cv2
+
+        targets = {"hd": 1920, "2k": 2048, "4k": 4096, "8k": 7680}
+        target = targets.get(resolution, 4096)
+        h, w = img_bgr.shape[:2]
+        long_edge = max(h, w)
+        if long_edge == target:
+            return img_bgr
+        ratio = target / long_edge
+        nw = max(1, round(w * ratio))
+        nh = max(1, round(h * ratio))
+        interp = cv2.INTER_AREA if ratio < 1 else cv2.INTER_LANCZOS4
+        return cv2.resize(img_bgr, (nw, nh), interpolation=interp)
 
     @modal.fastapi_endpoint(method="POST", label="premium")
-    async def premium_endpoint(self, request):
+    async def premium_endpoint(self, request: Request):
         from fastapi.responses import JSONResponse, Response
 
         form = await request.form()
@@ -172,12 +209,15 @@ class Enhancer:
             return JSONResponse({"error": "No image field"}, status_code=400)
 
         image_bytes = await image_file.read()
-        scale = int(form.get("scale", 2))
-        result = self.enhance.remote(image_bytes, scale=scale)
-        return Response(content=result, media_type="image/png")
-
-    @modal.fastapi_endpoint(method="GET", label="health")
-    async def health(self):
-        from fastapi.responses import JSONResponse
-
-        return JSONResponse({"status": "ok"})
+        resolution = str(form.get("resolution", "4k")).lower()
+        scale = 8 if resolution == "8k" else 4
+        result, faces_found = self.enhance.remote(image_bytes, scale=scale, resolution=resolution)
+        return Response(
+            content=result,
+            media_type="image/png",
+            headers={
+                "X-Faces-Detected": "true" if faces_found else "false",
+                "X-Pipeline-Used": "codeformer+realesrgan",
+                "X-Resolution": resolution,
+            },
+        )

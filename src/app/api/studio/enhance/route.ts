@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import crypto from 'crypto'
 
 export const maxDuration = 300
 
@@ -18,13 +19,25 @@ export async function POST(req: NextRequest) {
     const file = form.get('file')
     const resolution = (form.get('resolution') as string) ?? '4k'
     const email = (form.get('email') as string)?.trim().toLowerCase()
+    const paymentToken = (form.get('payment_token') as string) ?? ''
+    const paymentId = (form.get('payment_id') as string) ?? ''
 
     if (!file || !(file instanceof File) || !email) {
       return NextResponse.json({ error: 'File and email are required.' }, { status: 400 })
     }
 
-    if (!MODAL_ENHANCE_URL) {
+    if (!MODAL_ENHANCE_URL || !process.env.RAZORPAY_KEY_SECRET) {
       return NextResponse.json({ error: 'Khagatara Studio is not configured yet.' }, { status: 503 })
+    }
+
+    const secret = process.env.RAZORPAY_KEY_SECRET
+    const expectedToken = crypto
+      .createHmac('sha256', secret)
+      .update(`${email}:${resolution}:${paymentId}`)
+      .digest('hex')
+
+    if (paymentToken !== expectedToken) {
+      return NextResponse.json({ error: 'Payment required.' }, { status: 402 })
     }
 
     const modalForm = new FormData()
