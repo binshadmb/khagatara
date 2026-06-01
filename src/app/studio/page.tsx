@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import DraggableStudioHero from './components/DraggableStudioHero'
 import StudioPricing from './components/StudioPricing'
 import StudioTool from './components/StudioTool'
 
@@ -29,7 +28,13 @@ export default function StudioPage() {
         </div>
       </nav>
 
-      <DraggableStudioHero />
+      <section className="hero tool-hero studio-fixed-hero">
+        <div className="hero-eyebrow">Khagatara Studio</div>
+        <h1 className="hero-title">Premium Portrait Enhancement</h1>
+        <p className="hero-sub site-sub">
+          Eyes, hair, skin - fully reconstructed by AI. Near-professional 4K and 8K output.
+        </p>
+      </section>
 
       <StudioTool />
       <StudioPricing />
