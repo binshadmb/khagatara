@@ -1020,305 +1020,6 @@ input {
   color: var(--tool-text);
 }
 
-.studio-shell {
-  background: var(--tool-page-bg);
-  color: var(--tool-text);
-  margin: 0 auto;
-  max-width: 1240px;
-  padding: 1.45rem 2rem 2rem;
-}
-
-.studio-layout {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: minmax(0, 1fr) 520px;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.studio-controls,
-.studio-results,
-.studio-price-card,
-.pricing-card {
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
-  display: grid;
-  gap: 0.9rem;
-  padding: 1.2rem;
-}
-
-.studio-upload {
-  align-items: center;
-  border: 1.5px dashed var(--accent);
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  padding: 1.65rem 1rem;
-  text-align: center;
-}
-
-.studio-upload.is-dragging {
-  background: var(--tool-card-soft);
-}
-
-.studio-upload input {
-  display: none;
-}
-
-.studio-email {
-  display: grid;
-  gap: 0.45rem;
-}
-
-.studio-email label,
-.studio-buy-more p {
-  color: var(--tool-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.studio-email input {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  color: var(--tool-text);
-  font: inherit;
-  padding: 0.75rem;
-}
-
-.credit-balance,
-.studio-pipeline {
-  color: var(--tool-muted);
-  font-size: 0.76rem;
-}
-
-.studio-upload span,
-.studio-credit-row strong,
-.studio-price-card strong,
-.pricing-card strong {
-  color: var(--tool-text);
-  font-weight: 700;
-}
-
-.studio-upload small,
-.studio-price-card small,
-.pricing-card small {
-  color: var(--tool-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.studio-actions,
-.studio-resolution {
-  display: grid;
-  gap: 0.6rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.studio-actions button,
-.studio-resolution button,
-.studio-price-card button,
-.pricing-card button {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  color: var(--tool-text);
-  cursor: pointer;
-  font-size: 0.72rem;
-  font-weight: 700;
-  min-height: 2.35rem;
-  padding: 0.5rem;
-}
-
-.studio-actions button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-}
-
-.studio-resolution button {
-  display: grid;
-  gap: 0.15rem;
-}
-
-.studio-resolution button.active {
-  background: var(--tool-text);
-  border-color: var(--tool-text);
-  color: var(--tool-card-bg);
-}
-
-.studio-resolution button small {
-  color: inherit;
-  font-size: 0.68rem;
-  opacity: 0.72;
-}
-
-.studio-credit-row {
-  align-items: center;
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  color: var(--tool-muted);
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem;
-}
-
-.studio-primary {
-  background: var(--tool-text);
-  border: none;
-  border-radius: 8px;
-  color: var(--tool-card-bg);
-  cursor: pointer;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 0.82rem 1rem;
-  text-transform: uppercase;
-}
-
-.studio-primary:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-}
-
-.studio-progress {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  display: grid;
-  gap: 0.55rem;
-  padding: 0.75rem;
-}
-
-.studio-progress div {
-  align-items: center;
-  display: flex;
-  gap: 0.75rem;
-  justify-content: space-between;
-}
-
-.studio-progress span {
-  color: var(--tool-muted);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.studio-progress strong {
-  color: var(--tool-text);
-  font-size: 0.78rem;
-}
-
-.studio-progress b {
-  background: var(--tool-card-muted);
-  border-radius: 999px;
-  display: block;
-  height: 8px;
-  overflow: hidden;
-}
-
-.studio-progress i {
-  background: var(--accent);
-  border-radius: inherit;
-  display: block;
-  height: 100%;
-  transition: width 0.35s ease;
-}
-
-.studio-buy-more {
-  align-items: center;
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem;
-}
-
-.studio-buy-more a {
-  color: var(--tool-text);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-
-.studio-results {
-  align-self: start;
-  grid-template-columns: 1fr;
-  position: sticky;
-  top: 1rem;
-}
-
-.studio-preview-grid {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.studio-results figure {
-  background: var(--tool-card-soft);
-  border-radius: 8px;
-  display: grid;
-  gap: 0.45rem;
-  padding: 0.6rem;
-}
-
-.studio-results img {
-  aspect-ratio: 4 / 5;
-  border-radius: 6px;
-  height: 100%;
-  object-fit: contain;
-  width: 100%;
-}
-
-.studio-results figcaption,
-.studio-price-card p,
-.pricing-card p {
-  color: var(--tool-muted);
-  font-size: 0.76rem;
-}
-
-.studio-pricing {
-  background: var(--tool-page-bg);
-  display: grid;
-  gap: 1rem;
-  padding: 0 2rem 2rem;
-}
-
-.studio-pricing h2 {
-  color: var(--tool-text);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-}
-
-.pricing-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.studio-price-card h3,
-.pricing-card h3 {
-  color: var(--tool-text);
-}
-
-.pricing-card.is-popular {
-  border-color: var(--accent);
-}
-
-.popular-badge {
-  color: var(--accent);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .tool-content {
   display: grid;
   gap: 1rem;
@@ -1978,6 +1679,25 @@ html[data-theme="light"] .tool-page {
   padding: 1.5rem 2rem 2rem;
 }
 
+.studio-fixed-hero {
+  padding-bottom: 1.55rem;
+  padding-top: 1.15rem;
+  transform: translateY(-0.25rem);
+}
+
+.studio-fixed-hero .hero-eyebrow {
+  margin-bottom: 0.45rem;
+}
+
+.studio-fixed-hero .hero-title {
+  font-size: 2.55rem;
+  line-height: 0.95;
+}
+
+.studio-fixed-hero .hero-sub {
+  margin-top: 0.85rem;
+}
+
 .studio-layout {
   display: grid;
   gap: 1.5rem;
@@ -2324,20 +2044,6 @@ html[data-theme="light"] .tool-page {
   background: var(--accent-h);
   border-color: var(--accent-h);
   color: var(--btn-txt);
-}
-
-.studio-draggable-hero {
-  cursor: grab;
-  touch-action: none;
-  transition: box-shadow 0.18s ease;
-  user-select: none;
-  will-change: transform;
-}
-
-.studio-draggable-hero.is-dragging {
-  cursor: grabbing;
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
-  z-index: 2;
 }
 
 @keyframes fadeUp {
