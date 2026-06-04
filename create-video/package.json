@@ -1,0 +1,35 @@
+{
+  "name": "create-video",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "remotion studio src/index.ts",
+    "generate:props": "node scripts/generateVideoProps.js",
+    "generate:props:other": "node scripts/generateOtherVideoProps.js",
+    "generate:props:premium": "node scripts/generatePremiumVideoProps.js",
+    "render:all": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderAll.ts",
+    "render:all:hook": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderAll.ts ExamLandingVideoHook",
+    "render:other:hook": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderAll.ts ExamLandingVideoHook ./src/videoProps-other.json ./public/videos-other",
+    "render:premium:hook": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderPremiumBatch.ts",
+    "render:premium:one": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderPremiumBatch.ts ExamLandingVideoHook",
+    "render:one": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderOne.ts",
+    "render:music-test": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\",\\\"moduleResolution\\\":\\\"Node\\\"}\" scripts/renderMusicTest.ts",
+    "test": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@remotion/cli": "^4.0.471",
+    "@remotion/renderer": "^4.0.471",
+    "openai": "^6.41.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "remotion": "^4.0.471"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
