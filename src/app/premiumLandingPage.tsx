@@ -16,6 +16,11 @@ function absoluteUrl(url?: string) {
   return `${SITE_URL}${url.startsWith('/') ? url : `/${url}`}`
 }
 
+function swapSlugInAssetUrl(url: string | undefined, currentSlug: string, nextSlug: string, extension: 'jpg' | 'mp4') {
+  if (!url) return undefined
+  return url.replace(`${currentSlug}.${extension}`, `${nextSlug}.${extension}`)
+}
+
 function schemaFor(lang: string, page: PremiumEntry) {
   const pageUrl = `${SITE_URL}/${lang}/${page.slug}`
   const videoUrl = absoluteUrl(page.video.src)
@@ -81,6 +86,26 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
   const premiumHref = `/premium?source=${encodeURIComponent(page.slug)}`
   const videoUrl = absoluteUrl(page.video.src)
   const posterUrl = absoluteUrl(page.video.poster)
+  const isWeddingTrialPage = page.slug === 'wedding-photo-enhancer'
+  const weddingGalleryImages = isWeddingTrialPage
+    ? [
+        {
+          src: posterUrl,
+          alt: 'Wedding photo enhancement preview',
+          className: 'premium-gallery-card premium-gallery-card--primary',
+        },
+        {
+          src: swapSlugInAssetUrl(posterUrl, page.slug, 'bridal-photo-enhancer', 'jpg'),
+          alt: 'Bridal portrait enhancement preview',
+          className: 'premium-gallery-card premium-gallery-card--secondary',
+        },
+        {
+          src: swapSlugInAssetUrl(posterUrl, page.slug, 'engagement-photo-enhancer', 'jpg'),
+          alt: 'Engagement photo enhancement preview',
+          className: 'premium-gallery-card premium-gallery-card--accent',
+        },
+      ].filter((item): item is { src: string; alt: string; className: string } => Boolean(item.src))
+    : []
 
   return (
     <main className="page tool-page landing-page premium-landing-page">
@@ -128,11 +153,23 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
           </Link>
         </div>
 
-        <div className="premium-landing-video">
-          <video controls preload="metadata" poster={posterUrl}>
-            <source src={videoUrl} type="video/mp4" />
-          </video>
-        </div>
+        {isWeddingTrialPage ? (
+          <div className="premium-landing-gallery premium-landing-gallery--wedding" aria-label="Wedding enhancement preview">
+            <div className="premium-gallery-stack">
+              {weddingGalleryImages.map((image) => (
+                <figure key={image.alt} className={image.className}>
+                  <img src={image.src} alt={image.alt} loading="lazy" />
+                </figure>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="premium-landing-video">
+            <video controls preload="metadata" poster={posterUrl}>
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+          </div>
+        )}
       </section>
 
       <section className="tool-content landing-content">
