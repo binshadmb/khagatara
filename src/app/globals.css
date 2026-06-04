@@ -1234,72 +1234,6 @@ input {
   min-height: 100%;
 }
 
-.premium-landing-page .premium-landing-gallery {
-  align-items: center;
-  background:
-    radial-gradient(circle at top left, rgba(255, 223, 151, 0.26), transparent 28%),
-    linear-gradient(145deg, rgba(58, 33, 6, 0.95), rgba(121, 73, 25, 0.88));
-  border: 1px solid rgba(166, 125, 33, 0.28);
-  border-radius: 28px;
-  box-shadow: 0 24px 50px rgba(66, 39, 3, 0.18);
-  display: flex;
-  justify-content: center;
-  min-height: 100%;
-  overflow: hidden;
-  padding: 1.2rem;
-}
-
-.premium-landing-page .premium-gallery-stack {
-  display: grid;
-  min-height: 520px;
-  place-items: center;
-  position: relative;
-  width: min(100%, 520px);
-}
-
-.premium-landing-page .premium-gallery-card {
-  background: rgba(255, 248, 235, 0.88);
-  border: 1px solid rgba(255, 231, 185, 0.52);
-  border-radius: 28px;
-  box-shadow: 0 18px 42px rgba(24, 12, 2, 0.22);
-  overflow: hidden;
-  position: absolute;
-}
-
-.premium-landing-page .premium-gallery-card img {
-  display: block;
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
-}
-
-.premium-landing-page .premium-gallery-card--primary {
-  aspect-ratio: 4 / 5;
-  right: 5%;
-  top: 8%;
-  transform: rotate(4deg);
-  width: min(64%, 290px);
-  z-index: 3;
-}
-
-.premium-landing-page .premium-gallery-card--secondary {
-  aspect-ratio: 4 / 5;
-  left: 2%;
-  top: 18%;
-  transform: rotate(-7deg);
-  width: min(56%, 250px);
-  z-index: 1;
-}
-
-.premium-landing-page .premium-gallery-card--accent {
-  aspect-ratio: 4 / 5;
-  bottom: 3%;
-  left: 23%;
-  transform: rotate(7deg);
-  width: min(58%, 258px);
-  z-index: 2;
-}
-
 .premium-landing-page .landing-content {
   gap: 1.35rem;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1411,34 +1345,6 @@ input {
 
   .premium-landing-page .premium-landing-video video {
     aspect-ratio: 16 / 10;
-  }
-
-  .premium-landing-page .premium-landing-gallery {
-    min-height: 420px;
-    padding: 0.85rem;
-  }
-
-  .premium-landing-page .premium-gallery-stack {
-    min-height: 360px;
-    width: 100%;
-  }
-
-  .premium-landing-page .premium-gallery-card--primary {
-    right: 4%;
-    top: 4%;
-    width: min(66%, 240px);
-  }
-
-  .premium-landing-page .premium-gallery-card--secondary {
-    left: 0;
-    top: 16%;
-    width: min(56%, 200px);
-  }
-
-  .premium-landing-page .premium-gallery-card--accent {
-    bottom: 0;
-    left: 21%;
-    width: min(58%, 208px);
   }
 }
 
