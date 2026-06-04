@@ -25,6 +25,17 @@ export type PremiumEntry = {
 
 type PremiumEntrySource = Omit<PremiumEntry, 'video'>
 
+const DEFAULT_PREMIUM_VIDEO_BASE_URL = 'https://videos.khagatara.com'
+
+function normalizePremiumVideoBaseUrl(value?: string) {
+  const candidate = value?.trim() || DEFAULT_PREMIUM_VIDEO_BASE_URL
+  return candidate.endsWith('/') ? candidate.slice(0, -1) : candidate
+}
+
+const PREMIUM_VIDEO_BASE_URL = normalizePremiumVideoBaseUrl(
+  process.env.NEXT_PUBLIC_PREMIUM_VIDEO_BASE_URL ?? process.env.PREMIUM_VIDEO_BASE_URL,
+)
+
 const PREMIUM_LANDING_SOURCE: Record<string, PremiumEntrySource> = {
 // ─────────────────────────────────────────────
   // OLD PHOTO CLUSTER
@@ -2718,8 +2729,8 @@ const PREMIUM_LANDING_SOURCE: Record<string, PremiumEntrySource> = {
 
 function videoFor(entry: PremiumEntrySource): PremiumVideo {
   return {
-    src: `/videos-premium/${entry.slug}.mp4`,
-    poster: `/videos-premium/${entry.slug}.jpg`,
+    src: `${PREMIUM_VIDEO_BASE_URL}/${entry.slug}.mp4`,
+    poster: `${PREMIUM_VIDEO_BASE_URL}/${entry.slug}.jpg`,
     title: `${entry.h1} video preview`,
   }
 }
