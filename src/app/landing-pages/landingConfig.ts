@@ -1,3 +1,5 @@
+export { PREMIUM_LANDING_MAP, PREMIUM_LANDING_PAGES, PREMIUM_LANDING_SLUGS, getPremiumLanding, type PremiumEntry } from '../premiumLandingMap'
+
 // landingConfig.ts
 // One config drives every landing page on khagatara.com
 // tool: 'compressor' | 'remaker' | 'resizer'
