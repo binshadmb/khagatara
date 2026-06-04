@@ -1098,6 +1098,25 @@ input {
   max-width: 760px;
 }
 
+.premium-landing-cta {
+  margin-top: 1.25rem;
+}
+
+.premium-landing-video {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.premium-landing-video video {
+  aspect-ratio: 16 / 9;
+  background: var(--tool-page-bg);
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
 .landing-faq-list {
   display: grid;
   gap: 0.75rem;

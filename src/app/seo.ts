@@ -1,6 +1,7 @@
 import type { Metadata, MetadataRoute } from 'next'
 import { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode } from './seo-config'
 import { sitePages } from './site-structure'
+import { PREMIUM_LANDING_PAGES } from './premiumLandingMap'
 
 export { LANGUAGE_CONFIG, TOPIC_DEFS, type LangCode }
 export const siteUrl = 'https://www.khagatara.com'
@@ -823,6 +824,14 @@ export function liveSitemapEntries(): MetadataRoute.Sitemap {
         lastModified,
         changeFrequency: 'monthly',
         priority: topic.priority,
+      })
+    }
+    for (const page of PREMIUM_LANDING_PAGES) {
+      entries.push({
+        url: absoluteUrl(`/${code}/${page.slug}`),
+        lastModified,
+        changeFrequency: 'monthly',
+        priority: 0.82,
       })
     }
   }
