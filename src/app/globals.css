@@ -1117,6 +1117,237 @@ input {
   width: 100%;
 }
 
+.premium-landing-page {
+  background:
+    radial-gradient(circle at top, rgba(212, 166, 58, 0.12), transparent 30%),
+    linear-gradient(180deg, #fcfaf6 0%, #f8f1e5 48%, #f6efe4 100%);
+}
+
+.premium-landing-page .premium-landing-hero {
+  border-bottom: 1px solid rgba(166, 125, 33, 0.18);
+  padding: 4.8rem 2rem 3.4rem;
+  position: relative;
+}
+
+.premium-landing-page .hero-eyebrow {
+  color: #9a6a05;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  margin-bottom: 1.35rem;
+}
+
+.premium-landing-page .hero-title {
+  font-size: clamp(3.1rem, 6vw, 5.6rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  margin: 0 auto 1rem;
+  max-width: 12ch;
+}
+
+.premium-landing-page .hero-sub {
+  color: rgba(39, 27, 10, 0.82);
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  letter-spacing: 0.01em;
+  line-height: 1.8;
+  max-width: 760px;
+  text-transform: none;
+}
+
+.premium-landing-page .download-btn {
+  border-radius: 999px;
+  box-shadow: 0 18px 40px rgba(134, 95, 20, 0.18);
+  font-size: 0.88rem;
+  letter-spacing: 0.16em;
+  min-height: 54px;
+  padding: 1rem 1.65rem;
+}
+
+.premium-landing-page .premium-landing-cta {
+  margin: 1.75rem auto 0;
+  max-width: 480px;
+}
+
+.premium-landing-page .premium-landing-intro {
+  align-items: stretch;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 2rem;
+}
+
+.premium-landing-page .landing-tool-intro {
+  background:
+    linear-gradient(145deg, rgba(255, 251, 242, 0.96), rgba(247, 239, 226, 0.98));
+  border: 1px solid rgba(166, 125, 33, 0.16);
+  border-radius: 26px;
+  box-shadow: 0 18px 46px rgba(83, 53, 9, 0.08);
+  margin: 0;
+  padding: 2.4rem;
+}
+
+.premium-landing-page .landing-tool-intro span {
+  color: #9a6a05;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  margin-bottom: 0.9rem;
+}
+
+.premium-landing-page .landing-tool-intro h2 {
+  font-size: clamp(2.5rem, 4vw, 4.4rem);
+  font-weight: 600;
+  line-height: 0.98;
+  margin: 0 0 1rem;
+  max-width: 14ch;
+}
+
+.premium-landing-page .landing-tool-intro p {
+  color: rgba(39, 27, 10, 0.8);
+  font-size: 1.07rem;
+  line-height: 1.9;
+  margin-bottom: 1.45rem;
+  max-width: 58ch;
+}
+
+.premium-landing-page .premium-landing-video {
+  background:
+    radial-gradient(circle at top left, rgba(255, 223, 151, 0.24), transparent 30%),
+    linear-gradient(145deg, rgba(43, 27, 4, 0.94), rgba(108, 73, 19, 0.86));
+  border: 1px solid rgba(166, 125, 33, 0.28);
+  border-radius: 28px;
+  box-shadow: 0 24px 50px rgba(66, 39, 3, 0.18);
+  min-height: 100%;
+  padding: 1rem;
+}
+
+.premium-landing-page .premium-landing-video video {
+  aspect-ratio: 4 / 5;
+  background:
+    radial-gradient(circle at top, rgba(255, 223, 151, 0.16), transparent 36%),
+    linear-gradient(180deg, #231302, #5e3a09 100%);
+  border: 1px solid rgba(255, 234, 188, 0.12);
+  border-radius: 20px;
+  min-height: 100%;
+}
+
+.premium-landing-page .landing-content {
+  gap: 1.35rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.premium-landing-page .tool-copy {
+  background:
+    linear-gradient(145deg, rgba(255, 251, 243, 0.98), rgba(249, 243, 233, 0.98));
+  border: 1px solid rgba(166, 125, 33, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 16px 38px rgba(78, 51, 13, 0.07);
+  font-size: 1.03rem;
+  grid-column: span 6;
+  line-height: 1.85;
+  padding: 1.8rem;
+}
+
+.premium-landing-page .tool-copy h2 {
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  margin-bottom: 0.95rem;
+}
+
+.premium-landing-page .tool-copy p,
+.premium-landing-page .tool-copy li {
+  color: rgba(39, 27, 10, 0.82);
+  font-size: 1.02rem;
+}
+
+.premium-landing-page .tool-copy ol,
+.premium-landing-page .tool-copy ul {
+  display: grid;
+  gap: 0.7rem;
+  padding-left: 1.4rem;
+}
+
+.premium-landing-page .tool-copy:first-child,
+.premium-landing-page .tool-copy:nth-child(2) {
+  grid-column: span 6;
+}
+
+.premium-landing-page .landing-faq-list {
+  gap: 0.95rem;
+}
+
+.premium-landing-page .landing-faq-list details {
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid rgba(166, 125, 33, 0.14);
+  border-radius: 20px;
+  padding: 1.05rem 1.15rem;
+}
+
+.premium-landing-page .landing-faq-list summary {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.premium-landing-page .landing-faq-list p {
+  color: rgba(39, 27, 10, 0.78);
+  font-size: 0.99rem;
+  line-height: 1.8;
+  margin-top: 0.7rem;
+}
+
+@media (max-width: 980px) {
+  .premium-landing-page .premium-landing-intro {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+  }
+
+  .premium-landing-page .landing-content {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-landing-page .tool-copy,
+  .premium-landing-page .tool-copy:first-child,
+  .premium-landing-page .tool-copy:nth-child(2) {
+    grid-column: auto;
+  }
+
+  .premium-landing-page .landing-tool-intro h2 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .premium-landing-page .premium-landing-hero {
+    padding: 3.6rem 1.1rem 2.5rem;
+  }
+
+  .premium-landing-page .hero-title {
+    font-size: clamp(2.45rem, 12vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .premium-landing-page .hero-sub {
+    font-size: 0.98rem;
+    line-height: 1.75;
+  }
+
+  .premium-landing-page .landing-tool-intro,
+  .premium-landing-page .tool-copy {
+    padding: 1.35rem;
+  }
+
+  .premium-landing-page .premium-landing-video {
+    padding: 0.75rem;
+  }
+
+  .premium-landing-page .premium-landing-video video {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 .landing-faq-list {
   display: grid;
   gap: 0.75rem;

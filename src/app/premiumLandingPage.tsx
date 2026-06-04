@@ -8,8 +8,28 @@ type PremiumLandingPageProps = {
   page: PremiumEntry
 }
 
+function absoluteUrl(url: string): string
+function absoluteUrl(url?: string): string | undefined
+function absoluteUrl(url?: string) {
+  if (!url) return undefined
+  if (url.startsWith('http://') || url.startsWith('https://')) return url
+  return `${SITE_URL}${url.startsWith('/') ? url : `/${url}`}`
+}
+
 function schemaFor(lang: string, page: PremiumEntry) {
   const pageUrl = `${SITE_URL}/${lang}/${page.slug}`
+  const videoUrl = absoluteUrl(page.video.src)
+  const posterUrl = absoluteUrl(page.video.poster)
+
+  const videoSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: page.video.title,
+    description: page.description,
+    contentUrl: videoUrl,
+    uploadDate: '2026-06-04',
+    ...(posterUrl ? { thumbnailUrl: posterUrl } : {}),
+  }
 
   return [
     {
@@ -52,21 +72,15 @@ function schemaFor(lang: string, page: PremiumEntry) {
         { '@type': 'ListItem', position: 3, name: page.h1, item: pageUrl },
       ],
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'VideoObject',
-      name: page.video.title,
-      description: page.description,
-      thumbnailUrl: `${SITE_URL}${page.video.poster}`,
-      contentUrl: `${SITE_URL}${page.video.src}`,
-      uploadDate: '2026-06-04',
-    },
+    videoSchema,
   ]
 }
 
 export default function PremiumLandingPage({ lang, page }: PremiumLandingPageProps) {
   const schemas = schemaFor(lang, page)
   const premiumHref = `/premium?source=${encodeURIComponent(page.slug)}`
+  const videoUrl = absoluteUrl(page.video.src)
+  const posterUrl = absoluteUrl(page.video.poster)
 
   return (
     <main className="page tool-page landing-page premium-landing-page">
@@ -115,8 +129,8 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
         </div>
 
         <div className="premium-landing-video">
-          <video controls preload="metadata" poster={page.video.poster}>
-            <source src={page.video.src} type="video/mp4" />
+          <video controls preload="metadata" poster={posterUrl}>
+            <source src={videoUrl} type="video/mp4" />
           </video>
         </div>
       </section>
