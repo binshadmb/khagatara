@@ -120,11 +120,22 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
           </Link>
         </div>
 
-        <div className="premium-landing-video">
-          <div className="phone-frame">
-            <div className="phone-screen">
-              <video src={page.video.src} poster={page.video.poster} autoPlay muted loop playsInline aria-label={page.video.title} />
-            </div>
+        <div className="premium-landing-before-after">
+          <div className="before-after-card">
+            <img
+              src="/images/before-after/before-placeholder.jpg"
+              alt="Before enhancement"
+              className="before-after-img"
+            />
+            <span className="before-after-label">Before</span>
+          </div>
+          <div className="before-after-card">
+            <img
+              src="/images/before-after/after-placeholder.jpg"
+              alt="After AI enhancement"
+              className="before-after-img"
+            />
+            <span className="before-after-label before-after-label--after">After</span>
           </div>
         </div>
       </section>
