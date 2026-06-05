@@ -33,6 +33,21 @@ function schemaFor(lang: string, page: PremiumEntry) {
     },
     {
       '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: page.video.title,
+      description: page.description,
+      thumbnailUrl: page.video.poster ?? `${SITE_URL}/og-image.jpg`,
+      contentUrl: page.video.src,
+      embedUrl: pageUrl,
+      uploadDate: '2024-01-01',
+      publisher: {
+        '@type': 'Organization',
+        name: 'Khagatara',
+        url: SITE_URL,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: page.faqs.map((faq) => ({
         '@type': 'Question',
@@ -105,6 +120,18 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
           </Link>
         </div>
 
+        <div className="premium-landing-video">
+          <video
+            src={page.video.src}
+            poster={page.video.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label={page.video.title}
+            style={{ width: '100%', borderRadius: '12px' }}
+          />
+        </div>
       </section>
 
       <section className="tool-content landing-content">
