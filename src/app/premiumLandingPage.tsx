@@ -76,9 +76,9 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
 
   return (
     <main className="page tool-page landing-page premium-landing-page">
-      {schemas.map((item) => (
+      {schemas.map((item, i) => (
         <script
-          key={item['@type']}
+          key={`schema-${i}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
         />
