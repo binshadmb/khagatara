@@ -76,9 +76,9 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
 
   return (
     <main className="page tool-page landing-page premium-landing-page">
-      {schemas.map((item, i) => (
+      {schemas.map((item) => (
         <script
-          key={`schema-${i}`}
+          key={item['@type']}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
         />
@@ -121,13 +121,16 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
         </div>
 
         <div className="premium-landing-video">
-          <div className="video-frame-mobile">
-            <div className="phone-frame">
-              <div className="phone-screen">
-                <video src={page.video.src} poster={page.video.poster} autoPlay muted loop playsInline aria-label={page.video.title} />
-              </div>
-            </div>
-          </div>
+          <video
+            src={page.video.src}
+            poster={page.video.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-label={page.video.title}
+            style={{ width: '100%', borderRadius: '12px' }}
+          />
         </div>
       </section>
 
