@@ -172,19 +172,25 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
         </div>
 
         <div className="pl-intro-right">
-          <figure className="pl-ba">
+          <figure className="pl-compare">
             <img
+              className="pl-compare-img"
               src={primaryBeforeAfter.before}
               alt={primaryBeforeAfter.beforeAlt ?? `Before ${page.h1}`}
             />
+            <div className="pl-compare-after" aria-hidden="true">
+              <img
+                className="pl-compare-img"
+                src={primaryBeforeAfter.after}
+                alt=""
+              />
+            </div>
             <figcaption className="pl-ba-lbl pl-ba-before">Before</figcaption>
-          </figure>
-          <figure className="pl-ba">
-            <img
-              src={primaryBeforeAfter.after}
-              alt={primaryBeforeAfter.afterAlt ?? `After ${page.h1} 8K preview`}
-            />
             <figcaption className="pl-ba-lbl pl-ba-after">8K Preview</figcaption>
+            <div className="pl-compare-handle" aria-hidden="true">
+              <span>&lt;</span>
+              <span>&gt;</span>
+            </div>
           </figure>
         </div>
       </section>
