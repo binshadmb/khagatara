@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import './globals.css'
 import { siteUrl } from './seo'
 import ThemeToggle from './ThemeToggle'
@@ -54,9 +55,10 @@ export default function RootLayout({
       <body>
         <ThemeToggle />
         {children}
-        <a className="site-donate-button" href="/premium?source=donate">
-          Donate
-        </a>
+        <Link className="site-donate-button" href="/premium?source=donate">
+          <span className="site-donate-icon" aria-hidden="true">+</span>
+          <span>Donate</span>
+        </Link>
       </body>
     </html>
   )
