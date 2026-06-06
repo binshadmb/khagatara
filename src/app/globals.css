@@ -2519,3 +2519,498 @@ html[data-theme="light"] .tool-page {
     align-items: center;
   }
 }
+
+/* ==========================================================================
+   PREMIUM LANDING — COLOR BLOCK EXPERIENCE
+   ========================================================================== */
+
+.pl {
+  background: #fff;
+  color: #111;
+  font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.pl *,
+.pl *::before,
+.pl *::after {
+  box-sizing: border-box;
+}
+
+.pl-nav {
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  min-height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.pl-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100svh - 56px);
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  position: relative;
+}
+
+.pl-block {
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.pl-eyebrow,
+.pl-studio-label,
+.pl-ba-lbl {
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pl-eyebrow {
+  color: #ff2d55;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pl-h1,
+.pl-tagline,
+.pl-howto h2,
+.pl-why h2,
+.pl-faq-title,
+.pl-cta h2 {
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.pl-h1 {
+  font-size: clamp(4.2rem, 13vw, 9.4rem);
+  line-height: 0.86;
+  margin: 0 0 1.25rem;
+  max-width: 9ch;
+}
+
+.pl-word {
+  display: block;
+}
+
+.pl-word-1 {
+  color: #ff2d55;
+}
+
+.pl-word-2 {
+  color: #6c2bd9;
+}
+
+.pl-word-3 {
+  color: #00aacc;
+}
+
+.pl-sub {
+  color: #555;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+  margin: 0 0 1.8rem;
+  max-width: 34rem;
+}
+
+.pl-btn {
+  align-items: center;
+  border: 0;
+  display: inline-flex;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: 1rem;
+  justify-content: center;
+  letter-spacing: 0.14em;
+  min-height: 3rem;
+  padding: 0.9rem 2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.pl-btn-red {
+  background: #ff2d55;
+  color: #fff;
+}
+
+.pl-btn-white {
+  background: #fff;
+  color: #ff2d55;
+}
+
+.pl-btn-cta {
+  background: #fff;
+  color: #ff2d55;
+  font-size: 1.2rem;
+  padding-inline: 3rem;
+}
+
+.pl-bars {
+  bottom: 0;
+  display: flex;
+  height: 8px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.pl-bars span {
+  flex: 1;
+}
+
+.pl-bars span:nth-child(1) {
+  background: #ff2d55;
+}
+
+.pl-bars span:nth-child(2) {
+  background: #ffd700;
+}
+
+.pl-bars span:nth-child(3) {
+  background: #00aacc;
+}
+
+.pl-intro,
+.pl-why {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding: 0;
+}
+
+.pl-intro-left,
+.pl-why-l,
+.pl-why-r {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.pl-intro-left {
+  background: #ff2d55;
+}
+
+.pl-studio-label {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pl-tagline {
+  color: #fff;
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  line-height: 0.9;
+  margin: 0 0 1.25rem;
+  max-width: 10ch;
+}
+
+.pl-copy,
+.pl-why p,
+.pl-faq-a {
+  font-family: Arial, sans-serif;
+}
+
+.pl-copy {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  line-height: 1.65;
+  margin: 0 0 1.6rem;
+  max-width: 38rem;
+}
+
+.pl-intro-right {
+  background: #111;
+  display: grid;
+  gap: clamp(0.75rem, 1.8vw, 1.25rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.pl-ba {
+  background: #050505;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  display: grid;
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.pl-ba img {
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.pl-ba-lbl {
+  bottom: 0.85rem;
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  left: 0.85rem;
+  padding: 0.3rem 0.55rem;
+  position: absolute;
+}
+
+.pl-ba-before {
+  background: #111;
+}
+
+.pl-ba-after {
+  background: #00aacc;
+}
+
+.pl-howto {
+  background: #ffd700;
+}
+
+.pl-howto h2 {
+  color: #111;
+  font-size: clamp(3rem, 7vw, 6.8rem);
+  line-height: 0.9;
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+}
+
+.pl-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pl-step {
+  border-left: 2px solid #111;
+  min-height: 11rem;
+  padding: clamp(1rem, 3vw, 2.2rem);
+}
+
+.pl-step-n {
+  color: rgba(0, 0, 0, 0.12);
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(3.2rem, 7vw, 5rem);
+  line-height: 1;
+}
+
+.pl-step-t {
+  color: #111;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0.7rem 0 0;
+  max-width: 15rem;
+}
+
+.pl-why-l {
+  background: #00aacc;
+}
+
+.pl-why-r {
+  background: #6c2bd9;
+}
+
+.pl-why h2 {
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  margin: 0 0 1.1rem;
+}
+
+.pl-why-l h2 {
+  color: #fff;
+}
+
+.pl-why-r h2 {
+  color: #ffd700;
+}
+
+.pl-why p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  max-width: 42rem;
+}
+
+.pl-mini-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.pl-mini-pair {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 0.35rem;
+}
+
+.pl-mini-pair img {
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.pl-faq {
+  background: #fff;
+  border-top: 6px solid #ff2d55;
+}
+
+.pl-faq-title {
+  color: #111;
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  line-height: 0.9;
+  margin: 0 0 1.6rem;
+}
+
+.pl-faq-title span {
+  color: #ff2d55;
+}
+
+.pl-faq-list {
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.pl-faq-item {
+  border-top: 1px solid #e7e7e7;
+}
+
+.pl-faq-q {
+  align-items: center;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.55rem);
+  gap: 1rem;
+  justify-content: space-between;
+  letter-spacing: 0;
+  list-style: none;
+  padding: 1rem 0;
+  text-transform: uppercase;
+}
+
+.pl-faq-q::-webkit-details-marker {
+  display: none;
+}
+
+.pl-faq-arr {
+  color: #ff2d55;
+  flex: 0 0 auto;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+}
+
+.pl-faq-item[open] .pl-faq-arr {
+  transform: rotate(45deg);
+}
+
+.pl-faq-a {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 55rem;
+  padding: 0 0 1rem;
+}
+
+.pl-cta {
+  background: #ff2d55;
+  text-align: center;
+}
+
+.pl-cta h2 {
+  color: #fff;
+  font-size: clamp(3.6rem, 10vw, 8.5rem);
+  line-height: 0.88;
+  margin: 0 auto 2rem;
+  max-width: 11ch;
+}
+
+.pl-cta h2 span {
+  color: #ffd700;
+  display: block;
+}
+
+.pl-footer-bars span:nth-child(1) {
+  background: #ffd700;
+}
+
+.pl-footer-bars span:nth-child(2) {
+  background: #00aacc;
+}
+
+.pl-footer-bars span:nth-child(3) {
+  background: #6c2bd9;
+}
+
+@media (max-width: 900px) {
+  .pl-section {
+    min-height: auto;
+    padding: clamp(2rem, 7vw, 4rem) clamp(1rem, 5vw, 2rem);
+  }
+
+  .pl-intro,
+  .pl-why {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .pl-intro-left,
+  .pl-why-l,
+  .pl-why-r {
+    min-height: 48svh;
+    padding: clamp(2rem, 7vw, 4rem) clamp(1rem, 5vw, 2rem);
+  }
+
+  .pl-intro-right {
+    min-height: 52svh;
+  }
+
+  .pl-steps {
+    gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .pl-step {
+    border-left: 2px solid #111;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .pl-nav {
+    min-height: 52px;
+  }
+
+  .pl-h1 {
+    font-size: clamp(3.6rem, 22vw, 5.8rem);
+  }
+
+  .pl-intro-right,
+  .pl-mini-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-ba img {
+    min-height: 15rem;
+  }
+
+  .pl-btn,
+  .pl-btn-cta {
+    width: 100%;
+  }
+
+  .pl-cta {
+    padding-bottom: 4.5rem;
+  }
+}
