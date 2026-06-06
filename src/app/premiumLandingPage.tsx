@@ -121,16 +121,13 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
         </div>
 
         <div className="premium-landing-video">
-          <video
-            src={page.video.src}
-            poster={page.video.poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label={page.video.title}
-            style={{ width: '100%', borderRadius: '12px' }}
-          />
+          <div className="video-frame-mobile">
+            <div className="phone-frame">
+              <div className="phone-screen">
+                <video src={page.video.src} poster={page.video.poster} autoPlay muted loop playsInline aria-label={page.video.title} />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
