@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 type RazorpayResponse = {
   razorpay_payment_id: string
 }
@@ -11,14 +13,19 @@ const PACKS = [
 ]
 
 export default function StudioPricing() {
+  const [email, setEmail] = useState('')
+
   async function handleBuy(packId: string) {
-    const email = window.prompt('Enter the email that should receive these credits')
-    if (!email) return
+    const cleanEmail = email.trim()
+    if (!cleanEmail) {
+      window.alert('Enter the email that should receive these credits.')
+      return
+    }
 
     const res = await fetch('/api/studio/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pack: packId, email }),
+      body: JSON.stringify({ pack: packId, email: cleanEmail }),
     })
     const data = await res.json()
 
@@ -58,6 +65,16 @@ export default function StudioPricing() {
   return (
     <section id="studio-pricing" className="studio-pricing">
       <h2>Enhancement Credits</h2>
+      <div className="studio-credit-email">
+        <label htmlFor="credit-email">Credit delivery email</label>
+        <input
+          id="credit-email"
+          type="email"
+          placeholder="you@email.com"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+      </div>
       <div className="pricing-grid">
         {PACKS.map((pack) => (
           <div key={pack.id} className={`pricing-card ${pack.popular ? 'is-popular' : ''}`}>
@@ -70,6 +87,9 @@ export default function StudioPricing() {
           </div>
         ))}
       </div>
+      <p className="studio-payment-note">
+        Supports UPI, cards, net banking, wallets, and other Razorpay checkout options available in your region.
+      </p>
     </section>
   )
 }
