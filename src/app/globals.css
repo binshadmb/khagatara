@@ -2673,8 +2673,15 @@ html[data-theme="light"] .tool-page {
    ========================================================================== */
 
 .pl {
-  background: #fff;
-  color: #111;
+  --pl-bg: #fff;
+  --pl-soft: #f7f7f7;
+  --pl-primary: #ff2d55;
+  --pl-secondary: #6c2bd9;
+  --pl-accent: #00aacc;
+  --pl-dark: #111;
+  --pl-text: #111;
+  background: var(--pl-bg);
+  color: var(--pl-text);
   font-family: "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
   overflow-x: hidden;
   width: 100%;
@@ -2734,7 +2741,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-eyebrow {
-  color: #ff2d55;
+  color: var(--pl-primary);
   font-size: 0.72rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -2764,19 +2771,19 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-word-1 {
-  color: #ff2d55;
+  color: var(--pl-primary);
 }
 
 .pl-word-2 {
-  color: #6c2bd9;
+  color: var(--pl-secondary);
 }
 
 .pl-word-3 {
-  color: #00aacc;
+  color: var(--pl-accent);
 }
 
 .pl-sub {
-  color: #555;
+  color: color-mix(in srgb, var(--pl-text) 68%, #fff);
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   line-height: 1.55;
   margin: 0 0 1.8rem;
@@ -2798,13 +2805,13 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-btn-red {
-  background: #ff2d55;
+  background: var(--pl-primary);
   color: #fff;
 }
 
 .pl-btn-cta {
   background: #fff;
-  color: #ff2d55;
+  color: var(--pl-primary);
   font-size: 1.2rem;
   padding-inline: 3rem;
 }
@@ -2823,15 +2830,15 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-bars span:nth-child(1) {
-  background: #ff2d55;
+  background: var(--pl-primary);
 }
 
 .pl-bars span:nth-child(2) {
-  background: #ffd700;
+  background: var(--pl-secondary);
 }
 
 .pl-bars span:nth-child(3) {
-  background: #00aacc;
+  background: var(--pl-accent);
 }
 
 .pl-intro,
@@ -2856,7 +2863,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-intro-left {
-  background: #ff2d55;
+  background: var(--pl-primary);
 }
 
 .pl-studio-label {
@@ -2889,7 +2896,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-intro-right {
-  background: #111;
+  background: var(--pl-dark);
   display: grid;
   gap: clamp(0.75rem, 1.8vw, 1.25rem);
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2925,19 +2932,19 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-ba-before {
-  background: #111;
+  background: var(--pl-dark);
 }
 
 .pl-ba-after {
-  background: #00aacc;
+  background: var(--pl-accent);
 }
 
 .pl-howto {
-  background: #ffd700;
+  background: var(--pl-secondary);
 }
 
 .pl-howto h2 {
-  color: #111;
+  color: var(--pl-dark);
   font-size: clamp(3rem, 7vw, 6.8rem);
   line-height: 0.9;
   margin: 0 0 clamp(2rem, 5vw, 4rem);
@@ -2949,7 +2956,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-step {
-  border-left: 2px solid #111;
+  border-left: 2px solid var(--pl-dark);
   min-height: 11rem;
   padding: clamp(1rem, 3vw, 2.2rem);
 }
@@ -2962,7 +2969,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-step-t {
-  color: #111;
+  color: var(--pl-dark);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 800;
   line-height: 1.35;
@@ -2971,11 +2978,11 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-why-l {
-  background: #00aacc;
+  background: var(--pl-accent);
 }
 
 .pl-why-r {
-  background: #6c2bd9;
+  background: var(--pl-secondary);
 }
 
 .pl-why h2 {
@@ -2989,7 +2996,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-why-r h2 {
-  color: #ffd700;
+  color: var(--pl-accent);
 }
 
 .pl-why p {
@@ -3022,20 +3029,112 @@ html[data-theme="light"] .tool-page {
   width: 100%;
 }
 
+.pl-layout-hero-image-top .pl-intro {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.pl-layout-hero-image-top .pl-intro-right {
+  grid-template-columns: 1fr;
+}
+
+.pl-layout-hero-image-top .pl-ba:first-child {
+  display: none;
+}
+
+.pl-layout-split-before-after .pl-intro-right {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pl-layout-left-text-right-image .pl-intro {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
+.pl-layout-left-text-right-image .pl-intro-right {
+  grid-template-columns: 1fr;
+}
+
+.pl-layout-left-text-right-image .pl-ba:first-child {
+  display: none;
+}
+
+.pl-layout-image-top-text-bottom .pl-intro {
+  grid-template-columns: 1fr;
+}
+
+.pl-layout-image-top-text-bottom .pl-intro-right {
+  order: -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pl-layout-image-top-text-bottom .pl-intro-left {
+  min-height: auto;
+}
+
+.pl-layout-text-top-image-middle .pl-intro {
+  grid-template-columns: 1fr;
+}
+
+.pl-layout-text-top-image-middle .pl-intro-left {
+  min-height: auto;
+}
+
+.pl-layout-stacked-before-after .pl-intro-right {
+  grid-template-columns: 1fr;
+}
+
+.pl-layout-stacked-before-after .pl-ba img {
+  aspect-ratio: 16 / 7;
+}
+
+.pl-layout-circle-thumb-image .pl-intro-right {
+  align-items: center;
+  grid-template-columns: minmax(7rem, 0.42fr) minmax(0, 1fr);
+}
+
+.pl-layout-circle-thumb-image .pl-ba:first-child {
+  aspect-ratio: 1;
+  border-radius: 999px;
+}
+
+.pl-layout-circle-thumb-image .pl-ba:first-child img {
+  aspect-ratio: 1;
+}
+
+.pl-layout-three-image-grid .pl-intro-right {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pl-layout-three-image-grid .pl-intro-right::after {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--pl-accent) 82%, #fff), var(--pl-secondary));
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  content: '';
+  display: block;
+  min-height: 100%;
+}
+
+.pl-layout-wide-after-image .pl-intro-right {
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+}
+
+.pl-layout-wide-after-image .pl-ba:nth-child(2) {
+  grid-row: span 1;
+}
+
 .pl-faq {
-  background: #fff;
-  border-top: 6px solid #ff2d55;
+  background: var(--pl-bg);
+  border-top: 6px solid var(--pl-primary);
 }
 
 .pl-faq-title {
-  color: #111;
+  color: var(--pl-dark);
   font-size: clamp(3.4rem, 8vw, 7rem);
   line-height: 0.9;
   margin: 0 0 1.6rem;
 }
 
 .pl-faq-title span {
-  color: #ff2d55;
+  color: var(--pl-primary);
 }
 
 .pl-faq-list {
@@ -3048,7 +3147,7 @@ html[data-theme="light"] .tool-page {
 
 .pl-faq-q {
   align-items: center;
-  color: #111;
+  color: var(--pl-dark);
   cursor: pointer;
   display: flex;
   font-family: Impact, "Arial Narrow", sans-serif;
@@ -3066,7 +3165,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-faq-arr {
-  color: #ff2d55;
+  color: var(--pl-primary);
   flex: 0 0 auto;
   font-family: Arial, sans-serif;
   font-weight: 900;
@@ -3077,7 +3176,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-faq-a {
-  color: #555;
+  color: color-mix(in srgb, var(--pl-text) 68%, #fff);
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
@@ -3086,7 +3185,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-cta {
-  background: #ff2d55;
+  background: var(--pl-primary);
   text-align: center;
 }
 
@@ -3099,20 +3198,20 @@ html[data-theme="light"] .tool-page {
 }
 
 .pl-cta h2 span {
-  color: #ffd700;
+  color: var(--pl-secondary);
   display: block;
 }
 
 .pl-footer-bars span:nth-child(1) {
-  background: #ffd700;
+  background: var(--pl-secondary);
 }
 
 .pl-footer-bars span:nth-child(2) {
-  background: #00aacc;
+  background: var(--pl-accent);
 }
 
 .pl-footer-bars span:nth-child(3) {
-  background: #6c2bd9;
+  background: var(--pl-dark);
 }
 
 @media (max-width: 900px) {
@@ -3137,6 +3236,18 @@ html[data-theme="light"] .tool-page {
     padding: 0;
   }
 
+  .pl-layout-hero-image-top .pl-intro,
+  .pl-layout-left-text-right-image .pl-intro,
+  .pl-layout-image-top-text-bottom .pl-intro,
+  .pl-layout-text-top-image-middle .pl-intro,
+  .pl-layout-wide-after-image .pl-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-layout-image-top-text-bottom .pl-intro-right {
+    order: 0;
+  }
+
   .pl-intro-left,
   .pl-why-l,
   .pl-why-r {
@@ -3158,7 +3269,7 @@ html[data-theme="light"] .tool-page {
   }
 
   .pl-step {
-    border-left: 2px solid #111;
+    border-left: 2px solid var(--pl-dark);
     min-height: auto;
   }
 }
@@ -3200,6 +3311,23 @@ html[data-theme="light"] .tool-page {
   .pl-intro-right,
   .pl-mini-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pl-layout-split-before-after .pl-intro-right,
+  .pl-layout-image-top-text-bottom .pl-intro-right,
+  .pl-layout-circle-thumb-image .pl-intro-right,
+  .pl-layout-three-image-grid .pl-intro-right,
+  .pl-layout-wide-after-image .pl-intro-right {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-layout-hero-image-top .pl-ba:first-child,
+  .pl-layout-left-text-right-image .pl-ba:first-child {
+    display: grid;
+  }
+
+  .pl-layout-three-image-grid .pl-intro-right::after {
+    min-height: 8rem;
   }
 
   .pl-btn,

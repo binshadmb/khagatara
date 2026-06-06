@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
+import { designForSlug } from './premiumDesignPresets'
 import type { PremiumEntry } from './premiumLandingMap'
 
 const SITE_URL = 'https://www.khagatara.com'
@@ -90,14 +92,27 @@ function schemaFor(lang: string, page: PremiumEntry) {
 export default function PremiumLandingPage({ lang, page }: PremiumLandingPageProps) {
   const schemas = schemaFor(lang, page)
   const premiumHref = `/premium?source=${encodeURIComponent(page.slug)}`
+  const design = designForSlug(page.slug)
   const beforeAfterImages = page.beforeAfterImages?.length
     ? page.beforeAfterImages
     : FALLBACK_BEFORE_AFTER_IMAGES
   const primaryBeforeAfter = beforeAfterImages[0]
   const titleParts = heroTitleParts(page.h1)
+  const style = {
+    '--pl-bg': design.color.bg,
+    '--pl-soft': design.color.soft,
+    '--pl-primary': design.color.primary,
+    '--pl-secondary': design.color.secondary,
+    '--pl-accent': design.color.accent,
+    '--pl-dark': design.color.dark,
+    '--pl-text': design.color.text,
+  } as CSSProperties
 
   return (
-    <main className="pl">
+    <main
+      className={`pl pl-color-${design.color.id} pl-layout-${design.layout.id}`}
+      style={style}
+    >
       {schemas.map((item) => (
         <script
           key={item['@type']}
