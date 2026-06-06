@@ -2773,9 +2773,10 @@ html[data-theme="light"] .tool-page {
 
 .pl-hero-action {
   align-items: center;
+  align-self: center;
   display: flex;
   justify-content: flex-end;
-  padding-bottom: clamp(1rem, 4vw, 3rem);
+  padding-bottom: clamp(4rem, 10vw, 8rem);
 }
 
 .pl-eyebrow,
