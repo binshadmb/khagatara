@@ -1265,6 +1265,57 @@ input {
   background: rgba(99, 102, 241, 0.85);
 }
 
+.site-donate-button {
+  align-items: center;
+  background: #f7c948;
+  border: 1px solid rgba(75, 48, 4, 0.18);
+  border-radius: 999px;
+  bottom: 1rem;
+  box-shadow: 0 14px 32px rgba(51, 31, 3, 0.18);
+  color: #2b1b04;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0.65rem 1.05rem;
+  position: fixed;
+  right: 1rem;
+  text-decoration: none;
+  z-index: 80;
+}
+
+.site-donate-button:hover {
+  background: #ffd76a;
+  transform: translateY(-1px);
+}
+
+.before-after-mini-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.before-after-mini-pair {
+  background: rgba(65, 42, 11, 0.08);
+  border: 1px solid rgba(166, 125, 33, 0.14);
+  border-radius: 12px;
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  padding: 0.35rem;
+}
+
+.before-after-mini-pair img {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
 .premium-landing-page .premium-landing-video video {
   aspect-ratio: 4 / 5;
   background:
@@ -1391,6 +1442,10 @@ input {
 
   .before-after-card {
     aspect-ratio: 16 / 10;
+  }
+
+  .before-after-mini-grid {
+    grid-template-columns: 1fr;
   }
 
   .premium-landing-page .premium-landing-video video {

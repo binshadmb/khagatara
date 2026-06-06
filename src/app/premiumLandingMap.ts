@@ -13,6 +13,12 @@ export type PremiumEntry = {
   }
   howTo: string[]
   beforeAfter: string
+  beforeAfterImages?: {
+    before: string
+    after: string
+    beforeAlt?: string
+    afterAlt?: string
+  }[]
   faqs: { q: string; a: string }[]
 }
 

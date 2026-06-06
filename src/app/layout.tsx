@@ -54,6 +54,9 @@ export default function RootLayout({
       <body>
         <ThemeToggle />
         {children}
+        <a className="site-donate-button" href="/premium?source=donate">
+          Donate
+        </a>
       </body>
     </html>
   )
