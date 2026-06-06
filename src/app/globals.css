@@ -1265,6 +1265,207 @@ input {
   background: rgba(99, 102, 241, 0.85);
 }
 
+.sputnik-page {
+  background: #0d0f14;
+  color: #f7f3e8;
+  min-height: 100svh;
+}
+
+.sputnik-hero {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+  margin: 0 auto;
+  max-width: 1180px;
+  min-height: 78svh;
+  padding: clamp(2rem, 6vw, 5rem);
+}
+
+.sputnik-copy {
+  display: grid;
+  justify-items: start;
+}
+
+.sputnik-eyebrow {
+  color: #ffcf24;
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.sputnik-copy h1 {
+  color: #fff;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  letter-spacing: 0;
+  line-height: 0.86;
+  margin: 0 0 1.25rem;
+  max-width: 8ch;
+  text-transform: uppercase;
+}
+
+.sputnik-copy p:not(.sputnik-eyebrow) {
+  color: rgba(247, 243, 232, 0.78);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  margin: 0 0 1.8rem;
+  max-width: 42rem;
+}
+
+.sputnik-cta {
+  background: #00aacc;
+  color: #071015;
+  display: inline-flex;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: 1rem;
+  justify-content: center;
+  letter-spacing: 0.16em;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.sputnik-slider {
+  background: #f7f3e8;
+  border: 2px solid #ffcf24;
+  color: #111;
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.sputnik-slider-top,
+.sputnik-engine-card {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sputnik-slider-top span,
+.sputnik-engine-card span {
+  color: #6c2bd9;
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.sputnik-slider-top strong {
+  color: #ff2d55;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.6rem);
+  line-height: 0.9;
+}
+
+.sputnik-slider input[type="range"] {
+  appearance: none;
+  background:
+    linear-gradient(90deg, #ff2d55 0 var(--sputnik-progress), #d7d1bd var(--sputnik-progress) 100%);
+  height: 0.7rem;
+  margin: 1rem 0 0.35rem;
+  width: 100%;
+}
+
+.sputnik-slider input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  background: #ffcf24;
+  border: 3px solid #111;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 2.1rem;
+  width: 2.1rem;
+}
+
+.sputnik-slider input[type="range"]::-moz-range-thumb {
+  background: #ffcf24;
+  border: 3px solid #111;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 2.1rem;
+  width: 2.1rem;
+}
+
+.sputnik-tier-row {
+  display: flex;
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  justify-content: space-between;
+}
+
+.sputnik-engine-card {
+  background: #111;
+  color: #fff;
+  margin-top: 0.5rem;
+  padding: 1rem;
+}
+
+.sputnik-engine-card strong {
+  color: #ffcf24;
+  font-size: 1.2rem;
+}
+
+.sputnik-engine-card p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.sputnik-flow {
+  border-top: 8px solid #ffcf24;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sputnik-flow div {
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.sputnik-flow span {
+  color: #ffcf24;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: 3rem;
+  opacity: 0.72;
+}
+
+.sputnik-flow strong {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.sputnik-flow p {
+  color: rgba(247, 243, 232, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .sputnik-hero,
+  .sputnik-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .sputnik-hero {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .sputnik-copy h1 {
+    font-size: clamp(4rem, 22vw, 6.4rem);
+  }
+
+  .sputnik-tier-row {
+    font-size: 0.58rem;
+  }
+}
+
 .site-donate-button {
   align-items: center;
   background: #f7c948;
