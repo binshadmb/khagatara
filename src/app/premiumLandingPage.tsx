@@ -148,11 +148,13 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
       <section className="pl-section pl-intro">
         <div className="pl-intro-left">
           <div className="pl-studio-label">Khagatara Studio</div>
-          <h2 className="pl-tagline">{page.intro.tagline}</h2>
+          <div className="pl-intro-head">
+            <h2 className="pl-tagline">{page.intro.tagline}</h2>
+            <Link className="pl-btn pl-btn-teal" href={premiumHref}>
+              Enhance Photo
+            </Link>
+          </div>
           <p className="pl-copy">{page.intro.copy}</p>
-          <Link className="pl-btn pl-btn-white" href={premiumHref}>
-            Start Premium Enhancement
-          </Link>
         </div>
 
         <div className="pl-intro-right">

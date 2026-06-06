@@ -2645,6 +2645,11 @@ html[data-theme="light"] .tool-page {
   color: #ff2d55;
 }
 
+.pl-btn-teal {
+  background: #00aacc;
+  color: #fff;
+}
+
 .pl-btn-cta {
   background: #fff;
   color: #ff2d55;
@@ -2698,6 +2703,13 @@ html[data-theme="light"] .tool-page {
   background: #ff2d55;
 }
 
+.pl-intro-head {
+  align-items: flex-start;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
 .pl-studio-label {
   color: rgba(255, 255, 255, 0.62);
   font-size: 0.7rem;
@@ -2707,10 +2719,10 @@ html[data-theme="light"] .tool-page {
 
 .pl-tagline {
   color: #fff;
-  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  font-size: clamp(2.5rem, 5.3vw, 5.3rem);
   line-height: 0.9;
   margin: 0 0 1.25rem;
-  max-width: 10ch;
+  max-width: 9.5ch;
 }
 
 .pl-copy,
@@ -2732,7 +2744,8 @@ html[data-theme="light"] .tool-page {
   display: grid;
   gap: clamp(0.75rem, 1.8vw, 1.25rem);
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  padding: clamp(1.25rem, 3vw, 2.5rem);
+  min-height: 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
 }
 
 .pl-ba {
@@ -2747,7 +2760,7 @@ html[data-theme="light"] .tool-page {
 
 .pl-ba img {
   height: 100%;
-  min-height: 18rem;
+  min-height: 0;
   object-fit: cover;
   width: 100%;
 }
@@ -2976,6 +2989,14 @@ html[data-theme="light"] .tool-page {
     min-height: 52svh;
   }
 
+  .pl-intro-head {
+    grid-template-columns: 1fr;
+  }
+
+  .pl-tagline {
+    max-width: 11ch;
+  }
+
   .pl-steps {
     gap: 0;
     grid-template-columns: 1fr;
@@ -2999,10 +3020,6 @@ html[data-theme="light"] .tool-page {
   .pl-intro-right,
   .pl-mini-grid {
     grid-template-columns: 1fr;
-  }
-
-  .pl-ba img {
-    min-height: 15rem;
   }
 
   .pl-btn,
