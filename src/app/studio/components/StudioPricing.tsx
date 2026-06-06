@@ -87,6 +87,14 @@ export default function StudioPricing() {
           </div>
         ))}
       </div>
+      <div className="studio-fund-note">
+        <strong>Support Khagatara innovation</strong>
+        <p>
+          Every contribution helps us cover GPU processing, improve restoration quality, test new AI tools,
+          add better before-and-after experiences, and bring more payment options such as PayPal, Stripe,
+          or Lemon Squeezy where they fit best.
+        </p>
+      </div>
       <p className="studio-payment-note">
         Supports UPI, cards, net banking, wallets, and other Razorpay checkout options available in your region.
       </p>
