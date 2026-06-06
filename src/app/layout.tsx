@@ -54,7 +54,7 @@ export default function RootLayout({
       <body>
         {children}
         <Link className="site-donate-button" href="/premium?source=donate">
-          <span className="site-donate-icon" aria-hidden="true">+</span>
+          <span className="site-donate-icon" aria-hidden="true">$</span>
           <span>Donate</span>
         </Link>
       </body>
