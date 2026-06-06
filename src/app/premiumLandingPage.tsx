@@ -33,21 +33,6 @@ function schemaFor(lang: string, page: PremiumEntry) {
     },
     {
       '@context': 'https://schema.org',
-      '@type': 'VideoObject',
-      name: page.video.title,
-      description: page.description,
-      thumbnailUrl: page.video.poster ?? `${SITE_URL}/og-image.jpg`,
-      contentUrl: page.video.src,
-      embedUrl: pageUrl,
-      uploadDate: '2024-01-01',
-      publisher: {
-        '@type': 'Organization',
-        name: 'Khagatara',
-        url: SITE_URL,
-      },
-    },
-    {
-      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: page.faqs.map((faq) => ({
         '@type': 'Question',
@@ -120,13 +105,22 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
           </Link>
         </div>
 
-        <div className="premium-landing-video">
-          <div className="video-frame-mobile">
-            <div className="phone-frame">
-              <div className="phone-screen">
-                <video src={page.video.src} poster={page.video.poster} autoPlay muted loop playsInline aria-label={page.video.title} />
-              </div>
-            </div>
+        <div className="premium-landing-before-after">
+          <div className="before-after-card">
+            <img
+              src="/images/before-after/before-placeholder.jpg"
+              alt="Before enhancement"
+              className="before-after-img"
+            />
+            <span className="before-after-label">Before</span>
+          </div>
+          <div className="before-after-card">
+            <img
+              src="/images/before-after/after-placeholder.jpg"
+              alt="After AI enhancement"
+              className="before-after-img"
+            />
+            <span className="before-after-label before-after-label--after">After</span>
           </div>
         </div>
       </section>

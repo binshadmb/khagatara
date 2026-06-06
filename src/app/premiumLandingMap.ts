@@ -1,11 +1,5 @@
 // premiumLandingMap.ts
-// Master premium landing map. Videos are one per slug and reused across language routes.
-
-export type PremiumVideo = {
-  src: string
-  poster?: string
-  title: string
-}
+// Master premium landing map.
 
 export type PremiumEntry = {
   slug: string
@@ -20,23 +14,9 @@ export type PremiumEntry = {
   howTo: string[]
   beforeAfter: string
   faqs: { q: string; a: string }[]
-  video: PremiumVideo
 }
 
-type PremiumEntrySource = Omit<PremiumEntry, 'video'>
-
-const DEFAULT_PREMIUM_VIDEO_BASE_URL = 'https://videos.khagatara.com'
-
-function normalizePremiumVideoBaseUrl(value?: string) {
-  const candidate = value?.trim() || DEFAULT_PREMIUM_VIDEO_BASE_URL
-  return candidate.endsWith('/') ? candidate.slice(0, -1) : candidate
-}
-
-const PREMIUM_VIDEO_BASE_URL = normalizePremiumVideoBaseUrl(
-  process.env.NEXT_PUBLIC_PREMIUM_VIDEO_BASE_URL ?? process.env.PREMIUM_VIDEO_BASE_URL,
-)
-
-const PREMIUM_LANDING_SOURCE: Record<string, PremiumEntrySource> = {
+const PREMIUM_LANDING_SOURCE: Record<string, PremiumEntry> = {
 // ─────────────────────────────────────────────
   // OLD PHOTO CLUSTER
   // ─────────────────────────────────────────────
@@ -2727,20 +2707,7 @@ const PREMIUM_LANDING_SOURCE: Record<string, PremiumEntrySource> = {
   },
 }
 
-function videoFor(entry: PremiumEntrySource): PremiumVideo {
-  return {
-    src: `${PREMIUM_VIDEO_BASE_URL}/${entry.slug}.mp4`,
-    poster: `${PREMIUM_VIDEO_BASE_URL}/${entry.slug}.jpg`,
-    title: `${entry.h1} video preview`,
-  }
-}
-
-export const PREMIUM_LANDING_MAP: Record<string, PremiumEntry> = Object.fromEntries(
-  Object.entries(PREMIUM_LANDING_SOURCE).map(([slug, entry]) => [
-    slug,
-    { ...entry, video: videoFor(entry) },
-  ]),
-) as Record<string, PremiumEntry>
+export const PREMIUM_LANDING_MAP: Record<string, PremiumEntry> = PREMIUM_LANDING_SOURCE
 
 export const PREMIUM_LANDING_PAGES = Object.values(PREMIUM_LANDING_MAP)
 export const PREMIUM_LANDING_SLUGS = Object.keys(PREMIUM_LANDING_MAP)
