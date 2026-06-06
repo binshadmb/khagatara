@@ -124,19 +124,23 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
       </nav>
 
       <section className="pl-section pl-hero">
-        <div className="pl-block">
-          <div className="pl-eyebrow">{page.intro.eyebrow}</div>
-          <h1 className="pl-h1">
-            {titleParts.map((part, index) => (
-              <span className={`pl-word pl-word-${index + 1}`} key={part}>
-                {part}
-              </span>
-            ))}
-          </h1>
-          <p className="pl-sub">{page.description}</p>
-          <Link className="pl-btn pl-btn-red" href={premiumHref}>
-            Enhance Photo
-          </Link>
+        <div className="pl-block pl-hero-grid">
+          <div className="pl-hero-copy">
+            <div className="pl-eyebrow">{page.intro.eyebrow}</div>
+            <h1 className="pl-h1">
+              {titleParts.map((part, index) => (
+                <span className={`pl-word pl-word-${index + 1}`} key={part}>
+                  {part}
+                </span>
+              ))}
+            </h1>
+            <p className="pl-sub">{page.description}</p>
+          </div>
+          <div className="pl-hero-action">
+            <Link className="pl-btn pl-btn-red" href={premiumHref}>
+              Enhance Now
+            </Link>
+          </div>
         </div>
         <div className="pl-bars" aria-hidden="true">
           <span></span>
@@ -148,12 +152,7 @@ export default function PremiumLandingPage({ lang, page }: PremiumLandingPagePro
       <section className="pl-section pl-intro">
         <div className="pl-intro-left">
           <div className="pl-studio-label">Khagatara Studio</div>
-          <div className="pl-intro-head">
-            <h2 className="pl-tagline">{page.intro.tagline}</h2>
-            <Link className="pl-btn pl-btn-teal" href={premiumHref}>
-              Enhance Photo
-            </Link>
-          </div>
+          <h2 className="pl-tagline">{page.intro.tagline}</h2>
           <p className="pl-copy">{page.intro.copy}</p>
         </div>
 
