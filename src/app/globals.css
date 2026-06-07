@@ -3372,6 +3372,7 @@ html[data-theme="light"] .tool-page {
 .pl-btn {
   align-items: center;
   border: 0;
+  border-radius: 999px;
   display: inline-flex;
   font-family: Impact, "Arial Narrow", sans-serif;
   font-size: 1rem;
@@ -3385,7 +3386,9 @@ html[data-theme="light"] .tool-page {
 
 .pl-btn-red {
   background: var(--pl-primary);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--pl-accent) 55%, transparent);
   color: #fff;
+  animation: plCtaBlink 3.8s ease-in-out 1.2s infinite;
 }
 
 .pl-btn-cta {
@@ -3393,6 +3396,28 @@ html[data-theme="light"] .tool-page {
   color: var(--pl-primary);
   font-size: 1.2rem;
   padding-inline: 3rem;
+}
+
+@keyframes plCtaBlink {
+  0%,
+  62%,
+  100% {
+    background: var(--pl-primary);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--pl-accent) 55%, transparent);
+    color: #fff;
+  }
+
+  72% {
+    background: var(--pl-accent);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--pl-accent) 22%, transparent);
+    color: var(--pl-dark);
+  }
+
+  82% {
+    background: var(--pl-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--pl-accent) 30%, transparent);
+    color: #fff;
+  }
 }
 
 .pl-bars {
