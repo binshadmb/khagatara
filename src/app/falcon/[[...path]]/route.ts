@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-// MIME types for static assets
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.css':  'text/css',
@@ -20,43 +19,14 @@ const MIME: Record<string, string> = {
   '.md':   'text/plain',
 }
 
+// Falcon static files live here — next to this route file's parent
 const FALCON_ROOT = path.join(process.cwd(), 'src', 'app', 'falcon')
 
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: Promise<{ path?: string[] }> }
-) {
-  const { path: segments } = await params
-
-  // Default to index.html when no path
-  const filePath = segments && segments.length > 0
-    ? path.join(FALCON_ROOT, ...segments)
-    : path.join(FALCON_ROOT, 'index.html')
-
-  // Resolve the real path and ensure it stays inside FALCON_ROOT
-  let resolvedPath: string
-  try {
-    resolvedPath = fs.realpathSync(filePath)
-  } catch {
-    // File not found — try appending index.html for directory URLs
-    const indexPath = path.join(filePath, 'index.html')
-    if (fs.existsSync(indexPath)) {
-      resolvedPath = indexPath
-    } else {
-      return new NextResponse('Not found', { status: 404 })
-    }
-  }
-
-  // Security: block path traversal
-  if (!resolvedPath.startsWith(fs.realpathSync(FALCON_ROOT))) {
-    return new NextResponse('Forbidden', { status: 403 })
-  }
-
-  const ext = path.extname(resolvedPath).toLowerCase()
+function serveFile(filePath: string): NextResponse {
+  const ext = path.extname(filePath).toLowerCase()
   const contentType = MIME[ext] ?? 'application/octet-stream'
-
   try {
-    const content = fs.readFileSync(resolvedPath)
+    const content = fs.readFileSync(filePath)
     return new NextResponse(content, {
       status: 200,
       headers: {
@@ -69,4 +39,46 @@ export async function GET(
   } catch {
     return new NextResponse('Not found', { status: 404 })
   }
+}
+
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ path?: string[] }> }
+) {
+  const { path: segments } = await params
+
+  // /falcon or /falcon/ → index.html
+  if (!segments || segments.length === 0) {
+    return serveFile(path.join(FALCON_ROOT, 'index.html'))
+  }
+
+  const requested = path.join(FALCON_ROOT, ...segments)
+
+  // Security: block path traversal
+  const root = fs.realpathSync(FALCON_ROOT)
+  let resolved: string
+  try {
+    resolved = fs.realpathSync(requested)
+  } catch {
+    // Path doesn't exist — try as directory → index.html
+    const idx = path.join(requested, 'index.html')
+    if (fs.existsSync(idx)) {
+      resolved = fs.realpathSync(idx)
+    } else {
+      return new NextResponse('Not found', { status: 404 })
+    }
+  }
+
+  if (!resolved.startsWith(root)) {
+    return new NextResponse('Forbidden', { status: 403 })
+  }
+
+  // If it's a directory, serve its index.html
+  if (fs.statSync(resolved).isDirectory()) {
+    const idx = path.join(resolved, 'index.html')
+    if (fs.existsSync(idx)) return serveFile(idx)
+    return new NextResponse('Not found', { status: 404 })
+  }
+
+  return serveFile(resolved)
 }
