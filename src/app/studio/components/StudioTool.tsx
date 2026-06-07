@@ -174,7 +174,7 @@ export default function StudioTool() {
             ondismiss: () => reject(new Error('Payment cancelled.')),
           },
         }
-        const rzp = new (window as any).Razorpay(options)
+        const rzp = new window.Razorpay(options)
         rzp.open()
       })
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function StudioPage() {
   return (
-    <main className="page tool-page">
+    <main className="page tool-page studio-page">
       <nav className="nav">
         <Link className="nav-logo" href="/">
           <div className="tri-wrap" aria-hidden="true">

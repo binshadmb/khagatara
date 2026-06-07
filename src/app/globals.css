@@ -2595,9 +2595,55 @@ html[data-theme="light"] .tool-page {
    STUDIO - Premium Portrait Enhancement
    ========================================================================== */
 
+.studio-page {
+  --studio-bg: #e6f7f1;
+  --studio-ink: #0b1720;
+  --studio-teal: #08745d;
+  --studio-mint: #18a986;
+  --studio-cyan: #00aacc;
+  --studio-gold: #ffcf24;
+  --studio-coral: #ff2d55;
+  --studio-paper: #fffaf0;
+  --studio-soft: #d7efe7;
+  --studio-line: rgba(8, 116, 93, 0.22);
+  background:
+    linear-gradient(90deg, var(--studio-coral) 0 4px, transparent 4px calc(100% - 4px), var(--studio-cyan) calc(100% - 4px)),
+    linear-gradient(135deg, #e7fff6 0%, #f6f1df 48%, #e8ecff 100%);
+  color: var(--studio-ink);
+}
+
+.studio-page .nav {
+  background: rgba(255, 250, 240, 0.92);
+  border-bottom: 1px solid rgba(8, 116, 93, 0.16);
+}
+
+.studio-page .nav-links a {
+  color: #4d4679;
+}
+
+.studio-page .hero {
+  background:
+    linear-gradient(90deg, transparent 0 34%, var(--studio-gold) 34% 48%, var(--studio-cyan) 48% 100%),
+    var(--studio-bg);
+  border-bottom: 0;
+  position: relative;
+}
+
+.studio-page .hero::after {
+  background: linear-gradient(90deg, var(--studio-coral), var(--studio-gold), var(--studio-cyan));
+  bottom: 0;
+  content: '';
+  height: 8px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
 .studio-shell {
-  background: var(--tool-page-bg);
-  color: var(--tool-text);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 207, 36, 0.2), transparent 28%),
+    linear-gradient(135deg, var(--studio-bg), #f9f0dc 52%, #e8efff);
+  color: var(--studio-ink);
   padding: 1.5rem 2rem 2rem;
 }
 
@@ -2608,15 +2654,26 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-fixed-hero .hero-eyebrow {
+  color: var(--studio-coral);
+  font-family: "Courier New", monospace;
+  font-weight: 800;
+  letter-spacing: 0.24em;
   margin-bottom: 0.45rem;
 }
 
 .studio-fixed-hero .hero-title {
-  font-size: 2.55rem;
-  line-height: 0.95;
+  color: var(--studio-teal);
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(3rem, 9vw, 6.8rem);
+  letter-spacing: 0;
+  line-height: 0.86;
+  margin-inline: auto;
+  max-width: 10ch;
+  text-transform: uppercase;
 }
 
 .studio-fixed-hero .hero-sub {
+  color: rgba(11, 23, 32, 0.72);
   margin-top: 0.85rem;
 }
 
@@ -2630,10 +2687,10 @@ html[data-theme="light"] .tool-page {
 
 .studio-controls {
   align-self: start;
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  background: var(--studio-paper);
+  border: 2px solid var(--studio-teal);
+  border-radius: 14px;
+  box-shadow: 12px 12px 0 rgba(255, 207, 36, 0.92);
   display: grid;
   gap: 0.9rem;
   padding: 1.4rem;
@@ -2641,10 +2698,10 @@ html[data-theme="light"] .tool-page {
 
 .studio-results {
   align-self: start;
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+  background: #111827;
+  border: 2px solid #fff;
+  border-radius: 14px;
+  box-shadow: 12px 12px 0 rgba(0, 170, 204, 0.48);
   display: grid;
   gap: 0.9rem;
   padding: 1.4rem;
@@ -2658,18 +2715,20 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-email label {
-  color: var(--tool-muted);
+  color: #4d4679;
   font-size: 0.65rem;
+  font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .studio-email input {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 6px;
-  color: var(--tool-text);
-  font-size: 0.85rem;
+  background: #fff;
+  border: 1.5px solid var(--studio-line);
+  border-radius: 999px;
+  color: var(--studio-ink);
+  font-size: 14px;
+  min-height: 48px;
   outline: none;
   padding: 0.65rem 0.9rem;
   transition: border-color 0.18s;
@@ -2677,13 +2736,15 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-email input:focus {
-  border-color: var(--accent);
+  border-color: var(--studio-cyan);
+  box-shadow: 0 0 0 4px rgba(0, 170, 204, 0.14);
 }
 
 .studio-upload {
   align-items: center;
-  border: 1.5px dashed var(--accent);
-  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 207, 36, 0.2), rgba(24, 169, 134, 0.12));
+  border: 2px dashed var(--studio-teal);
+  border-radius: 14px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -2694,13 +2755,16 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-upload span {
-  color: var(--tool-text);
-  font-size: 0.85rem;
-  font-weight: 600;
+  color: var(--studio-teal);
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .studio-upload small {
-  color: var(--tool-muted);
+  color: rgba(11, 23, 32, 0.62);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2711,8 +2775,8 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-upload.is-dragging {
-  background: var(--tool-card-soft);
-  border-color: var(--tool-text);
+  background: rgba(0, 170, 204, 0.16);
+  border-color: var(--studio-coral);
 }
 
 .studio-resolution {
@@ -2722,10 +2786,10 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-resolution button {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 6px;
-  color: var(--tool-text);
+  background: #fff;
+  border: 1.5px solid var(--studio-line);
+  border-radius: 999px;
+  color: var(--studio-teal);
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 600;
@@ -2737,23 +2801,24 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-resolution button.active {
-  background: var(--tool-text);
-  border-color: var(--tool-text);
-  color: var(--tool-card-bg);
+  background: var(--studio-teal);
+  border-color: var(--studio-teal);
+  color: #fff;
 }
 
 .studio-primary {
-  background: var(--accent);
+  background: var(--studio-coral);
   border: none;
-  border-radius: 6px;
-  color: var(--btn-txt);
+  border-radius: 999px;
+  box-shadow: 0 10px 0 rgba(11, 23, 32, 0.16);
+  color: #fff;
   cursor: pointer;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   padding: 0.9rem;
   text-transform: uppercase;
-  transition: background 0.18s, opacity 0.18s;
+  transition: background 0.18s, box-shadow 0.18s, opacity 0.18s, transform 0.18s;
   width: 100%;
 }
 
@@ -2763,7 +2828,9 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-primary:not(:disabled):hover {
-  background: var(--accent-h);
+  background: var(--studio-teal);
+  box-shadow: 0 7px 0 rgba(11, 23, 32, 0.18);
+  transform: translateY(3px);
 }
 
 .studio-progress {
@@ -2778,18 +2845,18 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-progress > div span {
-  color: var(--tool-muted);
+  color: #4d4679;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
 }
 
 .studio-progress > div strong {
-  color: var(--tool-text);
+  color: var(--studio-teal);
   font-size: 0.7rem;
 }
 
 .studio-progress b {
-  background: var(--tool-card-muted);
+  background: rgba(8, 116, 93, 0.14);
   border-radius: 4px;
   display: block;
   height: 4px;
@@ -2797,7 +2864,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-progress b i {
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--studio-coral), var(--studio-gold), var(--studio-cyan));
   border-radius: 4px;
   display: block;
   height: 100%;
@@ -2805,7 +2872,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-pipeline {
-  color: var(--accent);
+  color: var(--studio-teal);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-align: center;
@@ -2823,8 +2890,9 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-preview-grid img {
-  border: 1px solid var(--tool-border);
-  border-radius: 6px;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
   display: block;
   height: auto;
   max-height: 340px;
@@ -2833,7 +2901,7 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-preview-grid figcaption {
-  color: var(--tool-muted);
+  color: rgba(255, 255, 255, 0.74);
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-align: center;
@@ -2842,10 +2910,11 @@ html[data-theme="light"] .tool-page {
 
 .studio-preview-grid .preview-placeholder {
   align-items: center;
-  background: var(--tool-card-soft);
-  border: 1px dashed var(--tool-border);
-  border-radius: 6px;
-  color: var(--tool-muted);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 170, 204, 0.12));
+  border: 1px dashed rgba(255, 255, 255, 0.36);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.66);
   display: flex;
   font-size: 0.7rem;
   height: 200px;
@@ -2856,19 +2925,23 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-pricing {
-  background: var(--tool-page-bg);
-  color: var(--tool-text);
+  background:
+    linear-gradient(90deg, var(--studio-gold) 0 18%, transparent 18% 82%, var(--studio-cyan) 82%),
+    #fffaf0;
+  color: var(--studio-ink);
   padding: 2rem;
 }
 
 .studio-pricing h2 {
-  color: var(--tool-text);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  color: var(--studio-teal);
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.9;
   margin-bottom: 1.25rem;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .studio-credit-email {
@@ -2879,18 +2952,19 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-credit-email label {
-  color: var(--tool-muted);
+  color: #4d4679;
   font-size: 0.68rem;
+  font-weight: 800;
   letter-spacing: 0.14em;
   text-align: center;
   text-transform: uppercase;
 }
 
 .studio-credit-email input {
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  color: var(--tool-text);
+  background: #fff;
+  border: 1.5px solid var(--studio-line);
+  border-radius: 999px;
+  color: var(--studio-ink);
   font-size: 14px;
   min-height: 46px;
   outline: none;
@@ -2900,7 +2974,8 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-credit-email input:focus {
-  border-color: var(--accent);
+  border-color: var(--studio-cyan);
+  box-shadow: 0 0 0 4px rgba(0, 170, 204, 0.14);
 }
 
 .pricing-grid {
@@ -2912,10 +2987,10 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-fund-note {
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
-  color: var(--tool-text);
+  background: #111827;
+  border: 2px solid var(--studio-gold);
+  border-radius: 14px;
+  color: #fff;
   margin: 1rem auto 0;
   max-width: 620px;
   padding: 1rem 1.15rem;
@@ -2931,14 +3006,14 @@ html[data-theme="light"] .tool-page {
 }
 
 .studio-fund-note p {
-  color: var(--tool-muted);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.86rem;
   line-height: 1.55;
   margin: 0;
 }
 
 .studio-payment-note {
-  color: var(--tool-muted);
+  color: rgba(11, 23, 32, 0.62);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   line-height: 1.55;
@@ -3026,11 +3101,6 @@ html[data-theme="light"] .tool-page {
     grid-template-columns: 1fr;
   }
 
-  .theme-toggle {
-    bottom: 0.75rem;
-    right: 0.75rem;
-  }
-
   .site-donate-button {
     bottom: 0.75rem;
     left: 0.75rem;
@@ -3039,9 +3109,10 @@ html[data-theme="light"] .tool-page {
 }
 
 .pricing-card {
-  background: var(--tool-card-bg);
-  border: 1px solid var(--tool-border);
-  border-radius: 8px;
+  background: #fff;
+  border: 2px solid var(--studio-line);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 rgba(8, 116, 93, 0.12);
   display: grid;
   gap: 0.5rem;
   padding: 1.5rem;
@@ -3050,11 +3121,12 @@ html[data-theme="light"] .tool-page {
 }
 
 .pricing-card.is-popular {
-  border-color: var(--accent);
+  border-color: var(--studio-coral);
+  box-shadow: 8px 8px 0 rgba(255, 45, 85, 0.18);
 }
 
 .popular-badge {
-  background: var(--accent);
+  background: var(--studio-coral);
   border-radius: 20px;
   color: var(--btn-txt);
   font-size: 0.58rem;
@@ -3070,36 +3142,36 @@ html[data-theme="light"] .tool-page {
 }
 
 .pricing-card h3 {
-  color: var(--tool-muted);
+  color: #4d4679;
   font-size: 0.65rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .pricing-card strong {
-  color: var(--tool-text);
-  font-family: 'Cormorant Garamond', serif;
+  color: var(--studio-teal);
+  font-family: Impact, "Arial Narrow", sans-serif;
   font-size: 2rem;
   font-weight: 500;
 }
 
 .pricing-card p {
-  color: var(--tool-muted);
+  color: var(--studio-coral);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
 }
 
 .pricing-card small {
-  color: var(--tool-muted);
+  color: rgba(11, 23, 32, 0.62);
   font-size: 0.62rem;
   letter-spacing: 0.08em;
 }
 
 .pricing-card button {
-  background: var(--tool-card-soft);
-  border: 1px solid var(--tool-border);
-  border-radius: 6px;
-  color: var(--tool-text);
+  background: var(--studio-teal);
+  border: 1px solid var(--studio-teal);
+  border-radius: 999px;
+  color: #fff;
   cursor: pointer;
   font-size: 0.68rem;
   font-weight: 600;
@@ -3111,20 +3183,21 @@ html[data-theme="light"] .tool-page {
 }
 
 .pricing-card.is-popular button {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--btn-txt);
+  background: var(--studio-coral);
+  border-color: var(--studio-coral);
+  color: #fff;
 }
 
 .pricing-card button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--studio-cyan);
+  border-color: var(--studio-cyan);
+  color: #071015;
 }
 
 .pricing-card.is-popular button:hover {
-  background: var(--accent-h);
-  border-color: var(--accent-h);
-  color: var(--btn-txt);
+  background: var(--studio-teal);
+  border-color: var(--studio-teal);
+  color: #fff;
 }
 
 @keyframes fadeUp {
