@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khagatara Falcon - Image Format Converter</title>
+  <meta name="description" content="A premium image format converter with auto-detection, canvas format map, RAW coverage, delivery exports, and bulk API support.">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/format-map.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span><span>Khagatara Falcon</span></a>
+    <div class="nav-links">
+      <a href="tool.html">Tool</a>
+      <a href="formats/index.html">Formats</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="api/index.html">API</a>
+      <a href="blog/index.html">Blog</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="hero" class="hero">
+      <div>
+        <p class="eyebrow">360 real formats. 800 aliases. One conversion cockpit.</p>
+        <h1>Convert Every Image Format</h1>
+        <p class="lead">Falcon is the upload-to-output workflow for web images, camera RAW, medical scans, GIS files, print assets, game textures, and dataset exports.</p>
+        <div class="actions">
+          <a class="button primary" href="tool.html">Start converting</a>
+          <a class="button ghost" href="#format-map">Explore map</a>
+        </div>
+      </div>
+      <div class="visual-board" aria-label="Format families">
+        <div class="visual-tile">JPG to AVIF</div>
+        <div class="visual-tile">CR3 to PNG</div>
+        <div class="visual-tile">DICOM to JPG</div>
+        <div class="visual-tile">GeoTIFF to WebP</div>
+        <div class="visual-tile">PSD to PDF</div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <span>JPG</span><span>PNG</span><span>WEBP</span><span>AVIF</span><span>HEIC</span><span>CR3</span><span>NEF</span><span>DICOM</span><span>GeoTIFF</span><span>KTX2</span><span>COCO</span><span>PDF/X</span>
+    </div>
+
+    <section id="how-it-works" class="band-gold">
+      <p class="eyebrow">Fast flow</p>
+      <h2>Drop. Detect. Deliver.</h2>
+      <div class="grid">
+        <article class="card"><strong>01</strong><h3>Upload</h3><p>Drag a file, paste a URL, or capture from camera. Falcon reads only the header first for instant local detection.</p></article>
+        <article class="card"><strong>02</strong><h3>Tune</h3><p>Choose output format, size, DPI, color space, quality, compression, metadata, and batch behavior.</p></article>
+        <article class="card"><strong>03</strong><h3>Export</h3><p>Download a single output, ZIP package, responsive set, API result, or dataset-friendly sidecar bundle.</p></article>
+      </div>
+    </section>
+
+    <section id="format-map" class="band-ink">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Non-scrapable map</p>
+          <h2>Canvas Format Universe</h2>
+          <p class="lead muted">The map draws names and clusters directly on canvas. Humans see the universe; crawlers only see a canvas mount.</p>
+        </div>
+        <div class="format-map-shell">
+          <canvas id="falcon-format-map" width="1280" height="720" aria-label="Interactive image format universe"></canvas>
+          <div id="falcon-format-tooltip" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why-premium">
+      <p class="eyebrow">Built for serious image work</p>
+      <h2>Beyond a basic converter</h2>
+      <div class="grid four">
+        <article class="card"><h3>RAW aware</h3><p>Camera brand detection for Canon, Nikon, Sony, Fuji, Leica, Hasselblad, RED, Blackmagic, DJI, and more.</p></article>
+        <article class="card"><h3>Print ready</h3><p>DPI, CMYK intent, PDF/X targets, TIFF variants, metadata rules, and prepress-friendly output controls.</p></article>
+        <article class="card"><h3>Data ready</h3><p>COCO, YOLO, Pascal VOC, WebDataset, normalized PNG/JPEG, sidecars, and ML delivery presets.</p></article>
+        <article class="card"><h3>Bulk ready</h3><p>Studio queues, ZIP export, API endpoints, webhooks, and predictable limits for large libraries.</p></article>
+      </div>
+    </section>
+
+    <section id="pricing-preview" class="band-cyan">
+      <div class="split">
+        <div><p class="eyebrow">Plans</p><h2>Free to bulk API</h2><p class="lead muted">Start with everyday conversions, then scale into RAW, print, GIS, medical, and automated pipelines.</p></div>
+        <div class="actions"><a class="button gold" href="pricing.html">View pricing</a><a class="button ghost" href="api/index.html">Read API docs</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div><h3>Khagatara Falcon</h3><p>Image conversion, detection, and delivery for the real 2026 format universe.</p></div>
+      <div class="footer-list"><strong>Product</strong><a href="tool.html">Tool</a><a href="formats/index.html">Formats</a><a href="pricing.html">Pricing</a></div>
+      <div class="footer-list"><strong>Developers</strong><a href="api/index.html">API</a><a href="formats/_converter-template.html">SEO template</a></div>
+      <div class="footer-list"><strong>Guides</strong><a href="blog/index.html">Blog</a><a href="blog/what-is-avif-format.html">AVIF</a></div>
+      <div><strong>Palette</strong><div class="swatches" data-swatches></div></div>
+    </div>
+  </footer>
+
+  <details class="donate-widget"><summary>$ Donate</summary><div><p>Support more format coverage and test files.</p><button class="primary" type="button">Support Falcon</button></div></details>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/format-map.js"></script>
+</body>
+</html>

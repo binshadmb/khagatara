@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Falcon Converter Tool</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/tool.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">F</span><span>Khagatara Falcon</span></a>
+    <div class="nav-links"><a href="tool.html">Tool</a><a href="formats/index.html">Formats</a><a href="pricing.html">Pricing</a><a href="api/index.html">API</a><a href="blog/index.html">Blog</a></div>
+  </nav>
+  <main>
+    <section class="hero tool-hero band-rose">
+      <p class="eyebrow">Main converter</p>
+      <h1>Upload to Convert</h1>
+      <p class="lead muted">Auto-detects the input format locally, then lets you pick output, quality, dimensions, DPI, and delivery mode.</p>
+    </section>
+    <section class="tool-shell">
+      <aside class="controls">
+        <label class="upload-zone" for="file-input">
+          <span><strong>Drop image here</strong><br>or choose a file</span>
+          <input id="file-input" type="file" hidden>
+        </label>
+        <output id="autodetect-badge" class="badge">Detected: waiting for file</output>
+        <details class="format-ladder" open>
+          <summary>Target format alphabetical ladder</summary>
+          <div id="format-ladder"></div>
+        </details>
+        <label>Selected output format
+          <select id="output-format">
+            <option>AVIF</option><option>WEBP</option><option>PNG</option><option>JPG</option><option>TIFF</option><option>PDF</option><option>KTX2</option><option>COCO JSON</option>
+          </select>
+        </label>
+        <div class="form-grid">
+          <label>Width <input type="number" value="1920"></label>
+          <label>Height <input type="number" value="1080"></label>
+          <label>DPI <input type="number" value="300"></label>
+          <label>Target size <input type="number" value="2" step="0.1"></label>
+          <label>Target unit
+            <select><option>KB</option><option selected>MB</option><option>GB</option></select>
+          </label>
+          <label>Scale preset
+            <select><option>1.25x</option><option>2x</option><option>3.7x</option><option>4x</option><option>8x</option><option>16x</option><option>27.4x</option><option>32x</option><option>Custom</option></select>
+          </label>
+          <label>Resolution preset
+            <select><option>Original</option><option>4K</option><option>8K</option><option>16K</option><option>32K</option><option>Custom</option></select>
+          </label>
+          <label>Units
+            <select><option>px</option><option>inch</option><option>cm</option><option>mm</option></select>
+          </label>
+        </div>
+        <div class="form-grid">
+          <label>Color depth
+            <select><option>8-bit</option><option>16-bit</option><option>24-bit</option><option>32-bit</option><option>48-bit</option><option>64-bit</option></select>
+          </label>
+          <label>Color space
+            <select><option>RGB</option><option>sRGB</option><option>Adobe RGB</option><option>ProPhoto RGB</option><option>CMYK</option><option>LAB</option><option>XYZ</option></select>
+          </label>
+          <label>Language
+            <input id="language-search" list="language-list" placeholder="Search 140 languages">
+            <datalist id="language-list"></datalist>
+          </label>
+          <label>Price region
+            <select><option>PPP auto</option><option>US</option><option>India</option><option>EU</option><option>Global</option></select>
+          </label>
+        </div>
+        <label>Quality <input type="range" min="1" max="100" value="86"></label>
+        <label>Compression <input type="range" min="0" max="100" value="42"></label>
+        <div class="toggle-grid">
+          <label><input type="checkbox"> Sharpen</label>
+          <label><input type="checkbox"> Denoise</label>
+          <label><input type="checkbox"> Face recovery</label>
+          <label><input type="checkbox"> Background cleanup</label>
+          <label><input type="checkbox"> Artifact removal</label>
+          <label><input type="checkbox"> Texture recovery</label>
+          <label><input type="checkbox" checked> Transparency preserve</label>
+          <label><input type="checkbox" checked> Preserve metadata</label>
+          <label><input type="checkbox" checked> Preserve EXIF</label>
+          <label><input type="checkbox" checked> Preserve ICC</label>
+          <label><input type="checkbox"> Strip GPS</label>
+          <label><input type="checkbox" checked> Progressive output</label>
+          <label><input type="checkbox"> Lossless if possible</label>
+          <label><input type="checkbox"> Generate srcset</label>
+          <label><input type="checkbox"> ZIP batch</label>
+        </div>
+        <button id="convert-btn" class="primary" type="button">Convert</button>
+      </aside>
+      <section class="panel">
+        <h2>Preview</h2>
+        <div id="preview-panel" class="preview-panel"><p class="muted">Output preview appears here.</p></div>
+        <div class="before-after-demo" aria-label="Before after comparison">
+          <div class="before-pane">Before</div>
+          <div class="after-pane">After</div>
+          <input type="range" min="0" max="100" value="50" aria-label="Before after slider">
+        </div>
+        <progress id="progress-bar" value="0" max="100">0%</progress>
+        <div id="download-zone" class="actions"><button class="gold" type="button">Download</button><button class="ghost" type="button">Download ZIP</button></div>
+      </section>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-grid"><div><h3>Falcon Tool</h3><p>Client-first detection with production export controls.</p></div><div class="footer-list"><a href="formats/index.html">Formats</a><a href="pricing.html">Pricing</a></div><div></div><div></div><div><strong>Palette</strong><div class="swatches" data-swatches></div></div></div></footer>
+  <details class="donate-widget"><summary>$ Donate</summary><div><p>Support more test formats.</p><button class="primary" type="button">Support Falcon</button></div></details>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/autodetect.js"></script>
+  <script src="assets/js/language.js"></script>
+  <script src="assets/js/converter.js"></script>
+</body>
+</html>

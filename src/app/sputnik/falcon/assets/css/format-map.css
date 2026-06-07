@@ -1,0 +1,23 @@
+.format-map-shell,
+[data-component="format-map"] {
+  position: relative;
+  min-height: 420px;
+  background: #0b1020;
+  overflow: hidden;
+}
+#falcon-format-map {
+  display: block;
+  width: 100%;
+  height: min(72vh, 720px);
+}
+#falcon-format-tooltip {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  max-width: min(320px, calc(100% - 32px));
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  pointer-events: none;
+}
