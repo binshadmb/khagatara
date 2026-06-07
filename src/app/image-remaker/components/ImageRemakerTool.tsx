@@ -197,8 +197,8 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
   async function remakeImage() {
     if (!file) { setError('Upload an image first.'); return }
 
-    if (file.size > 20 * 1024 * 1024) {
-      setError('Images up to 20 MB are supported.')
+    if (file.size > 120 * 1024 * 1024) {
+      setError('Images up to 120 MB are supported.')
       return
     }
 
@@ -301,7 +301,7 @@ export default function ImageRemakerTool({ initialTargetKb, initialMode, initial
             onDrop={handleDrop}
           >
             <span>{file ? file.name : 'Upload Image'}</span>
-            <small>Drag & drop or choose — JPG, PNG, WebP up to 20 MB</small>
+            <small>Drag & drop or choose — JPG, PNG, WebP up to 120 MB</small>
             <input ref={inputRef} accept="image/*" type="file" onChange={handleFileChange} />
           </label>
 

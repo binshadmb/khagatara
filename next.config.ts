@@ -6,7 +6,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: '25mb',
+      bodySizeLimit: '120mb',
     },
   },
   httpAgentOptions: {

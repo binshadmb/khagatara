@@ -30,10 +30,10 @@ export async function POST(req: NextRequest) {
     }
 
     const isPaid = formData.get('paid') === '1'
-    const maxBytes = isPaid ? 20 * 1024 * 1024 : 5 * 1024 * 1024
+    const maxBytes = isPaid ? 120 * 1024 * 1024 : 5 * 1024 * 1024
     if (file.size > maxBytes) {
       return NextResponse.json(
-        { error: isPaid ? 'File exceeds 20 MB limit.' : 'Free tier limit is 5 MB. Upgrade for larger images.' },
+        { error: isPaid ? 'File exceeds 120 MB limit.' : 'Free tier limit is 5 MB. Upgrade for larger images.' },
         { status: 413 },
       )
     }
