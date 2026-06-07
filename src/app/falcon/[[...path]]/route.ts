@@ -19,14 +19,25 @@ const MIME: Record<string, string> = {
   '.md':   'text/plain',
 }
 
-// Falcon static files live here — next to this route file's parent
 const FALCON_ROOT = path.join(process.cwd(), 'src', 'app', 'falcon')
+const ROOT_REAL   = fs.realpathSync(FALCON_ROOT)
 
 function serveFile(filePath: string): NextResponse {
   const ext = path.extname(filePath).toLowerCase()
   const contentType = MIME[ext] ?? 'application/octet-stream'
+
   try {
-    const content = fs.readFileSync(filePath)
+    let content: Buffer | string = fs.readFileSync(filePath)
+
+    // Inject <base href="/falcon/"> into HTML so relative paths work correctly
+    if (ext === '.html') {
+      let html = content.toString('utf-8')
+      if (!html.includes('<base ')) {
+        html = html.replace('<head>', '<head>\n  <base href="/falcon/">')
+      }
+      content = html
+    }
+
     return new NextResponse(content, {
       status: 200,
       headers: {
@@ -47,7 +58,7 @@ export async function GET(
 ) {
   const { path: segments } = await params
 
-  // /falcon or /falcon/ → index.html
+  // /falcon (no segments) → index.html
   if (!segments || segments.length === 0) {
     return serveFile(path.join(FALCON_ROOT, 'index.html'))
   }
@@ -55,12 +66,11 @@ export async function GET(
   const requested = path.join(FALCON_ROOT, ...segments)
 
   // Security: block path traversal
-  const root = fs.realpathSync(FALCON_ROOT)
   let resolved: string
   try {
     resolved = fs.realpathSync(requested)
   } catch {
-    // Path doesn't exist — try as directory → index.html
+    // Try as directory → index.html
     const idx = path.join(requested, 'index.html')
     if (fs.existsSync(idx)) {
       resolved = fs.realpathSync(idx)
@@ -69,11 +79,11 @@ export async function GET(
     }
   }
 
-  if (!resolved.startsWith(root)) {
+  if (!resolved.startsWith(ROOT_REAL)) {
     return new NextResponse('Forbidden', { status: 403 })
   }
 
-  // If it's a directory, serve its index.html
+  // Directory → serve its index.html
   if (fs.statSync(resolved).isDirectory()) {
     const idx = path.join(resolved, 'index.html')
     if (fs.existsSync(idx)) return serveFile(idx)
