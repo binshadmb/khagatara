@@ -1,17 +1,82 @@
 import type { SputnikResult, SputnikTier } from './tierRouter'
 
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN
-const REPLICATE_SPUTNIK_MODEL = process.env.REPLICATE_SPUTNIK_MODEL
+const REPLICATE_MODEL =
+  process.env.REPLICATE_SPUTNIK_MODEL ??
+  'philz1337x/clarity-upscaler:dfad41707589d68ecdccd1dfa600d55a208f9310738f46fb12765a2a5978ddb'
 
-async function runReplicatePass(image: ArrayBuffer, pass: number) {
-  if (!REPLICATE_API_TOKEN || !REPLICATE_SPUTNIK_MODEL) {
-    throw new Error('Replicate is not configured for Sputnik yet.')
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  return Buffer.from(buffer).toString('base64')
+}
+
+function replicateVersion(model: string) {
+  return model.includes(':') ? model.split(':').at(-1) : model
+}
+
+async function runReplicatePass(imageBuffer: ArrayBuffer, pass: number): Promise<ArrayBuffer> {
+  if (!REPLICATE_API_TOKEN) {
+    throw new Error('REPLICATE_API_TOKEN is not set.')
   }
 
-  // Skeleton only: wire the selected Replicate model here.
-  // The expected shape is: upload current image, create prediction, poll, download result.
-  console.log(`Sputnik Replicate pass ${pass} using ${REPLICATE_SPUTNIK_MODEL}`)
-  return image
+  const base64 = arrayBufferToBase64(imageBuffer)
+  const dataUrl = `data:image/png;base64,${base64}`
+
+  console.log(`[Sputnik] Replicate pass ${pass} starting...`)
+
+  const createRes = await fetch('https://api.replicate.com/v1/predictions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${REPLICATE_API_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      version: replicateVersion(REPLICATE_MODEL),
+      input: {
+        image: dataUrl,
+        scale_factor: 4,
+        sharpen: 1.5,
+        face_enhance: true,
+      },
+    }),
+  })
+
+  if (!createRes.ok) {
+    throw new Error(`Replicate create failed: ${await createRes.text()}`)
+  }
+
+  const prediction = await createRes.json()
+  const pollUrl = prediction.urls?.get ?? `https://api.replicate.com/v1/predictions/${prediction.id}`
+
+  let result = prediction
+  while (result.status !== 'succeeded' && result.status !== 'failed') {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    const pollRes = await fetch(pollUrl, {
+      headers: { Authorization: `Token ${REPLICATE_API_TOKEN}` },
+    })
+
+    if (!pollRes.ok) {
+      throw new Error(`Replicate poll failed: ${await pollRes.text()}`)
+    }
+
+    result = await pollRes.json()
+    console.log(`[Sputnik] Pass ${pass} status: ${result.status}`)
+  }
+
+  if (result.status === 'failed') {
+    throw new Error(`Replicate pass ${pass} failed: ${result.error}`)
+  }
+
+  const outputUrl = Array.isArray(result.output) ? result.output[0] : result.output
+  if (!outputUrl) {
+    throw new Error(`Replicate pass ${pass} finished without an output image.`)
+  }
+
+  const imgRes = await fetch(outputUrl)
+  if (!imgRes.ok) {
+    throw new Error(`Replicate output download failed: ${await imgRes.text()}`)
+  }
+
+  return imgRes.arrayBuffer()
 }
 
 export async function replicateEnhance(
@@ -33,7 +98,7 @@ export async function replicateEnhance(
 
   return {
     body: image,
-    contentType: file.type || 'image/png',
+    contentType: 'image/png',
     filename: `khagatara-sputnik-${tier}.png`,
     pipeline: 'replicate-chain',
     passes,

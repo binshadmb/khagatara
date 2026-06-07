@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { countryFromHeaders, getSputnik32kPrice } from '../../../lib/pppPricing'
 import { isSputnikTier, routeSputnikTier } from '../../lib/tierRouter'
 
 export const maxDuration = 300
@@ -18,6 +19,8 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await routeSputnikTier(file, tierValue)
+    const country = countryFromHeaders(req.headers)
+    const sputnik32kPrice = getSputnik32kPrice(country)
 
     return new NextResponse(result.body, {
       status: 200,
@@ -27,6 +30,9 @@ export async function POST(req: NextRequest) {
         'X-Sputnik-Tier': tierValue,
         'X-Sputnik-Pipeline': result.pipeline,
         'X-Sputnik-Passes': String(result.passes ?? 0),
+        'X-Sputnik-Country': country,
+        'X-Sputnik-32K-Price': sputnik32kPrice.display,
+        'X-Sputnik-Gateway': sputnik32kPrice.gateway,
         'Cache-Control': 'no-store',
       },
     })

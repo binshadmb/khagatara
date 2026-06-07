@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
 import Link from 'next/link'
+import { countryFromHeaders, getSputnik32kPrice } from '../lib/pppPricing'
 import SputnikSlider from './components/SputnikSlider'
 
 export const metadata: Metadata = {
@@ -8,7 +10,11 @@ export const metadata: Metadata = {
     'Khagatara Sputnik is a premium AI image enhancement concept for HD, 4K, 8K, 16K, 24K, and 32K output tiers.',
 }
 
-export default function SputnikPage() {
+export default async function SputnikPage() {
+  const headerStore = await headers()
+  const country = countryFromHeaders(headerStore)
+  const sputnik32kPrice = getSputnik32kPrice(country)
+
   return (
     <main className="sputnik-page">
       <section className="sputnik-hero">
@@ -24,7 +30,7 @@ export default function SputnikPage() {
             Start from Premium
           </Link>
         </div>
-        <SputnikSlider />
+        <SputnikSlider country={country} sputnik32kPrice={sputnik32kPrice} />
       </section>
 
       <section className="sputnik-flow">
