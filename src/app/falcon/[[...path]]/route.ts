@@ -27,24 +27,28 @@ function serveFile(filePath: string): NextResponse {
   const contentType = MIME[ext] ?? 'application/octet-stream'
 
   try {
-    let content: Buffer | string = fs.readFileSync(filePath)
+    const raw = fs.readFileSync(filePath)
 
     // Inject <base href="/falcon/"> into HTML so relative paths work correctly
     if (ext === '.html') {
-      let html = content.toString('utf-8')
+      let html = raw.toString('utf-8')
       if (!html.includes('<base ')) {
         html = html.replace('<head>', '<head>\n  <base href="/falcon/">')
       }
-      content = html
+      return new NextResponse(html, {
+        status: 200,
+        headers: {
+          'Content-Type': contentType,
+          'Cache-Control': 'no-cache',
+        },
+      })
     }
 
-    return new NextResponse(content, {
+    return new NextResponse(new Uint8Array(raw), {
       status: 200,
       headers: {
         'Content-Type': contentType,
-        'Cache-Control': ext === '.html'
-          ? 'no-cache'
-          : 'public, max-age=31536000, immutable',
+        'Cache-Control': 'public, max-age=31536000, immutable',
       },
     })
   } catch {
