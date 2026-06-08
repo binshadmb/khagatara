@@ -27,15 +27,15 @@ body {
 .f-nav-logo .f-logo-brand { color: var(--red); }
 .f-nav-links { display: flex; gap: 24px; }
 .f-nav-links a {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: #888; transition: color .15s;
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+  color: #ccc; transition: color .15s;
 }
 .f-nav-links a:hover  { color: var(--yellow); }
 .f-nav-links a.active { color: var(--white); border-bottom: 2px solid var(--red); padding-bottom: 2px; }
 .f-nav-actions { display: flex; gap: 10px; align-items: center; }
 .f-nav-status {
   display: flex; align-items: center; gap: 6px;
-  font-size: 9px; letter-spacing: 2px; color: var(--green); text-transform: uppercase;
+  font-size: 12px; letter-spacing: 2px; color: var(--green); text-transform: uppercase;
 }
 .f-nav-status-dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -77,7 +77,7 @@ body {
 /* ---- SECTION BASE ----------------------------------------- */
 .f-section { padding: 80px 40px; border-bottom: 1px solid #1a1a1a; }
 .f-section-label {
-  font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+  font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
   color: var(--red); margin-bottom: 12px;
 }
 .f-section-title {
@@ -85,7 +85,7 @@ body {
   color: var(--white); line-height: 1; margin-bottom: 8px;
 }
 .f-section-sub {
-  font-size: 11px; color: #666; letter-spacing: 1px;
+  font-size: 14px; color: #aaa; letter-spacing: 1px;
   line-height: 1.8; max-width: 520px; margin-bottom: 40px;
 }
 .f-accent-red    { color: var(--red); }
@@ -115,7 +115,7 @@ body {
   font-family: 'Bebas Neue', sans-serif; font-size: 48px;
   line-height: 1; margin-bottom: 6px;
 }
-.f-stat-label { font-size: 9px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+.f-stat-label { font-size: 13px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
 .f-stat-box:nth-child(4n+1) .f-stat-num { color: var(--red); }
 .f-stat-box:nth-child(4n+2) .f-stat-num { color: var(--yellow); }
 .f-stat-box:nth-child(4n+3) .f-stat-num { color: var(--cyan); }
@@ -154,15 +154,15 @@ body {
   font-family: 'Bebas Neue', sans-serif; font-size: 22px;
   letter-spacing: 2px; color: var(--white); margin-bottom: 10px;
 }
-.f-card-body { font-size: 10px; letter-spacing: 1px; color: #777; line-height: 1.8; text-transform: uppercase; }
+.f-card-body { font-size: 13px; letter-spacing: 1px; color: #ccc; line-height: 1.8; text-transform: uppercase; }
 
 /* ---- TABLE ------------------------------------------------ */
-.f-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.f-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .f-table th {
-  text-align: left; font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-  color: #444; padding: 12px 16px; border-bottom: 1px solid #1e1e1e; font-weight: 400;
+  text-align: left; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+  color: #bbb; padding: 12px 16px; border-bottom: 1px solid #2a2a2a; font-weight: 400;
 }
-.f-table td { padding: 15px 16px; border-bottom: 1px solid #161616; color: var(--white); vertical-align: top; }
+.f-table td { padding: 15px 16px; border-bottom: 1px solid #1e1e1e; color: var(--white); vertical-align: top; }
 .f-table tr:hover td { background: #141414; }
 
 /* ---- METHOD BADGES ---------------------------------------- */
@@ -292,24 +292,24 @@ input[type=range].f-slider::-moz-range-thumb {
 }
 .f-footer-logo span { color: var(--yellow); }
 .f-footer-tagline {
-  font-size: 9px; letter-spacing: 2px; color: #444;
+  font-size: 13px; letter-spacing: 2px; color: #bbb;
   text-transform: uppercase; line-height: 1.8; margin-bottom: 20px;
 }
 .f-footer-col-title {
-  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
   color: var(--white); margin-bottom: 16px; font-weight: 700;
 }
 .f-footer-links { display: flex; flex-direction: column; gap: 10px; }
 .f-footer-links a {
-  font-size: 10px; letter-spacing: 1px; color: #555;
+  font-size: 13px; letter-spacing: 1px; color: #bbb;
   text-transform: uppercase; transition: color .15s;
 }
 .f-footer-links a:hover { color: var(--yellow); }
 .f-footer-bottom {
-  border-top: 1px solid #1a1a1a; padding-top: 20px;
+  border-top: 1px solid #2a2a2a; padding-top: 20px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.f-footer-copy { font-size: 9px; letter-spacing: 2px; color: #333; text-transform: uppercase; }
+.f-footer-copy { font-size: 13px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
 
 /* ---- PALETTE STRIP (footer) ------------------------------- */
 .f-palette { display: flex; gap: 4px; }
