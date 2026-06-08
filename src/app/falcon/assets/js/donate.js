@@ -1,0 +1,1 @@
+window.FalconDonate = { status: "skeleton" };

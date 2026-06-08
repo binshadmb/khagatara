@@ -1,0 +1,36 @@
+/* ============================================================
+   KHAGATARA — BENETTON OG PALETTE — 18 SHADES
+   Used by: falcon (.f-) · studio (.s-) · remaker (.r-)
+   Never add classes here. Variables only.
+   ============================================================ */
+:root {
+  /* RED */
+  --red:        #FF2D55;
+  --red-l:      #FF6680;
+  --red-d:      #CC0033;
+
+  /* YELLOW */
+  --yellow:     #FFD700;
+  --yellow-l:   #FFE84D;
+  --yellow-d:   #CCA800;
+
+  /* CYAN */
+  --cyan:       #00AACC;
+  --cyan-l:     #33CCEE;
+  --cyan-d:     #007A99;
+
+  /* PURPLE */
+  --purple:     #6C2BD9;
+  --purple-l:   #9B5FFF;
+  --purple-d:   #4A1A9E;
+
+  /* GREEN */
+  --green:      #00C853;
+  --green-l:    #33FF7A;
+  --green-d:    #009940;
+
+  /* NEUTRALS */
+  --white:      #FFFFFF;
+  --near-black: #1A1A1A;
+  --true-black: #111111;
+}

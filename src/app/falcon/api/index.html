@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Falcon API Docs</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <nav class="nav"><a class="brand" href="../index.html"><span class="brand-mark">F</span><span>Khagatara Falcon</span></a><div class="nav-links"><a href="../tool.html">Tool</a><a href="../formats/index.html">Formats</a><a href="../pricing.html">Pricing</a><a href="index.html">API</a><a href="../blog/index.html">Blog</a></div></nav>
+  <main>
+    <section id="api-hero" class="hero band-ink">
+      <div><p class="eyebrow">Developer API</p><h1>Convert at Pipeline Scale</h1><p class="lead muted">Signed uploads, format detection, conversion jobs, webhooks, bulk manifests, and delivery URLs for production workflows.</p><div class="actions"><a class="button primary" href="#quickstart">Quickstart</a><a class="button gold" href="#endpoints">Endpoints</a></div></div>
+      <div class="visual-board"><div class="visual-tile">POST /detect</div><div class="visual-tile">POST /convert</div><div class="visual-tile">GET /jobs</div><div class="visual-tile">POST /bulk</div><div class="visual-tile">POST /webhooks</div></div>
+    </section>
+    <div class="ticker"><span>REST</span><span>Webhooks</span><span>Bulk ZIP</span><span>Signed URL</span><span>RAW</span><span>GIS</span><span>Medical</span><span>Dataset</span></div>
+    <section id="quickstart">
+      <p class="eyebrow">Quickstart</p><h2>Four calls to output</h2>
+      <div class="grid four"><article class="card"><strong>01</strong><p>Create an upload URL.</p></article><article class="card"><strong>02</strong><p>Put the source file.</p></article><article class="card"><strong>03</strong><p>Start a conversion job.</p></article><article class="card"><strong>04</strong><p>Download the result.</p></article></div>
+      <pre><code>curl -X POST https://api.khagatara.com/v1/convert \
+  -H "Authorization: Bearer $FALCON_API_KEY" \
+  -F "file=@input.heic" \
+  -F "output=jpg" \
+  -F "quality=92"</code></pre>
+    </section>
+    <section id="endpoints" class="band-gold">
+      <p class="eyebrow">Reference</p><h2>Core endpoints</h2>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead><tbody>
+        <tr><td>POST</td><td>/v1/uploads</td><td>Create a signed upload URL.</td></tr><tr><td>POST</td><td>/v1/detect</td><td>Detect format, aliases, brand, and risk notes.</td></tr><tr><td>POST</td><td>/v1/convert</td><td>Create a conversion job.</td></tr><tr><td>GET</td><td>/v1/jobs/{id}</td><td>Read job status and output links.</td></tr><tr><td>POST</td><td>/v1/bulk</td><td>Submit a manifest for batch conversion.</td></tr><tr><td>GET</td><td>/v1/bulk/{id}</td><td>Read batch progress.</td></tr><tr><td>POST</td><td>/v1/webhooks</td><td>Register event callbacks.</td></tr><tr><td>GET</td><td>/v1/formats</td><td>List supported formats and aliases.</td></tr><tr><td>POST</td><td>/v1/preview</td><td>Generate a lightweight preview.</td></tr><tr><td>POST</td><td>/v1/archive</td><td>Create ZIP delivery packages.</td></tr><tr><td>GET</td><td>/v1/usage</td><td>Read usage and limits.</td></tr><tr><td>POST</td><td>/v1/keys/rotate</td><td>Rotate API credentials.</td></tr>
+      </tbody></table></div>
+    </section>
+    <section id="rate-limits">
+      <p class="eyebrow">Limits</p><h2>Plans by workload</h2>
+      <div class="grid"><article class="card"><strong>Free</strong><p>60 requests/hour, 10 MB upload, web formats.</p></article><article class="card"><strong>Pro</strong><p>1,000 requests/hour, 100 MB upload, RAW preview, ZIP.</p></article><article class="card"><strong>Studio</strong><p>Custom requests, 2 GB upload, bulk queues, webhooks.</p></article></div>
+    </section>
+    <section id="signup" class="band-rose"><div class="split"><div><p class="eyebrow">API key</p><h2>Request access</h2><p class="lead muted">The form is ready for a backend signup action.</p></div><form class="panel"><label>Email<input type="email" placeholder="you@example.com"></label><label>Use case<textarea rows="4" placeholder="Bulk product images, camera RAW, GIS, medical, dataset..."></textarea></label><button class="gold" type="button">Submit</button></form></div></section>
+  </main>
+  <footer class="footer"><div class="footer-grid"><div><h3>Falcon API</h3><p>Production-ready endpoint map for the full format universe.</p></div><div class="footer-list"><strong>Docs</strong><a href="#quickstart">Quickstart</a><a href="#endpoints">Endpoints</a></div><div class="footer-list"><strong>Product</strong><a href="../tool.html">Tool</a><a href="../pricing.html">Pricing</a></div><div class="footer-list"><strong>Formats</strong><a href="../formats/index.html">Hub</a><a href="../formats/_converter-template.html">Template</a></div><div><strong>18 shades</strong><div class="swatches" data-swatches></div></div></div></footer>
+  <details class="donate-widget"><summary>$ Donate</summary><div><p>Support more API format fixtures.</p><button class="primary" type="button">Support Falcon</button></div></details>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

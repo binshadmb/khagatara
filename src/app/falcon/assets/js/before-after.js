@@ -1,0 +1,1 @@
+window.FalconBeforeAfter = { ready: true };
