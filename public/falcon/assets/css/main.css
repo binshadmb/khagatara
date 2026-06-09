@@ -6,36 +6,37 @@
 
 /* ---- BASE -------------------------------------------------- */
 body {
-  background: var(--true-black);
-  color: var(--white);
+  background: #FFFFFF;
+  color: #111111;
   font-family: 'Space Mono', monospace;
 }
 
 /* ---- NAVBAR ----------------------------------------------- */
 .f-nav {
   position: sticky; top: 0; z-index: 100;
-  background: var(--true-black);
-  border-bottom: 2px solid var(--yellow);
+  background: #FFFFFF;
+  border-bottom: 2px solid var(--red);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px; height: 58px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 .f-nav-logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px; letter-spacing: 4px; color: var(--white);
+  font-size: 22px; letter-spacing: 4px; color: #111111;
 }
-.f-nav-logo .f-logo-dot   { color: var(--yellow); }
+.f-nav-logo .f-logo-dot   { color: var(--red); }
 .f-nav-logo .f-logo-brand { color: var(--red); }
 .f-nav-links { display: flex; gap: 24px; }
 .f-nav-links a {
   font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-  color: #ccc; transition: color .15s;
+  color: #444; transition: color .15s;
 }
-.f-nav-links a:hover  { color: var(--yellow); }
-.f-nav-links a.active { color: var(--white); border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+.f-nav-links a:hover  { color: var(--red); }
+.f-nav-links a.active { color: #111; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
 .f-nav-actions { display: flex; gap: 10px; align-items: center; }
 .f-nav-status {
   display: flex; align-items: center; gap: 6px;
-  font-size: 12px; letter-spacing: 2px; color: var(--green); text-transform: uppercase;
+  font-size: 12px; letter-spacing: 2px; color: var(--green-d); text-transform: uppercase;
 }
 .f-nav-status-dot {
   width: 6px; height: 6px; border-radius: 50%;
@@ -75,17 +76,17 @@ body {
 .f-tag-green  { border-color: var(--green-d);  color: var(--green-l); }
 
 /* ---- SECTION BASE ----------------------------------------- */
-.f-section { padding: 80px 40px; border-bottom: 1px solid #1a1a1a; }
+.f-section { padding: 80px 40px; border-bottom: 1px solid #E5E5E5; }
 .f-section-label {
   font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
   color: var(--red); margin-bottom: 12px;
 }
 .f-section-title {
   font-family: 'Bebas Neue', sans-serif; font-size: 56px;
-  color: var(--white); line-height: 1; margin-bottom: 8px;
+  color: #111111; line-height: 1; margin-bottom: 8px;
 }
 .f-section-sub {
-  font-size: 14px; color: #aaa; letter-spacing: 1px;
+  font-size: 14px; color: #555; letter-spacing: 1px;
   line-height: 1.8; max-width: 520px; margin-bottom: 40px;
 }
 .f-accent-red    { color: var(--red); }
@@ -110,12 +111,12 @@ body {
 
 /* ---- STAT GRID -------------------------------------------- */
 .f-stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
-.f-stat-box  { background: var(--near-black); padding: 24px 20px; }
+.f-stat-box  { background: #F5F5F5; padding: 24px 20px; border: 1px solid #E5E5E5; }
 .f-stat-num  {
   font-family: 'Bebas Neue', sans-serif; font-size: 48px;
   line-height: 1; margin-bottom: 6px;
 }
-.f-stat-label { font-size: 13px; letter-spacing: 2px; color: #aaa; text-transform: uppercase; }
+.f-stat-label { font-size: 13px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
 .f-stat-box:nth-child(4n+1) .f-stat-num { color: var(--red); }
 .f-stat-box:nth-child(4n+2) .f-stat-num { color: var(--yellow); }
 .f-stat-box:nth-child(4n+3) .f-stat-num { color: var(--cyan); }
@@ -149,21 +150,22 @@ body {
 .f-code-panel.active { display: block; }
 
 /* ---- CARDS ------------------------------------------------ */
-.f-card { background: var(--near-black); padding: 28px; }
+.f-card { background: #F8F8F8; padding: 28px; border: 1px solid #E5E5E5; }
 .f-card-title {
   font-family: 'Bebas Neue', sans-serif; font-size: 22px;
-  letter-spacing: 2px; color: var(--white); margin-bottom: 10px;
+  letter-spacing: 2px; color: #111111; margin-bottom: 10px;
 }
-.f-card-body { font-size: 13px; letter-spacing: 1px; color: #ccc; line-height: 1.8; text-transform: uppercase; }
+.f-card-body { font-size: 13px; letter-spacing: 1px; color: #444; line-height: 1.8; text-transform: uppercase; }
 
 /* ---- TABLE ------------------------------------------------ */
 .f-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .f-table th {
   text-align: left; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-  color: #bbb; padding: 12px 16px; border-bottom: 1px solid #2a2a2a; font-weight: 400;
+  color: #111; padding: 12px 16px; border-bottom: 2px solid #111; font-weight: 700;
+  background: #F0F0F0;
 }
-.f-table td { padding: 15px 16px; border-bottom: 1px solid #1e1e1e; color: var(--white); vertical-align: top; }
-.f-table tr:hover td { background: #141414; }
+.f-table td { padding: 15px 16px; border-bottom: 1px solid #E5E5E5; color: #111; vertical-align: top; }
+.f-table tr:hover td { background: #F8F8F8; }
 
 /* ---- METHOD BADGES ---------------------------------------- */
 .f-method { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:1px; padding:3px 10px; display:inline-block; }
@@ -173,23 +175,23 @@ body {
 
 /* ---- UPLOAD ZONE ------------------------------------------ */
 .f-upload-zone {
-  border: 2px dashed #2a2a2a; background: #0d0d0d;
+  border: 2px dashed #CCCCCC; background: #F9F9F9;
   padding: 60px 40px; text-align: center; cursor: pointer;
   transition: border-color .2s, background .2s;
 }
 .f-upload-zone:hover, .f-upload-zone.dragover {
-  border-color: var(--yellow); background: #141400;
+  border-color: var(--red); background: #FFF5F5;
 }
 .f-upload-icon {
   font-family: 'Bebas Neue', sans-serif; font-size: 56px;
-  color: #2a2a2a; margin-bottom: 16px; line-height: 1;
+  color: #CCCCCC; margin-bottom: 16px; line-height: 1;
 }
 .f-upload-title {
   font-family: 'Bebas Neue', sans-serif; font-size: 28px;
-  letter-spacing: 2px; color: var(--white); margin-bottom: 8px;
+  letter-spacing: 2px; color: #111; margin-bottom: 8px;
 }
-.f-upload-sub { font-size: 10px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
-.f-upload-zone.has-file { border-color: var(--green); border-style: solid; background: #001400; }
+.f-upload-sub { font-size: 10px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+.f-upload-zone.has-file { border-color: var(--green-d); border-style: solid; background: #F0FFF5; }
 
 /* ---- DETECT BADGE ----------------------------------------- */
 .f-detect-badge {
@@ -229,46 +231,46 @@ input[type=range].f-slider::-moz-range-thumb {
 /* ---- TOGGLE SWITCHES -------------------------------------- */
 .f-toggle-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 0; border-bottom: 1px solid #1a1a1a;
+  padding: 10px 0; border-bottom: 1px solid #E5E5E5;
 }
-.f-toggle-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--white); }
-.f-toggle-desc  { font-size: 9px; letter-spacing: 1px; color: #555; text-transform: uppercase; margin-top: 2px; }
+.f-toggle-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #111; }
+.f-toggle-desc  { font-size: 9px; letter-spacing: 1px; color: #888; text-transform: uppercase; margin-top: 2px; }
 .f-toggle {
   position: relative; width: 36px; height: 20px;
-  background: #2a2a2a; cursor: pointer; flex-shrink: 0;
+  background: #CCCCCC; cursor: pointer; flex-shrink: 0;
   transition: background .2s;
 }
-.f-toggle.on { background: var(--green); }
+.f-toggle.on { background: var(--green-d); }
 .f-toggle::after {
   content: ''; position: absolute; top: 3px; left: 3px;
-  width: 14px; height: 14px; background: var(--white);
+  width: 14px; height: 14px; background: #FFFFFF;
   transition: transform .2s;
 }
 .f-toggle.on::after { transform: translateX(16px); }
 
 /* ---- SELECT / INPUT --------------------------------------- */
 .f-select, .f-input {
-  background: #0d0d0d; border: 1px solid #2a2a2a;
-  color: var(--white); padding: 10px 14px;
+  background: #FFFFFF; border: 1px solid #CCCCCC;
+  color: #111111; padding: 10px 14px;
   font-family: 'Space Mono', monospace; font-size: 11px;
   letter-spacing: 1px; outline: none; width: 100%;
   transition: border-color .15s;
 }
-.f-select:focus, .f-input:focus { border-color: var(--yellow); }
-.f-select option { background: var(--true-black); }
-.f-input::placeholder { color: #333; }
+.f-select:focus, .f-input:focus { border-color: var(--red); }
+.f-select option { background: #FFFFFF; color: #111; }
+.f-input::placeholder { color: #AAA; }
 
 /* ---- ACCORDION / FAQ -------------------------------------- */
-.f-faq-item { border-bottom: 1px solid #1a1a1a; }
+.f-faq-item { border-bottom: 1px solid #E5E5E5; }
 .f-faq-q {
   font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px;
-  color: var(--white); padding: 18px 0; cursor: pointer;
+  color: #111; padding: 18px 0; cursor: pointer;
   display: flex; justify-content: space-between; align-items: center;
 }
-.f-faq-q:hover { color: var(--yellow); }
-.f-faq-q .f-faq-arrow { color: var(--yellow); transition: transform .2s; }
+.f-faq-q:hover { color: var(--red); }
+.f-faq-q .f-faq-arrow { color: var(--red); transition: transform .2s; }
 .f-faq-item.open .f-faq-arrow { transform: rotate(180deg); }
-.f-faq-a { display: none; font-size: 11px; color: #888; line-height: 1.8; padding-bottom: 18px; letter-spacing: .5px; }
+.f-faq-a { display: none; font-size: 13px; color: #444; line-height: 1.8; padding-bottom: 18px; letter-spacing: .5px; }
 .f-faq-item.open .f-faq-a { display: block; }
 
 /* ---- GRID UTILITIES --------------------------------------- */
@@ -279,8 +281,8 @@ input[type=range].f-slider::-moz-range-thumb {
 
 /* ---- FOOTER ----------------------------------------------- */
 .f-footer {
-  background: var(--true-black);
-  border-top: 2px solid var(--yellow);
+  background: #111111;
+  border-top: 3px solid var(--red);
   padding: 48px 40px 28px;
 }
 .f-footer-grid {
@@ -288,25 +290,25 @@ input[type=range].f-slider::-moz-range-thumb {
 }
 .f-footer-logo {
   font-family: 'Bebas Neue', sans-serif; font-size: 26px;
-  letter-spacing: 4px; color: var(--white); margin-bottom: 10px;
+  letter-spacing: 4px; color: #FFFFFF; margin-bottom: 10px;
 }
-.f-footer-logo span { color: var(--yellow); }
+.f-footer-logo span { color: var(--red); }
 .f-footer-tagline {
-  font-size: 13px; letter-spacing: 2px; color: #bbb;
+  font-size: 13px; letter-spacing: 2px; color: #AAA;
   text-transform: uppercase; line-height: 1.8; margin-bottom: 20px;
 }
 .f-footer-col-title {
   font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--white); margin-bottom: 16px; font-weight: 700;
+  color: #FFFFFF; margin-bottom: 16px; font-weight: 700;
 }
 .f-footer-links { display: flex; flex-direction: column; gap: 10px; }
 .f-footer-links a {
-  font-size: 13px; letter-spacing: 1px; color: #bbb;
+  font-size: 13px; letter-spacing: 1px; color: #AAA;
   text-transform: uppercase; transition: color .15s;
 }
-.f-footer-links a:hover { color: var(--yellow); }
+.f-footer-links a:hover { color: var(--red); }
 .f-footer-bottom {
-  border-top: 1px solid #2a2a2a; padding-top: 20px;
+  border-top: 1px solid #333; padding-top: 20px;
   display: flex; align-items: center; justify-content: space-between;
 }
 .f-footer-copy { font-size: 13px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
