@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/falcon",          "destination": "/falcon/index.html" },
+    { "source": "/falcon/tool",     "destination": "/falcon/tool.html" },
+    { "source": "/falcon/pricing",  "destination": "/falcon/pricing.html" },
+    { "source": "/falcon/formats",  "destination": "/falcon/formats/index.html" },
+    { "source": "/falcon/api",      "destination": "/falcon/api/index.html" },
+    { "source": "/falcon/blog",     "destination": "/falcon/blog/index.html" }
+  ]
+}
