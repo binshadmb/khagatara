@@ -5,6 +5,14 @@
    ============================================================ */
 
 /* ---- BASE -------------------------------------------------- */
+/* Override any inline styles from embedded <style> blocks in HTML */
+body, .hero, .nav, .map-wrap, .price-card, .how-step,
+.stat-box, .footer, .footer-inner {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+}
+.hero { background: #F5F5F5 !important; }
+.nav  { background: #FFFFFF !important; border-bottom: 2px solid var(--red) !important; }
 body {
   background: #FFFFFF;
   color: #111111;
