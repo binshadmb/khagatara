@@ -7,278 +7,862 @@
 <title>Falcon — Convert Every Image Format | Khagatara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./_global/css/reset.css">
-<link rel="stylesheet" href="./_global/css/benetton.css">
-<link rel="stylesheet" href="./assets/css/main.css">
-<link rel="stylesheet" href="./assets/css/format-map.css">
+<style>
+/* ============================================================
+   KHAGATARA FALCON — index.html — FULLY SELF-CONTAINED
+   Benetton OG · 18 shades · Supreme white text · Dark first
+   ============================================================ */
+:root{
+  --red:#FF2D55;--red-l:#FF6680;--red-d:#CC0033;
+  --yellow:#FFD700;--yellow-l:#FFE84D;--yellow-d:#CCA800;
+  --cyan:#00AACC;--cyan-l:#33CCEE;--cyan-d:#007A99;
+  --purple:#6C2BD9;--purple-l:#9B5FFF;--purple-d:#4A1A9E;
+  --green:#00C853;--green-l:#33FF7A;--green-d:#009940;
+  --white:#FFFFFF;--near-black:#1A1A1A;--true-black:#111111;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--true-black);color:var(--white);font-family:'Space Mono',monospace;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img{display:block;max-width:100%}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--true-black);border-bottom:2px solid var(--yellow);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:var(--white)}
+.nav-logo .dot{color:var(--yellow)}
+.nav-logo .brand{color:var(--red)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#666;transition:color .15s}
+.nav-links a:hover{color:var(--yellow)}
+.nav-cta{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:var(--yellow);color:var(--true-black);border:none;padding:9px 22px;cursor:pointer}
+
+/* PPP */
+.ppp-banner{display:none;background:var(--purple);padding:8px 40px;font-size:10px;letter-spacing:2px;color:var(--white);text-transform:uppercase;text-align:center}
+
+/* HERO */
+.hero{padding:72px 40px 0;background:var(--true-black);overflow:hidden;position:relative}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.hero-badge{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--true-black);background:var(--red);padding:5px 14px;font-weight:700}
+.hero-v{font-size:9px;letter-spacing:3px;color:#333;text-transform:uppercase}
+.hero-hl{font-family:'Bebas Neue',sans-serif;line-height:0.88;margin-bottom:0}
+.hero-hl span{display:block;font-size:clamp(72px,11vw,128px)}
+.hl-red{color:var(--red)}
+.hl-white{color:var(--white)}
+.hl-yellow{color:var(--yellow)}
+.hl-cyan{color:var(--cyan)}
+.hl-purple{color:var(--purple)}
+.hero-body{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:48px 0 64px;border-top:1px solid #1e1e1e;margin-top:40px}
+.hero-sub{font-size:12px;color:#aaa;line-height:1.9;max-width:420px;margin-bottom:28px;letter-spacing:.4px}
+.hero-sub strong{color:var(--white)}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.btn{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;padding:11px 26px;border:none;cursor:pointer;display:inline-block;transition:opacity .15s,transform .1s}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn-red{background:var(--red);color:var(--white)}
+.btn-yellow{background:var(--yellow);color:var(--true-black)}
+.btn-cyan{background:var(--cyan);color:var(--true-black)}
+.btn-ol-cyan{background:transparent;border:2px solid var(--cyan);color:var(--cyan)}
+.btn-ol-cyan:hover{background:var(--cyan);color:var(--true-black)}
+.btn-lg{font-size:18px;padding:14px 32px}
+.btn-sm{font-size:12px;padding:8px 18px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1px solid;display:inline-block}
+.tag-red{border-color:var(--red-d);color:var(--red-l)}
+.tag-yellow{border-color:var(--yellow-d);color:var(--yellow)}
+.tag-cyan{border-color:var(--cyan-d);color:var(--cyan-l)}
+.tag-purple{border-color:var(--purple-d);color:var(--purple-l)}
+.tag-green{border-color:var(--green-d);color:var(--green-l)}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.stat-box{background:var(--near-black);padding:28px 22px}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:6px}
+.stat-label{font-size:9px;letter-spacing:2px;color:#444;text-transform:uppercase}
+.stat-box:nth-child(1) .stat-num{color:var(--red)}
+.stat-box:nth-child(2) .stat-num{color:var(--yellow)}
+.stat-box:nth-child(3) .stat-num{color:var(--cyan)}
+.stat-box:nth-child(4) .stat-num{color:var(--purple)}
+
+/* TICKER */
+.ticker{background:var(--yellow);padding:12px 0;overflow:hidden;border-top:2px solid var(--yellow-d);border-bottom:2px solid var(--yellow-d)}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--true-black);padding:0 18px;flex-shrink:0}
+.ticker-sep{color:var(--red)}
+
+/* SECTIONS */
+.section{padding:80px 40px;border-bottom:1px solid #1a1a1a}
+.section-eyebrow{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,64px);color:var(--white);line-height:1;margin-bottom:10px}
+.section-sub{font-size:11px;color:#666;letter-spacing:1px;line-height:1.8;max-width:520px;margin-bottom:40px}
+.accent-red{color:var(--red)}
+.accent-yellow{color:var(--yellow)}
+.accent-cyan{color:var(--cyan)}
+.accent-purple{color:var(--purple)}
+.accent-green{color:var(--green)}
+
+/* HOW IT WORKS */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:40px}
+.how-step{background:var(--near-black);padding:36px 28px;position:relative;overflow:hidden}
+.how-num{font-family:'Bebas Neue',sans-serif;font-size:96px;line-height:1;color:rgba(255,255,255,.04);position:absolute;top:8px;right:12px}
+.how-color{width:3px;height:40px;margin-bottom:20px}
+.how-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);margin-bottom:10px}
+.how-body{font-size:10px;color:#666;letter-spacing:1px;line-height:1.8;text-transform:uppercase}
+
+/* FORMAT MAP */
+.map-wrap{background:var(--true-black);border:1px solid #1a1a1a}
+.map-search{padding:14px 16px;border-bottom:1px solid #1a1a1a;display:flex;gap:8px}
+.map-search input{flex:1;background:#0d0d0d;border:1px solid #222;color:var(--white);padding:9px 14px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:1px;outline:none}
+.map-search input:focus{border-color:var(--yellow)}
+.map-search button{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;background:var(--yellow);color:var(--true-black);border:none;padding:9px 18px;cursor:pointer}
+.map-canvas-wrap{position:relative}
+#f-format-map-canvas{display:block;width:100%;cursor:grab}
+#f-format-map-canvas:active{cursor:grabbing}
+.map-tooltip{position:absolute;pointer-events:none;background:var(--near-black);border:1px solid #222;border-left:3px solid var(--yellow);padding:8px 14px;font-size:10px;color:var(--white);white-space:nowrap;display:none;z-index:10}
+.map-tooltip.show{display:block}
+.map-tooltip .tt-fmt{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.map-tooltip .tt-cat{font-size:9px;letter-spacing:2px;color:#555;text-transform:uppercase;margin-top:2px}
+.map-ctrls{position:absolute;bottom:14px;right:14px;display:flex;gap:3px}
+.map-ctrl{font-family:'Bebas Neue',sans-serif;font-size:16px;background:var(--near-black);color:var(--white);border:1px solid #222;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.map-ctrl:hover{background:var(--yellow);color:var(--true-black)}
+.map-legend{padding:12px 16px;border-top:1px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:14px}
+.map-legend-item{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555}
+.map-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* BEFORE/AFTER */
+.ba-wrap{position:relative;overflow:hidden;user-select:none;border:1px solid #1a1a1a;max-width:860px}
+.ba-before img{width:100%;display:block}
+.ba-after{position:absolute;top:0;left:0;height:100%;overflow:hidden}
+.ba-after img{position:absolute;top:0;left:0;height:100%;max-width:none}
+.ba-handle{position:absolute;top:0;bottom:0;width:3px;background:var(--yellow);cursor:ew-resize;transform:translateX(-50%);z-index:3}
+.ba-handle::after{content:'◀▶';font-size:11px;color:var(--true-black);background:var(--yellow);padding:6px 8px;position:absolute;top:50%;transform:translate(-50%,-50%);left:50%;white-space:nowrap;letter-spacing:-2px}
+.ba-label{position:absolute;bottom:14px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;background:rgba(0,0,0,.75);color:var(--white);padding:5px 12px;z-index:4}
+.ba-label-b{left:14px}
+.ba-label-a{right:14px}
+
+/* SPLIT BLOCK */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.split-cyan{background:var(--cyan);padding:64px 40px}
+.split-purple{background:var(--purple);padding:64px 40px}
+.split-title{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;margin-bottom:24px}
+.split-list{display:flex;flex-direction:column;gap:0}
+.split-list-item{font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.12);display:flex;gap:12px;align-items:flex-start}
+.split-list-item .arr{font-size:14px;flex-shrink:0;margin-top:-1px}
+.converter-list{display:flex;flex-direction:column;gap:3px}
+.conv-link{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:13px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s}
+.conv-link:hover{background:rgba(255,255,255,.14)}
+.conv-link-main{background:var(--yellow);color:var(--true-black);margin-top:8px}
+.conv-link-main:hover{background:var(--yellow-l)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:28px}
+.price-card{background:var(--near-black);padding:36px 28px;position:relative}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.price-card.free::before{background:var(--green)}
+.price-card.pro::before{background:var(--yellow)}
+.price-card.studio::before{background:var(--red)}
+.price-tier{font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
+.price-card.free .price-tier{color:var(--green)}
+.price-card.pro .price-tier{color:var(--yellow)}
+.price-card.studio .price-tier{color:var(--red)}
+.price-name{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);margin-bottom:4px;letter-spacing:2px}
+.price-amount{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;margin-bottom:4px}
+.price-card.free .price-amount{color:var(--green)}
+.price-card.pro .price-amount{color:var(--yellow)}
+.price-card.studio .price-amount{color:var(--red)}
+.price-period{font-size:9px;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:20px}
+.price-body{font-size:10px;color:#666;letter-spacing:1px;line-height:1.8;text-transform:uppercase;margin-bottom:24px}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid #1a1a1a}
+.faq-q{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--white);padding:18px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .15s}
+.faq-q:hover{color:var(--yellow)}
+.faq-arr{color:var(--yellow);transition:transform .2s;font-size:12px}
+.faq-item.open .faq-arr{transform:rotate(180deg)}
+.faq-a{display:none;font-size:11px;color:#888;line-height:1.8;padding-bottom:18px;letter-spacing:.4px}
+.faq-item.open .faq-a{display:block}
+
+/* FOOTER */
+.footer{background:var(--true-black);border-top:2px solid var(--yellow);padding:52px 40px 28px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:4px;color:var(--white);margin-bottom:10px}
+.footer-logo span{color:var(--yellow)}
+.footer-tag{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase;line-height:1.8;margin-bottom:20px}
+.footer-col-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px;font-weight:700}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:10px;letter-spacing:1px;color:#444;text-transform:uppercase;transition:color .15s}
+.footer-links a:hover{color:var(--yellow)}
+.footer-bottom{border-top:1px solid #1a1a1a;padding-top:20px;display:flex;align-items:center;justify-content:space-between}
+.footer-copy{font-size:9px;letter-spacing:2px;color:#333;text-transform:uppercase}
+.palette{display:flex;gap:3px;margin-top:16px}
+.swatch{width:10px;height:10px}
+
+/* DONATE WIDGET */
+#kh-donate-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;font-family:'Space Mono',monospace}
+#kh-donate-panel{display:none;background:var(--near-black);border:1px solid #222;border-bottom:none;padding:20px;width:224px}
+#kh-donate-panel.open{display:block}
+#kh-donate-panel h4{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);margin-bottom:8px;letter-spacing:2px}
+#kh-donate-panel p{font-size:9px;letter-spacing:1px;color:#555;text-transform:uppercase;line-height:1.7;margin-bottom:14px}
+.donate-amts{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.donate-amt{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;background:#222;color:var(--white);border:1px solid #333;padding:6px 10px;cursor:pointer;flex:1;transition:all .15s}
+.donate-amt:hover,.donate-amt.sel{background:var(--yellow);color:var(--true-black);border-color:var(--yellow)}
+#kh-donate-go{width:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;background:var(--red);color:var(--white);border:none;padding:11px;cursor:pointer;transition:background .15s}
+#kh-donate-go:hover{background:var(--red-d)}
+#kh-donate-toggle{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;background:var(--yellow);color:var(--true-black);border:none;padding:10px 20px;cursor:pointer;width:100%;text-align:center}
+
+/* STATUS DOT */
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s ease-in-out infinite;margin-right:6px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav{padding:0 16px}.nav-links{display:none}
+  .hero{padding:48px 16px 0}
+  .hero-body{grid-template-columns:1fr;gap:32px}
+  .how-grid,.split,.pricing-grid,.footer-grid{grid-template-columns:1fr}
+  .section{padding:48px 16px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
 <body>
 
-<!-- NAV injected by site.js -->
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="/falcon/index.html">KHAGATARA <span class="dot">✦</span> <span class="brand">FALCON</span></a>
+  <ul class="nav-links">
+    <li><a href="/falcon/tool.html">Tool</a></li>
+    <li><a href="/falcon/formats/index.html">Formats</a></li>
+    <li><a href="/falcon/pricing.html">Pricing</a></li>
+    <li><a href="/falcon/api/index.html">API</a></li>
+    <li><a href="/falcon/blog/index.html">Blog</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:9px;letter-spacing:2px;color:var(--green);text-transform:uppercase"><span class="status-dot"></span>All Systems Up</span>
+    <a class="btn btn-yellow btn-sm" href="/falcon/tool.html">TRY FREE</a>
+  </div>
+</nav>
 
 <!-- PPP BANNER -->
-<div class="ppp-banner">
-  🌍 Special pricing for <span class="ppp-country"></span> — <span class="ppp-discount"></span> applied automatically at checkout.
+<div class="ppp-banner" id="ppp-banner">
+  🌍 Special pricing for <span id="ppp-country"></span> — <span id="ppp-discount"></span> off applied at checkout.
 </div>
 
-<!-- ── HERO ───────────────────────────────────────────────── -->
-<section class="f-section" id="hero" style="padding-top:80px;padding-bottom:0;border-bottom:none">
-  <div style="margin-bottom:20px;display:flex;align-items:center;gap:12px">
-    <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--true-black);background:var(--red);padding:4px 12px;font-weight:700">⚡ NEW</span>
-    <span style="font-size:9px;letter-spacing:3px;color:#444;text-transform:uppercase">360 formats · 140 languages · v2.0</span>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-badge">⚡ FALCON v2.0</span>
+    <span class="hero-v">360 formats · 140 languages · June 2026</span>
   </div>
-
-  <div style="font-family:'Bebas Neue',sans-serif;line-height:0.9;margin-bottom:32px">
-    <span style="display:block;font-size:clamp(64px,10vw,120px);color:var(--red)">CONVERT</span>
-    <span style="display:block;font-size:clamp(64px,10vw,120px);color:var(--white)">EVERY</span>
-    <span style="display:block;font-size:clamp(64px,10vw,120px);color:var(--yellow)">IMAGE</span>
-    <span style="display:block;font-size:clamp(64px,10vw,120px);color:var(--cyan)">FORMAT.</span>
+  <div class="hero-hl">
+    <span class="hl-red">CONVERT</span>
+    <span class="hl-white">EVERY</span>
+    <span class="hl-yellow">IMAGE</span>
+    <span class="hl-cyan">FORMAT.</span>
   </div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;padding-bottom:60px;border-top:1px solid #1e1e1e;padding-top:40px">
+  <div class="hero-body">
     <div>
-      <p style="font-size:12px;color:#aaa;line-height:1.8;max-width:440px;margin-bottom:28px;letter-spacing:.5px">
-        Falcon converts <strong style="color:var(--white)">360+ image formats</strong> — from everyday JPG and WebP
-        to Camera RAW from every major brand, medical DICOM, scientific FITS,
-        game textures, GIS satellite imagery, and beyond.<br><br>
+      <p class="hero-sub">
+        Falcon converts <strong>360+ image formats</strong> — from everyday JPG and WebP to Camera RAW from every major brand, medical DICOM, scientific FITS, game GPU textures, GIS satellite imagery, and beyond.<br><br>
         Drop. Detect. Deliver.
       </p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
-        <a class="f-btn f-btn-red f-btn-lg" href="./tool.html">START CONVERTING</a>
-        <a class="f-btn f-btn-ol-cyan" href="./formats/index.html">EXPLORE FORMATS</a>
+      <div class="hero-ctas">
+        <a class="btn btn-red btn-lg" href="/falcon/tool.html">START CONVERTING</a>
+        <a class="btn btn-ol-cyan" href="/falcon/formats/index.html">EXPLORE FORMATS</a>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span class="f-tag f-tag-red">360+ Formats</span>
-        <span class="f-tag f-tag-yellow">Camera RAW</span>
-        <span class="f-tag f-tag-cyan">DICOM / Medical</span>
-        <span class="f-tag f-tag-purple">AI Upscale 32x</span>
-        <span class="f-tag f-tag-green">Free Tier</span>
-        <span class="f-tag f-tag-red">140 Languages</span>
-        <span class="f-tag f-tag-yellow">PPP Pricing</span>
-        <span class="f-tag f-tag-cyan">Bulk API</span>
+      <div class="hero-tags">
+        <span class="tag tag-red">360+ Formats</span>
+        <span class="tag tag-yellow">Camera RAW</span>
+        <span class="tag tag-cyan">DICOM · Medical</span>
+        <span class="tag tag-purple">AI Upscale 32x</span>
+        <span class="tag tag-green">Free Tier</span>
+        <span class="tag tag-red">140 Languages</span>
+        <span class="tag tag-yellow">PPP Pricing</span>
+        <span class="tag tag-cyan">Bulk API</span>
       </div>
     </div>
-    <div class="f-stat-grid">
-      <div class="f-stat-box"><div class="f-stat-num">360+</div><div class="f-stat-label">Formats</div></div>
-      <div class="f-stat-box"><div class="f-stat-num">140</div><div class="f-stat-label">Languages</div></div>
-      <div class="f-stat-box"><div class="f-stat-num">32x</div><div class="f-stat-label">Max Upscale</div></div>
-      <div class="f-stat-box"><div class="f-stat-num">99.9%</div><div class="f-stat-label">Uptime</div></div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">360+</div><div class="stat-label">Formats</div></div>
+      <div class="stat-box"><div class="stat-num">140</div><div class="stat-label">Languages</div></div>
+      <div class="stat-box"><div class="stat-num">32x</div><div class="stat-label">Max Upscale</div></div>
+      <div class="stat-box"><div class="stat-num">99.9%</div><div class="stat-label">Uptime SLA</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── TICKER ─────────────────────────────────────────────── -->
-<div class="f-ticker">
-  <div class="f-ticker-track">
-    <span class="f-ticker-item">JPG→AVIF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">HEIC→JPG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">CR3→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">NEF→WEBP <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">PDF→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">DICOM→TIFF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">PSD→JPG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">SVG→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">EXR→HDR <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">RAF→DNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">FITS→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">JXL→AVIF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">GeoTIFF→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">KTX2→DDS <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">ARW→TIFF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">X3F→JPG <span class="f-ticker-sep">✦</span></span>
-    <!-- duplicate for loop -->
-    <span class="f-ticker-item">JPG→AVIF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">HEIC→JPG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">CR3→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">NEF→WEBP <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">PDF→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">DICOM→TIFF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">PSD→JPG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">SVG→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">EXR→HDR <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">RAF→DNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">FITS→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">JXL→AVIF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">GeoTIFF→PNG <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">KTX2→DDS <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">ARW→TIFF <span class="f-ticker-sep">✦</span></span>
-    <span class="f-ticker-item">X3F→JPG <span class="f-ticker-sep">✦</span></span>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-item">JPG→AVIF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">HEIC→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CR3→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">NEF→WEBP <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PDF→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">DICOM→TIFF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PSD→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">SVG→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">EXR→HDR <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">RAF→DNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">FITS→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">JXL→AVIF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GeoTIFF→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">KTX2→DDS <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">ARW→TIFF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">X3F→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">BRAW→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GPR→PNG <span class="ticker-sep">✦</span></span>
+    <!-- dup -->
+    <span class="ticker-item">JPG→AVIF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">HEIC→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">CR3→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">NEF→WEBP <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PDF→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">DICOM→TIFF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">PSD→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">SVG→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">EXR→HDR <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">RAF→DNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">FITS→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">JXL→AVIF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GeoTIFF→PNG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">KTX2→DDS <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">ARW→TIFF <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">X3F→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">BRAW→JPG <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">GPR→PNG <span class="ticker-sep">✦</span></span>
   </div>
 </div>
 
-<!-- ── HOW IT WORKS ───────────────────────────────────────── -->
-<section class="f-section" id="how-it-works" style="background:var(--yellow)">
-  <div class="f-section-label" style="color:var(--true-black)">// How It Works</div>
-  <div class="f-section-title" style="color:var(--true-black);font-size:64px">DROP. DETECT.<br>DELIVER.</div>
-  <div class="f-grid-3" style="margin-top:40px">
-    <div style="border-left:3px solid var(--true-black);padding-left:20px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(0,0,0,.15);line-height:1">01</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--true-black);margin-bottom:8px">UPLOAD</div>
-      <div style="font-size:11px;color:#333;letter-spacing:.5px;line-height:1.7">Drag a file, paste a URL, or capture from camera. Falcon reads only the header first — instant local detection, no waiting.</div>
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works" style="background:var(--yellow);border-bottom:none">
+  <div class="section-eyebrow" style="color:var(--true-black)">// How It Works</div>
+  <div class="section-title" style="color:var(--true-black);font-size:clamp(48px,7vw,80px)">DROP. DETECT.<br>DELIVER.</div>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-num">01</div>
+      <div class="how-color" style="background:var(--red)"></div>
+      <div class="how-title" style="color:var(--true-black)">UPLOAD</div>
+      <div class="how-body" style="color:#333">Drag a file, paste a URL, or capture from camera. Falcon reads only the header — instant local detection, nothing uploaded yet.</div>
     </div>
-    <div style="border-left:3px solid var(--true-black);padding-left:20px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(0,0,0,.15);line-height:1">02</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--true-black);margin-bottom:8px">TUNE</div>
-      <div style="font-size:11px;color:#333;letter-spacing:.5px;line-height:1.7">Choose output format, resolution, DPI, target file size, color space, AI upscale, and 11 advanced enhancement toggles.</div>
+    <div class="how-step">
+      <div class="how-num">02</div>
+      <div class="how-color" style="background:var(--purple)"></div>
+      <div class="how-title" style="color:var(--true-black)">TUNE</div>
+      <div class="how-body" style="color:#333">Choose output format, resolution, DPI, target file size, color space, AI upscale, and 11 advanced enhancement toggles.</div>
     </div>
-    <div style="border-left:3px solid var(--true-black);padding-left:20px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:rgba(0,0,0,.15);line-height:1">03</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--true-black);margin-bottom:8px">DOWNLOAD</div>
-      <div style="font-size:11px;color:#333;letter-spacing:.5px;line-height:1.7">Get your converted file in seconds. Single download, ZIP bulk, or CDN URL. EXIF, ICC, and metadata preserved if you want.</div>
+    <div class="how-step">
+      <div class="how-num">03</div>
+      <div class="how-color" style="background:var(--cyan)"></div>
+      <div class="how-title" style="color:var(--true-black)">DOWNLOAD</div>
+      <div class="how-body" style="color:#333">Get your converted file in seconds. Single, ZIP bulk, or CDN URL. EXIF, ICC, and metadata preserved if you want.</div>
     </div>
   </div>
 </section>
 
-<!-- ── FORMAT MAP ─────────────────────────────────────────── -->
-<section class="f-section" id="format-map">
-  <div class="f-section-label">// Format Universe</div>
-  <div class="f-section-title">EVERY <span class="f-accent-yellow">FORMAT.</span><br>ONE <span class="f-accent-cyan">MAP.</span></div>
-  <p class="f-section-sub">360+ formats rendered on canvas. Non-scrapable. Hover to explore. Click to convert. Zoom and pan freely.</p>
-  <div class="f-map-wrap">
-    <div class="f-map-search">
-      <input id="f-map-search-input" type="text" placeholder="Search formats… e.g. HEIC, CR3, DICOM">
-      <button id="f-map-search-btn">SEARCH</button>
+<!-- FORMAT MAP -->
+<section class="section" id="format-map">
+  <div class="section-eyebrow">// Format Universe</div>
+  <div class="section-title">EVERY <span class="accent-yellow">FORMAT.</span><br>ONE <span class="accent-cyan">MAP.</span></div>
+  <p class="section-sub">360+ formats on canvas. Non-scrapable. Hover to explore. Click to convert. Zoom and pan freely.</p>
+  <div class="map-wrap">
+    <div class="map-search">
+      <input id="map-search" type="text" placeholder="Search formats… HEIC, CR3, DICOM, FITS">
+      <button id="map-search-btn">SEARCH</button>
     </div>
-    <div style="position:relative">
-      <canvas id="f-format-map-canvas" style="height:560px"></canvas>
-      <div class="f-map-tooltip" id="f-map-tooltip"></div>
-      <div class="f-map-controls">
-        <button class="f-map-ctrl-btn" id="f-map-zoom-in">+</button>
-        <button class="f-map-ctrl-btn" id="f-map-zoom-out">−</button>
-        <button class="f-map-ctrl-btn" id="f-map-reset">⌂</button>
+    <div class="map-canvas-wrap">
+      <canvas id="f-format-map-canvas" style="height:540px"></canvas>
+      <div class="map-tooltip" id="map-tooltip"></div>
+      <div class="map-ctrls">
+        <button class="map-ctrl" id="map-zin">+</button>
+        <button class="map-ctrl" id="map-zout">−</button>
+        <button class="map-ctrl" id="map-reset">⌂</button>
       </div>
     </div>
-    <div class="f-map-legend">
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--red)"></div>Common</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--cyan)"></div>Modern</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--purple)"></div>Professional</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--yellow)"></div>Vector</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--red-l)"></div>Camera RAW</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--green-l)"></div>Medical</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--green)"></div>Scientific</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--purple-l)"></div>Game/GPU</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:#888"></div>Legacy</div>
-      <div class="f-map-legend-item"><div class="f-map-legend-dot" style="background:var(--cyan-l)"></div>GIS</div>
+    <div class="map-legend">
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--red)"></div>Common</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--cyan)"></div>Modern</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--purple)"></div>Professional</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--yellow)"></div>Vector</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--red-l)"></div>Camera RAW</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--green-l)"></div>Medical</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--green)"></div>Scientific</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--purple-l)"></div>Game/GPU</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:#888"></div>Legacy</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--cyan-l)"></div>GIS</div>
     </div>
   </div>
 </section>
 
-<!-- ── BEFORE / AFTER ─────────────────────────────────────── -->
-<section class="f-section" id="before-after">
-  <div class="f-section-label">// Before / After</div>
-  <div class="f-section-title">SEE THE <span class="f-accent-red">DIFFERENCE.</span></div>
-  <p class="f-section-sub">Drag the handle to compare original vs converted output. AI upscale, restoration, and format conversion all in one.</p>
-  <div class="f-ba-wrap" id="f-ba-demo" style="max-width:800px">
-    <div class="f-ba-before">
-      <img id="f-ba-before" src="./assets/img/demo-before.jpg" alt="Before" style="width:100%;display:block">
-      <span class="f-ba-label-before">BEFORE</span>
+<!-- BEFORE / AFTER -->
+<section class="section" id="before-after">
+  <div class="section-eyebrow">// Before / After</div>
+  <div class="section-title">SEE THE <span class="accent-red">DIFFERENCE.</span></div>
+  <p class="section-sub">Drag the handle. Original vs Falcon output. AI upscale, restoration, and format conversion — all in one engine.</p>
+  <div class="ba-wrap" id="ba-wrap">
+    <div class="ba-before"><img id="ba-before" src="https://www.khagatara.com/images/before-after/old-photo-before-sample.jpg" alt="Before"></div>
+    <div class="ba-after" id="ba-after" style="width:50%">
+      <img id="ba-after-img" src="https://www.khagatara.com/images/before-after/old-photo-after-8k-preview.jpg" alt="After">
     </div>
-    <div class="f-ba-after" style="width:50%">
-      <img id="f-ba-after-img" src="./assets/img/demo-after.jpg" alt="After" style="width:800px;max-width:none">
-      <span class="f-ba-label-after">AFTER</span>
-    </div>
-    <div class="f-ba-handle" style="left:50%"></div>
+    <div class="ba-handle" id="ba-handle" style="left:50%"></div>
+    <span class="ba-label ba-label-b">BEFORE</span>
+    <span class="ba-label ba-label-a">AFTER</span>
   </div>
 </section>
 
-<!-- ── WHY PREMIUM ────────────────────────────────────────── -->
-<section class="f-section" id="why-premium" style="padding:0;border-bottom:none">
-  <div class="f-grid-2" style="gap:0">
-    <div style="background:var(--cyan);padding:60px 40px">
-      <div class="f-section-label" style="color:var(--true-black)">// Why Premium</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--true-black);line-height:1;margin-bottom:24px">WHY<br>PREMIUM?</div>
-      <ul style="display:flex;flex-direction:column;gap:12px">
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>Lossless output for every format</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>Camera RAW from 20+ brands</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>DICOM + FITS scientific formats</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>AI upscale up to 32x</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>Bulk processing 10,000+ images</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>REST API + Webhooks</li>
-        <li style="font-size:10px;letter-spacing:2px;color:var(--true-black);text-transform:uppercase;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--red);font-size:14px">→</span>140 language UI</li>
+<!-- WHY PREMIUM + CONVERTERS -->
+<section style="border-bottom:1px solid #1a1a1a">
+  <div class="split">
+    <div class="split-cyan">
+      <div class="section-eyebrow" style="color:var(--true-black)">// Why Premium</div>
+      <div class="split-title" style="color:var(--true-black)">WHY<br>PREMIUM?</div>
+      <ul class="split-list" style="color:var(--true-black)">
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>Lossless output for every format</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>Camera RAW from 20+ brands</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>DICOM + FITS scientific formats</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>AI upscale up to 32x</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>Bulk processing 10,000+ images</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>REST API + Webhooks</li>
+        <li class="split-list-item"><span class="arr" style="color:var(--red)">→</span>140 language UI</li>
       </ul>
     </div>
-    <div style="background:var(--purple);padding:60px 40px">
-      <div class="f-section-label" style="color:var(--purple-l)">// Popular Converters</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--white);line-height:1;margin-bottom:24px">START<br>HERE.</div>
-      <div style="display:flex;flex-direction:column;gap:4px">
-        <a href="./formats/jpg-to-avif.html" style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">JPG → AVIF <span style="color:var(--yellow)">→</span></a>
-        <a href="./formats/heic-to-jpg.html" style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">HEIC → JPG <span style="color:var(--yellow)">→</span></a>
-        <a href="./formats/cr3-to-png.html" style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">CR3 → PNG <span style="color:var(--yellow)">→</span></a>
-        <a href="./formats/pdf-to-png.html" style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">PDF → PNG <span style="color:var(--yellow)">→</span></a>
-        <a href="./formats/nef-to-webp.html" style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.07);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--white);transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.14)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">NEF → WEBP <span style="color:var(--yellow)">→</span></a>
-        <a href="./formats/index.html" style="display:flex;justify-content:space-between;align-items:center;background:var(--yellow);padding:12px 16px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--true-black);margin-top:8px">ALL 360+ CONVERTERS <span>→</span></a>
+    <div class="split-purple">
+      <div class="section-eyebrow" style="color:var(--purple-l)">// Popular Converters</div>
+      <div class="split-title" style="color:var(--white)">START<br>HERE.</div>
+      <div class="converter-list">
+        <a class="conv-link" href="/falcon/formats/jpg-to-avif.html">JPG → AVIF <span style="color:var(--yellow)">→</span></a>
+        <a class="conv-link" href="/falcon/formats/heic-to-jpg.html">HEIC → JPG <span style="color:var(--yellow)">→</span></a>
+        <a class="conv-link" href="/falcon/formats/cr3-to-png.html">CR3 → PNG <span style="color:var(--yellow)">→</span></a>
+        <a class="conv-link" href="/falcon/formats/pdf-to-png.html">PDF → PNG <span style="color:var(--yellow)">→</span></a>
+        <a class="conv-link" href="/falcon/formats/nef-to-webp.html">NEF → WEBP <span style="color:var(--yellow)">→</span></a>
+        <a class="conv-link conv-link-main" href="/falcon/formats/index.html">ALL 360+ CONVERTERS <span>→</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PRICING TEASER ─────────────────────────────────────── -->
-<section class="f-section" id="pricing-preview">
-  <div class="f-section-label">// Pricing</div>
-  <div class="f-section-title">FREE TO <span class="f-accent-yellow">START.</span><br>SCALES WITH <span class="f-accent-cyan">YOU.</span></div>
-  <p class="f-section-sub">500 free conversions every month. No credit card. PPP pricing applied automatically at checkout.</p>
-  <div class="f-grid-3" style="margin-bottom:24px">
-    <div class="f-card" style="border-top:3px solid var(--green)">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:8px">Free</div>
-      <div class="f-card-title" style="font-size:40px">$0</div>
-      <div class="f-card-body">500 conversions/mo · All 360+ formats · Standard controls</div>
-      <a class="f-btn f-btn-ol-cyan f-btn-sm" href="./tool.html" style="margin-top:16px;display:inline-block">START FREE</a>
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-eyebrow">// Pricing</div>
+  <div class="section-title">FREE TO <span class="accent-yellow">START.</span><br>SCALES WITH <span class="accent-cyan">YOU.</span></div>
+  <p class="section-sub">500 free conversions every month. No credit card. PPP pricing auto-applied at checkout for 30+ countries.</p>
+  <div class="pricing-grid">
+    <div class="price-card free">
+      <div class="price-tier">Free Tier</div>
+      <div class="price-name">STARTER</div>
+      <div class="price-amount">$0</div>
+      <div class="price-period">Forever · No card needed</div>
+      <div class="price-body">500 conversions/mo · All 360+ formats · Standard controls · 25 MB max</div>
+      <a class="btn btn-ol-cyan btn-sm" href="/falcon/tool.html" style="display:inline-block">START FREE</a>
     </div>
-    <div class="f-card" style="border-top:3px solid var(--yellow)">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--yellow);text-transform:uppercase;margin-bottom:8px">Pro</div>
-      <div class="f-card-title" style="font-size:40px"><span data-usd="19">$19</span></div>
-      <div class="f-card-body">50K conversions/mo · AI upscale · All output controls · Priority support</div>
-      <a class="f-btn f-btn-yellow f-btn-sm" href="./pricing.html" style="margin-top:16px;display:inline-block">GET PRO</a>
+    <div class="price-card pro">
+      <div style="position:absolute;top:16px;right:16px;background:var(--red);color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px">POPULAR</div>
+      <div class="price-tier">Pro Tier</div>
+      <div class="price-name">PRO</div>
+      <div class="price-amount" id="pro-price">$19</div>
+      <div class="price-period">Per month · Cancel anytime</div>
+      <div class="price-body">50K conversions/mo · AI upscale 32x · All controls · 500 MB max · Priority support</div>
+      <a class="btn btn-yellow btn-sm" href="/falcon/pricing.html" style="display:inline-block">GET PRO</a>
     </div>
-    <div class="f-card" style="border-top:3px solid var(--red)">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:8px">Studio / API</div>
-      <div class="f-card-title" style="font-size:40px"><span data-usd="99">$99</span></div>
-      <div class="f-card-body">Unlimited · Bulk 10K · Webhooks · Dedicated infra · Slack support</div>
-      <a class="f-btn f-btn-red f-btn-sm" href="./pricing.html" style="margin-top:16px;display:inline-block">CONTACT SALES</a>
+    <div class="price-card studio">
+      <div class="price-tier">Studio / API</div>
+      <div class="price-name">STUDIO</div>
+      <div class="price-amount" id="studio-price">$99</div>
+      <div class="price-period">Per month · Volume discounts</div>
+      <div class="price-body">Unlimited · Bulk 10K · Webhooks · Dedicated infra · Slack support · 5 GB max</div>
+      <a class="btn btn-red btn-sm" href="mailto:api@khagatara.com" style="display:inline-block">CONTACT SALES</a>
     </div>
   </div>
-  <a href="./pricing.html" style="font-size:10px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase">VIEW FULL PRICING →</a>
+  <a href="/falcon/pricing.html" style="font-size:10px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase">VIEW FULL PRICING →</a>
 </section>
 
-<!-- ── FAQ ────────────────────────────────────────────────── -->
-<section class="f-section" id="faq">
-  <div class="f-section-label">// FAQ</div>
-  <div class="f-section-title">COMMON <span class="f-accent-yellow">QUESTIONS.</span></div>
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-eyebrow">// FAQ</div>
+  <div class="section-title">COMMON <span class="accent-yellow">QUESTIONS.</span></div>
   <div style="max-width:720px;margin-top:32px">
-    <div class="f-faq-item">
-      <div class="f-faq-q">How many formats does Falcon support? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Falcon supports 360+ distinct image formats including all common web formats, Camera RAW from 20+ brands, medical DICOM, scientific FITS, game GPU textures, GIS satellite imagery, and legacy retro formats. It also recognises 800+ format aliases and variants.</div>
+    <div class="faq-item">
+      <div class="faq-q">How many formats does Falcon support? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Falcon supports 360+ distinct image formats — all common web formats, Camera RAW from 20+ brands, medical DICOM, scientific FITS, game GPU textures, GIS satellite imagery, and legacy retro formats. It also recognises 800+ format aliases and variants.</div>
     </div>
-    <div class="f-faq-item">
-      <div class="f-faq-q">Is Falcon really free? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Yes. 500 conversions per month are free forever with no credit card required. All 360+ formats are available on the free tier. Pro and Studio tiers unlock higher limits, AI upscale, bulk jobs, and the API.</div>
+    <div class="faq-item">
+      <div class="faq-q">Is Falcon really free? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Yes. 500 conversions per month free forever, no credit card required. All 360+ formats available on the free tier. Pro and Studio unlock higher limits, AI upscale, bulk jobs, and API access.</div>
     </div>
-    <div class="f-faq-item">
-      <div class="f-faq-q">What is PPP pricing? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Purchasing Power Parity pricing adjusts the price based on your country's cost of living. If you're in India, Brazil, Nigeria, or 30+ other countries, you automatically see a discounted price at checkout — no coupon needed.</div>
+    <div class="faq-item">
+      <div class="faq-q">What is PPP pricing? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Purchasing Power Parity pricing adjusts your price based on your country's cost of living. India, Brazil, Nigeria, and 30+ other countries automatically see a discounted price at checkout — no coupon needed.</div>
     </div>
-    <div class="f-faq-item">
-      <div class="f-faq-q">How does autodetect work? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Falcon reads the first 64 bytes of your file (magic bytes) entirely in your browser — nothing is uploaded until you hit Convert. It matches against a database of 60+ magic byte signatures to instantly identify the format.</div>
+    <div class="faq-item">
+      <div class="faq-q">How does autodetect work? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Falcon reads the first 64 bytes of your file (magic bytes) entirely in your browser. Nothing is uploaded until you hit Convert. It matches against 60+ magic byte signatures to instantly identify format, brand, and category.</div>
     </div>
-    <div class="f-faq-item">
-      <div class="f-faq-q">Can I convert Camera RAW files? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Yes. Falcon supports RAW files from Canon (CR2, CR3), Nikon (NEF, NRW), Sony (ARW), Fujifilm (RAF), Olympus (ORF), Panasonic (RW2), Pentax (PEF), Hasselblad (3FR), Phase One (IIQ), GoPro (GPR), Leica (RWL), Sigma (X3F), Kodak (DCR, KDC), and Adobe DNG.</div>
+    <div class="faq-item">
+      <div class="faq-q">Can I convert Camera RAW files? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Yes. Canon CR2/CR3, Nikon NEF/NRW, Sony ARW, Fujifilm RAF, Olympus ORF, Panasonic RW2, Pentax PEF, Hasselblad 3FR, Phase One IIQ, GoPro GPR, Leica RWL, Sigma X3F, Kodak DCR/KDC, Adobe DNG and more.</div>
     </div>
-    <div class="f-faq-item">
-      <div class="f-faq-q">Is there a bulk / batch API? <span class="f-faq-arrow">▼</span></div>
-      <div class="f-faq-a">Yes. The Studio tier includes the Bulk API — send a ZIP of up to 10,000 images, get a webhook when they're done. The REST API supports JS, Python, PHP, and curl. See the <a href="./api/index.html" style="color:var(--cyan)">API docs</a>.</div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a bulk batch API? <span class="faq-arr">▼</span></div>
+      <div class="faq-a">Yes. Studio tier includes the Bulk API — ZIP up to 10,000 images, POST once, get a webhook on completion. REST API supports JS, Python, PHP, and curl. See the <a href="/falcon/api/index.html" style="color:var(--cyan)">API docs</a>.</div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER injected by site.js -->
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">KHAGATARA <span>✦</span> FALCON</div>
+      <div class="footer-tag">360+ formats · 140 languages<br>The world's most complete image converter.</div>
+      <div class="palette">
+        <div class="swatch" style="background:var(--red)"></div>
+        <div class="swatch" style="background:var(--red-l)"></div>
+        <div class="swatch" style="background:var(--red-d)"></div>
+        <div class="swatch" style="background:var(--yellow)"></div>
+        <div class="swatch" style="background:var(--yellow-l)"></div>
+        <div class="swatch" style="background:var(--yellow-d)"></div>
+        <div class="swatch" style="background:var(--cyan)"></div>
+        <div class="swatch" style="background:var(--cyan-l)"></div>
+        <div class="swatch" style="background:var(--cyan-d)"></div>
+        <div class="swatch" style="background:var(--purple)"></div>
+        <div class="swatch" style="background:var(--purple-l)"></div>
+        <div class="swatch" style="background:var(--purple-d)"></div>
+        <div class="swatch" style="background:var(--green)"></div>
+        <div class="swatch" style="background:var(--green-l)"></div>
+        <div class="swatch" style="background:var(--green-d)"></div>
+        <div class="swatch" style="background:var(--white);border:1px solid #333"></div>
+        <div class="swatch" style="background:var(--near-black);border:1px solid #333"></div>
+        <div class="swatch" style="background:var(--true-black);border:1px solid #333"></div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Tool</div>
+      <ul class="footer-links">
+        <li><a href="/falcon/tool.html">Converter</a></li>
+        <li><a href="/falcon/tool.html#compress">Compress</a></li>
+        <li><a href="/falcon/tool.html#resize">Resize</a></li>
+        <li><a href="/falcon/tool.html#upscale">Upscale</a></li>
+        <li><a href="/falcon/tool.html#dpi">DPI Change</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Formats</div>
+      <ul class="footer-links">
+        <li><a href="/falcon/formats/index.html">All Formats</a></li>
+        <li><a href="/falcon/formats/jpg-to-avif.html">JPG → AVIF</a></li>
+        <li><a href="/falcon/formats/heic-to-jpg.html">HEIC → JPG</a></li>
+        <li><a href="/falcon/formats/cr3-to-png.html">CR3 → PNG</a></li>
+        <li><a href="/falcon/formats/pdf-to-png.html">PDF → PNG</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Developers</div>
+      <ul class="footer-links">
+        <li><a href="/falcon/api/index.html">API Docs</a></li>
+        <li><a href="/falcon/api/index.html#quickstart">Quickstart</a></li>
+        <li><a href="/falcon/api/index.html#endpoints">Endpoints</a></li>
+        <li><a href="/falcon/api/index.html#rate-limits">Pricing</a></li>
+        <li><a href="/falcon/api/index.html#bulk-guide">Bulk Jobs</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">API Terms</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">GDPR</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Khagatara · Falcon · All rights reserved</div>
+    <div class="footer-copy" style="color:var(--yellow)">KHAGATARA ✦ FALCON</div>
+  </div>
+</footer>
 
-<script src="./_global/js/ppp.js"></script>
-<script src="./_global/js/donate.js"></script>
-<script src="./assets/js/autodetect.js"></script>
-<script src="./assets/js/format-map.js"></script>
-<script src="./assets/js/before-after.js"></script>
-<script src="./assets/js/site.js"></script>
+<!-- DONATE -->
+<div id="kh-donate-wrap">
+  <div id="kh-donate-panel">
+    <h4>SUPPORT FALCON</h4>
+    <p>Help keep this free for indie devs worldwide.</p>
+    <div class="donate-amts">
+      <button class="donate-amt" data-amt="3">$3</button>
+      <button class="donate-amt" data-amt="5">$5</button>
+      <button class="donate-amt" data-amt="10">$10</button>
+      <button class="donate-amt" data-amt="25">$25</button>
+    </div>
+    <button id="kh-donate-go">DONATE ❤</button>
+  </div>
+  <button id="kh-donate-toggle">$ SUPPORT US ▲</button>
+</div>
+
+<script>
+/* ── PALETTE ─────────────────────────────────────────────────── */
+const C={red:'#FF2D55',redL:'#FF6680',redD:'#CC0033',yellow:'#FFD700',yellowL:'#FFE84D',yellowD:'#CCA800',cyan:'#00AACC',cyanL:'#33CCEE',cyanD:'#007A99',purple:'#6C2BD9',purpleL:'#9B5FFF',purpleD:'#4A1A9E',green:'#00C853',greenL:'#33FF7A',greenD:'#009940',white:'#FFFFFF',nearBlack:'#1A1A1A',trueBlack:'#111111'};
+
+/* ── FAQ ─────────────────────────────────────────────────────── */
+document.querySelectorAll('.faq-q').forEach(q=>{
+  q.addEventListener('click',()=>q.closest('.faq-item').classList.toggle('open'));
+});
+
+/* ── BEFORE/AFTER ────────────────────────────────────────────── */
+(function(){
+  const wrap=document.getElementById('ba-wrap');
+  const after=document.getElementById('ba-after');
+  const handle=document.getElementById('ba-handle');
+  const afterImg=document.getElementById('ba-after-img');
+  if(!wrap||!after||!handle)return;
+  let pct=50,drag=false;
+  function set(p){
+    pct=Math.min(95,Math.max(5,p));
+    after.style.width=pct+'%';
+    afterImg.style.width=wrap.offsetWidth+'px';
+    handle.style.left=pct+'%';
+  }
+  function fromE(e){const r=wrap.getBoundingClientRect();return((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width*100;}
+  handle.addEventListener('mousedown',()=>drag=true);
+  handle.addEventListener('touchstart',()=>drag=true,{passive:true});
+  window.addEventListener('mouseup',()=>drag=false);
+  window.addEventListener('touchend',()=>drag=false);
+  window.addEventListener('mousemove',e=>{if(drag)set(fromE(e));});
+  window.addEventListener('touchmove',e=>{if(drag)set(fromE(e));},{passive:true});
+  window.addEventListener('resize',()=>set(pct));
+  set(50);
+})();
+
+/* ── FORMAT MAP (canvas, non-scrapable) ─────────────────────── */
+(function(){
+  const CATS=[
+    {name:'Common',color:C.red,angle:0},
+    {name:'Modern',color:C.cyan,angle:36},
+    {name:'Professional',color:C.purple,angle:72},
+    {name:'Vector',color:C.yellow,angle:108},
+    {name:'RAW',color:C.redL,angle:150},
+    {name:'Medical',color:C.greenL,angle:192},
+    {name:'Scientific',color:C.green,angle:216},
+    {name:'Game',color:C.purpleL,angle:252},
+    {name:'Legacy',color:'#888',angle:288},
+    {name:'GIS',color:C.cyanL,angle:324},
+  ];
+  const FMTS=[
+    {f:'JPG',cat:'Common',s:16,url:'/falcon/formats/jpg-to-avif.html'},
+    {f:'PNG',cat:'Common',s:16,url:null},
+    {f:'WEBP',cat:'Common',s:14,url:null},
+    {f:'GIF',cat:'Common',s:10,url:null},
+    {f:'BMP',cat:'Common',s:8,url:null},
+    {f:'TIFF',cat:'Common',s:12,url:'/falcon/formats/tiff-to-pdf.html'},
+    {f:'ICO',cat:'Common',s:7,url:null},
+    {f:'AVIF',cat:'Modern',s:16,url:'/falcon/formats/jpg-to-avif.html'},
+    {f:'HEIC',cat:'Modern',s:14,url:'/falcon/formats/heic-to-jpg.html'},
+    {f:'JXL',cat:'Modern',s:14,url:null},
+    {f:'JP2',cat:'Modern',s:10,url:null},
+    {f:'HEIF',cat:'Modern',s:10,url:null},
+    {f:'BPG',cat:'Modern',s:7,url:null},
+    {f:'PSD',cat:'Professional',s:16,url:'/falcon/formats/psd-to-jpg.html'},
+    {f:'PSB',cat:'Professional',s:10,url:null},
+    {f:'EXR',cat:'Professional',s:12,url:null},
+    {f:'HDR',cat:'Professional',s:10,url:null},
+    {f:'DPX',cat:'Professional',s:8,url:null},
+    {f:'TGA',cat:'Professional',s:8,url:null},
+    {f:'SVG',cat:'Vector',s:16,url:'/falcon/formats/svg-to-png.html'},
+    {f:'EPS',cat:'Vector',s:12,url:null},
+    {f:'AI',cat:'Vector',s:10,url:null},
+    {f:'PDF',cat:'Vector',s:14,url:'/falcon/formats/pdf-to-png.html'},
+    {f:'CDR',cat:'Vector',s:8,url:null},
+    {f:'DXF',cat:'Vector',s:8,url:null},
+    {f:'CR3',cat:'RAW',s:16,url:'/falcon/formats/cr3-to-png.html'},
+    {f:'CR2',cat:'RAW',s:12,url:null},
+    {f:'NEF',cat:'RAW',s:14,url:'/falcon/formats/nef-to-webp.html'},
+    {f:'ARW',cat:'RAW',s:14,url:null},
+    {f:'RAF',cat:'RAW',s:12,url:null},
+    {f:'ORF',cat:'RAW',s:10,url:null},
+    {f:'RW2',cat:'RAW',s:10,url:null},
+    {f:'DNG',cat:'RAW',s:14,url:null},
+    {f:'PEF',cat:'RAW',s:8,url:null},
+    {f:'X3F',cat:'RAW',s:8,url:null},
+    {f:'3FR',cat:'RAW',s:8,url:null},
+    {f:'GPR',cat:'RAW',s:8,url:null},
+    {f:'DICOM',cat:'Medical',s:16,url:'/falcon/formats/dicom-to-png.html'},
+    {f:'DCM',cat:'Medical',s:12,url:null},
+    {f:'NIfTI',cat:'Medical',s:8,url:null},
+    {f:'NRRD',cat:'Medical',s:7,url:null},
+    {f:'FITS',cat:'Scientific',s:16,url:null},
+    {f:'HDF5',cat:'Scientific',s:10,url:null},
+    {f:'MRC',cat:'Scientific',s:8,url:null},
+    {f:'DDS',cat:'Game',s:14,url:null},
+    {f:'KTX2',cat:'Game',s:12,url:null},
+    {f:'KTX',cat:'Game',s:10,url:null},
+    {f:'ASTC',cat:'Game',s:8,url:null},
+    {f:'VTF',cat:'Game',s:8,url:null},
+    {f:'BASIS',cat:'Game',s:8,url:null},
+    {f:'PCX',cat:'Legacy',s:8,url:null},
+    {f:'PICT',cat:'Legacy',s:7,url:null},
+    {f:'XBM',cat:'Legacy',s:7,url:null},
+    {f:'PPM',cat:'Legacy',s:7,url:null},
+    {f:'SGI',cat:'Legacy',s:7,url:null},
+    {f:'GeoTIFF',cat:'GIS',s:14,url:null},
+    {f:'COG',cat:'GIS',s:10,url:null},
+    {f:'ECW',cat:'GIS',s:8,url:null},
+    {f:'GRIB',cat:'GIS',s:7,url:null},
+  ];
+
+  const canvas=document.getElementById('f-format-map-canvas');
+  if(!canvas)return;
+  const tooltip=document.getElementById('map-tooltip');
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[];
+  let pan={x:0,y:0},zoom=1,drag=false,last=null,hl=null;
+
+  function buildNodes(){
+    nodes=[];
+    const cx=W/2,cy=H/2,r=Math.min(W,H)*.30;
+    const groups={};
+    FMTS.forEach(f=>{(groups[f.cat]=groups[f.cat]||[]).push(f);});
+    CATS.forEach(cat=>{
+      const rad=Math.PI*2*cat.angle/360;
+      const gx=cx+r*Math.cos(rad),gy=cy+r*Math.sin(rad);
+      nodes.push({type:'cat',label:cat.name,color:cat.color,x:gx,y:gy,r:13,url:null,cat:cat.name});
+      (groups[cat.name]||[]).forEach((f,i)=>{
+        const sp=Math.min(W,H)*.095;
+        const total=(groups[cat.name]||[]).length;
+        const a=rad+(i-total/2)*0.26;
+        const dr=sp+(i%3)*16;
+        nodes.push({type:'fmt',label:f.f,color:cat.color,x:gx+dr*Math.cos(a),y:gy+dr*Math.sin(a),r:Math.max(4,f.s*.42),url:f.url,cat:cat.name});
+      });
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();
+    ctx.translate(pan.x,pan.y);
+    ctx.scale(zoom,zoom);
+    // edges
+    nodes.filter(n=>n.type==='cat').forEach(cat=>{
+      nodes.filter(n=>n.type==='fmt'&&n.cat===cat.label).forEach(f=>{
+        ctx.beginPath();ctx.moveTo(cat.x,cat.y);ctx.lineTo(f.x,f.y);
+        ctx.strokeStyle=cat.color+'18';ctx.lineWidth=1;ctx.stroke();
+      });
+    });
+    // nodes
+    nodes.forEach(n=>{
+      const alpha=hl?(hl.has(n.label.toUpperCase())?1:.15):1;
+      ctx.globalAlpha=alpha;
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.color;ctx.fill();
+      if(n.type==='cat'){ctx.strokeStyle='#FFFFFF22';ctx.lineWidth=1.5;ctx.stroke();}
+      const fs=n.type==='cat'?Math.max(7,n.r*.85):Math.max(6,n.r*.8);
+      ctx.font=(n.type==='cat'?'bold ':'')+fs+'px "Space Mono",monospace';
+      ctx.fillStyle=C.white;ctx.textAlign='center';ctx.textBaseline='top';
+      ctx.fillText(n.label,n.x,n.y+n.r+2);
+    });
+    ctx.globalAlpha=1;ctx.restore();
+  }
+
+  function resize(){
+    const rect=canvas.parentElement.getBoundingClientRect();
+    W=canvas.width=rect.width;
+    H=canvas.height=Math.max(480,parseFloat(canvas.style.height)||540);
+    buildNodes();draw();
+  }
+
+  function toWorld(ex,ey){
+    const r=canvas.getBoundingClientRect();
+    return{x:(ex-r.left-pan.x)/zoom,y:(ey-r.top-pan.y)/zoom};
+  }
+  function hit(wx,wy){
+    for(let i=nodes.length-1;i>=0;i--){
+      const n=nodes[i],dx=wx-n.x,dy=wy-n.y;
+      if(dx*dx+dy*dy<=(n.r+6)*(n.r+6))return n;
+    }return null;
+  }
+
+  canvas.addEventListener('mousemove',e=>{
+    if(drag&&last){pan.x+=e.clientX-last.x;pan.y+=e.clientY-last.y;last={x:e.clientX,y:e.clientY};draw();return;}
+    const w=toWorld(e.clientX,e.clientY),h=hit(w.x,w.y);
+    canvas.style.cursor=h?'pointer':'grab';
+    if(h&&tooltip){
+      tooltip.innerHTML=`<div class="tt-fmt" style="color:${h.color}">${h.label}</div><div class="tt-cat">${h.cat}</div>`;
+      const r=canvas.getBoundingClientRect();
+      tooltip.style.left=(e.clientX-r.left+14)+'px';
+      tooltip.style.top=(e.clientY-r.top-10)+'px';
+      tooltip.classList.add('show');
+    }else if(tooltip)tooltip.classList.remove('show');
+  });
+  canvas.addEventListener('mousedown',e=>{drag=true;last={x:e.clientX,y:e.clientY};});
+  window.addEventListener('mouseup',()=>{drag=false;last=null;});
+  canvas.addEventListener('click',e=>{
+    if(Math.abs(e.movementX)>3||Math.abs(e.movementY)>3)return;
+    const w=toWorld(e.clientX,e.clientY),h=hit(w.x,w.y);
+    if(h&&h.url)window.location.href=h.url;
+  });
+  canvas.addEventListener('wheel',e=>{
+    e.preventDefault();
+    zoom=Math.min(3,Math.max(.35,zoom*(e.deltaY<0?1.1:.9)));draw();
+  },{passive:false});
+  let lt=null;
+  canvas.addEventListener('touchstart',e=>lt=e.touches[0],{passive:true});
+  canvas.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    if(lt){pan.x+=e.touches[0].clientX-lt.clientX;pan.y+=e.touches[0].clientY-lt.clientY;lt=e.touches[0];draw();}
+  },{passive:false});
+
+  document.getElementById('map-zin')?.addEventListener('click',()=>{zoom=Math.min(3,zoom*1.2);draw();});
+  document.getElementById('map-zout')?.addEventListener('click',()=>{zoom=Math.max(.35,zoom/1.2);draw();});
+  document.getElementById('map-reset')?.addEventListener('click',()=>{zoom=1;pan={x:0,y:0};draw();});
+
+  const si=document.getElementById('map-search');
+  const sb=document.getElementById('map-search-btn');
+  function doSearch(){
+    const q=(si?.value||'').trim().toUpperCase();
+    hl=q?new Set(nodes.filter(n=>n.label.toUpperCase().includes(q)).map(n=>n.label.toUpperCase())):null;
+    draw();
+  }
+  sb?.addEventListener('click',doSearch);
+  si?.addEventListener('input',doSearch);
+
+  resize();
+  window.addEventListener('resize',resize);
+})();
+
+/* ── PPP PRICING ─────────────────────────────────────────────── */
+(async function(){
+  const PPP={IN:.15,PK:.08,BD:.08,NG:.07,PH:.18,ID:.12,VN:.10,BR:.25,MX:.22,AR:.10,TR:.20,EG:.12,UA:.18,TH:.22,MY:.28,PL:.35,ZA:.22};
+  try{
+    const d=await(await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(3000)})).json();
+    const m=PPP[d.country_code];
+    if(m&&m<0.9){
+      const pct=Math.round((1-m)*100);
+      document.getElementById('ppp-banner').style.display='block';
+      document.getElementById('ppp-country').textContent=d.country_code;
+      document.getElementById('ppp-discount').textContent=pct+'%';
+      const p=document.getElementById('pro-price');
+      const s=document.getElementById('studio-price');
+      if(p)p.textContent='$'+Math.round(19*m);
+      if(s)s.textContent='$'+Math.round(99*m);
+    }
+  }catch(e){}
+})();
+
+/* ── DONATE ──────────────────────────────────────────────────── */
+(function(){
+  const panel=document.getElementById('kh-donate-panel');
+  const toggle=document.getElementById('kh-donate-toggle');
+  const go=document.getElementById('kh-donate-go');
+  toggle?.addEventListener('click',()=>{
+    panel.classList.toggle('open');
+    toggle.textContent=panel.classList.contains('open')?'$ SUPPORT US ▼':'$ SUPPORT US ▲';
+  });
+  document.querySelectorAll('.donate-amt').forEach(b=>{
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.donate-amt').forEach(x=>x.classList.remove('sel'));
+      this.classList.add('sel');
+    });
+  });
+  go?.addEventListener('click',()=>window.open('https://khagatara.com/premium?source=donate','_blank'));
+})();
+</script>
 </body>
 </html>
