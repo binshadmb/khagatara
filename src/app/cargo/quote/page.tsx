@@ -57,6 +57,19 @@ export default function QuotePage() {
       color: "#888",
       fontSize: "1rem",
     },
+    banner: {
+      display: "inline-block",
+      background: "rgba(200, 169, 110, 0.15)",
+      color: "#c8a96e",
+      padding: "0.4rem 1rem",
+      borderRadius: "20px",
+      fontSize: "0.85rem",
+      fontWeight: 600,
+      marginBottom: "1rem",
+      border: "1px solid rgba(200, 169, 110, 0.3)",
+      letterSpacing: "0.5px",
+      textTransform: "uppercase" as const,
+    },
     nav: {
       textAlign: "center" as const,
       marginBottom: "2rem",
@@ -208,6 +221,7 @@ export default function QuotePage() {
             ← Khagatara Cargo
           </a>
         </div>
+        <div style={styles.banner}>🚀 We are just coming</div>
         <h1 style={styles.title}>Request a Quote</h1>
         <p style={styles.subtitle}>
           Fill in your shipment details for a customized logistics solution.
