@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import './globals.css'
-import { siteUrl } from './seo'
+import { siteUrl } from './seo';
+import ComingSoonBanner from './ComingSoonBanner';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -51,7 +52,8 @@ export default function RootLayout({
       <head>
         <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
       </head>
-      <body>
+      <body style={{ paddingTop: 42 }}>
+        <ComingSoonBanner />
         {children}
         <Link className="site-donate-button" href="/premium?source=donate">
           <span className="site-donate-icon" aria-hidden="true">$</span>
