@@ -1,6 +1,10 @@
-import SitePage from '../SitePage'
-import { getSitePage } from '../site-structure'
+import StandaloneToolPage, { buildStandaloneMetadata } from '../StandaloneToolPage'
+import { getStandaloneTool } from '../standalone-tools'
+
+const tool = getStandaloneTool('age-calculator')!
+
+export const metadata = buildStandaloneMetadata(tool)
 
 export default function Page() {
-  return <SitePage page={getSitePage('/age-calculator')!} />
+  return <StandaloneToolPage tool={tool} />
 }

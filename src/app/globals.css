@@ -712,6 +712,83 @@ input {
   text-align: center;
 }
 
+.standalone-tool-card {
+  max-width: 780px;
+}
+
+.standalone-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.standalone-field {
+  color: var(--tool-muted);
+  display: grid;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.standalone-field input,
+.standalone-field textarea {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  color: var(--tool-text);
+  font-size: 1rem;
+  letter-spacing: 0;
+  min-height: 2.65rem;
+  padding: 0.7rem 0.8rem;
+  text-transform: none;
+  width: 100%;
+}
+
+.standalone-field textarea {
+  line-height: 1.55;
+  min-height: 10rem;
+  resize: vertical;
+}
+
+.standalone-output {
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  color: var(--tool-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.65;
+  min-height: 4rem;
+  overflow-wrap: anywhere;
+  padding: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.standalone-preview {
+  align-items: center;
+  background: var(--tool-card-soft);
+  border: 1px solid var(--tool-border);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  min-height: 16rem;
+  padding: 1rem;
+}
+
+.standalone-preview img,
+.standalone-preview svg {
+  display: block;
+  height: auto;
+  max-width: min(100%, 360px);
+}
+
+.tool-inline-actions button.active {
+  background: var(--tool-text);
+  border-color: var(--tool-text);
+  color: var(--tool-card-bg);
+}
+
 .before-after-strip {
   align-items: center;
   display: grid;
