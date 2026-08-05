@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { LANGUAGE_CONFIG } from './seo-config'
+import { LANGUAGE_CONFIG } from './astro-languages'
 
 // ── Live public verticals ─────────────────────────────────────────────────────
 const VERTICALS = [

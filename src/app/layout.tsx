@@ -6,31 +6,22 @@ import ComingSoonBanner from './ComingSoonBanner';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Khagatara — Vedic Numerology Reports',
-  description: 'Discover your cosmic path through Vedic numerology and astrology',
+  title: 'Khagatara — One Founder, Many Verticals',
+  description: 'Khagatara is a multi-vertical business out of Kerala, India — agricultural export, freight forwarding, accounting software, and more.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Khagatara — Vedic Numerology Reports',
-    description: 'Discover your cosmic path through Vedic numerology and astrology',
+    title: 'Khagatara — One Founder, Many Verticals',
+    description: 'Khagatara is a multi-vertical business out of Kerala, India — agricultural export, freight forwarding, accounting software, and more.',
     url: '/',
     siteName: 'Khagatara',
-    images: [
-      {
-        url: '/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Khagatara Vedic numerology and astrology reports',
-      },
-    ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Khagatara — Vedic Numerology Reports',
-    description: 'Discover your cosmic path through Vedic numerology and astrology',
-    images: ['/opengraph-image'],
+    title: 'Khagatara — One Founder, Many Verticals',
+    description: 'Khagatara is a multi-vertical business out of Kerala, India — agricultural export, freight forwarding, accounting software, and more.',
   },
   verification: {
     google: 'oUWyUKTZu9ng2dqitry4CSDIQOL00aYjy2llxai0Eaw',
